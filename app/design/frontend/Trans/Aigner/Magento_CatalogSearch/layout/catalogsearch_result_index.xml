@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            
+        </referenceContainer>
+
+        <referenceBlock class="Magento\Theme\Block\Html\Title" name="page.main.title" template="Magento_CatalogSearch::html/title.phtml"/>
+    </body>
+</page>

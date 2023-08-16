@@ -1,0 +1,46 @@
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   HaDi <ashadi.sejati@transdigital.co.id>
+ */
+
+ & when (@media-common = true) {
+	.catalog-category-view {
+		.message.info {
+			width: 80%;
+			margin: 60px auto 0;
+		    padding: 0;
+		    display: block;
+		    line-height: 1.5;
+		    font-size: 1.3rem;
+		    background: transparent;
+		    color: #222222;
+		    padding-left: 0;
+		    position: relative;
+		    text-align: center;
+
+		    > *:first-child {
+				font-size: 24px;
+		    }
+		    > *:last-child {
+		    	font-size: 20px;
+		    }
+		    > *:first-child:before {
+		    	display: none;
+		    }
+		}
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.catalog-category-view {
+		.message.info {
+			margin: 0 auto;
+		}
+	}
+}

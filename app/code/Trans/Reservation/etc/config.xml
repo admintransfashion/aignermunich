@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <reservation>
+            <general>
+                <enabled>1</enabled>
+                <disable_sales>1</disable_sales>
+                <guest_add_to_cart>1</guest_add_to_cart>
+            </general>
+            <reservation_number>
+                <reservation_number_digit>6</reservation_number_digit>
+                <use_stocecode_prefix>1</use_stocecode_prefix>
+                <reservation_number_delimiter>-</reservation_number_delimiter>
+            </reservation_number>
+            <reservation_rules>
+                <enable_expire_nextday>1</enable_expire_nextday>
+                <expire_time>22:00</expire_time>
+            </reservation_rules>
+            <product>
+                <multi_store>1</multi_store>
+                <enable_max_qty>0</enable_max_qty>
+                <default_qty>1</default_qty>
+                <buffer>2</buffer>
+                <max_item_qty>2</max_item_qty>
+                <priority>{"_1566791463565_565":{"sort":"1","filter":"Store"},"_1566791474835_835":{"sort":"2","filter":"Product"},"_1566791480491_491":{"sort":"3","filter":"Category"}}</priority>
+                <hours_priority>1</hours_priority>
+                <buffer_priority>1</buffer_priority>
+                <maxqty_priority>1</maxqty_priority>
+                <date_priority>1</date_priority>
+            </product>
+        </reservation>
+    </default>
+</config>

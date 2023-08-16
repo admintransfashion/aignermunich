@@ -1,0 +1,70 @@
+<!--
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ * @author   Babono <babono@transdigital.co.id>
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Theme\Block\Html\Footer" name="svg-container" template="Magento_Theme::html/svg.phtml" />
+        </referenceContainer>
+        
+        <referenceContainer name="header-wrapper">
+            <container name="header.panel.right" htmlClass="header-panel-right" htmlTag="div" after="logo" />
+        </referenceContainer>
+        <move element="authorization-link" destination="header.panel.right" before="-"/>
+        <referenceBlock name="minicart" remove="true" />
+        <referenceBlock name="wish-list-link" remove="true" />         
+        <referenceBlock name="my-account-link" remove="true" /> 
+        <referenceBlock name="greet-welcome" remove="true" /> 
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <!-- <referenceBlock name="header.container" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/> -->
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">110</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="form.subscribe" remove="true"/>
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="report.bugs" remove="true" />
+        <referenceBlock name="copyright" remove="true" />
+        <move element="navigation.sections" destination="header.container"/> 
+        <!-- <referenceContainer name="after.body.start">
+            <container name="custom.header" htmlTag="div" htmlClass="header jsHeader">
+                <block class="Magento\Framework\View\Element\Template" name="row" template="Magento_Theme::html/main-header.phtml"> 
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="after.body.start">
+            <container name="custom.container" htmlTag="div" htmlClass="maincontent">
+
+            </container>
+        </referenceContainer>
+        <move element="main.content" destination="custom.container"/> -->
+        <!-- <referenceContainer name="footer">
+         
+            <block class="Magento\Theme\Block\Html\Footer" name="footer-subscribe" template="Magento_Theme::footer_subscribe.phtml" />
+            <block class="Magento\Theme\Block\Html\Footer" name="footer-trust" template="Magento_Theme::footer_trust.phtml" />
+            <block class="Magento\Theme\Block\Html\Footer" name="footer-links" template="Magento_Theme::footer_links.phtml" />
+        </referenceContainer> -->
+        <referenceContainer name="footer-container">
+            <block class="Magento\Theme\Block\Html\Footer" name="footer-top" template="Magento_Theme::footer_top.phtml" />
+            <block class="Magento\Theme\Block\Html\Footer" name="footer-bottom" template="Magento_Theme::footer_bottom.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="header.container">
+            <block class="Magento\Cms\Block\Block" name="hellobar.container" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">hellobar</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

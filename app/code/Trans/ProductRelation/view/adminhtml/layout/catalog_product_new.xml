@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category Trans
+ * @package  Trans_ProductRelation
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product_tabs">
+            <block class="Trans\ProductRelation\Block\Adminhtml\Catalog\Product\Edit\Tab" name="product.combinations">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Suitable Combinations</argument>
+                    <argument name="url" xsi:type="url" path="catalog/product/combinations">
+                        <param name="_current">1</param>
+                    </argument>
+                    <argument name="class" xsi:type="string">ajax</argument>
+                    <argument name="group_code" xsi:type="string">advanced</argument>
+                </arguments>
+            </block>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">product-combinations</argument>
+                <argument name="block" xsi:type="string">product.combinations</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

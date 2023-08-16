@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="columns.top">
+            <block class="Magento\Framework\View\Element\Template" name="custom.title.myaccount" before="-" template="Magento_Customer::title-myaccount.phtml">
+                <action method="setPageTitle">
+                    <argument name="name" xsi:type="string">My Reservation</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Trans\Reservation\Block\Customer\Reservation\ReserveList" name="reservation.list" template="Trans_Reservation::customer/reservation/list.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<section class="editorial-image-grid editorial-section">
+    <div class="grid">
+        <div class="image image-1">
+            <img src="<?= $block->getImage(1) ?>" alt="">
+        </div>
+        <div class="seo-title">
+            <h2><?= $block->getTitle() ?></h2>
+        </div>
+        <div class="image image-2">
+            <img src="<?= $block->getImage(2) ?>" alt="">
+        </div>
+        <div class="image image-3">
+            <img src="<?= $block->getImage(3) ?>" alt="">
+        </div>
+        <div class="seo-text"><?= $block->getDescription() ?></div>
+        <div class="image image-4">
+            <img src="<?= $block->getImage(4) ?>" alt="">
+        </div>
+    </div>
+</section>

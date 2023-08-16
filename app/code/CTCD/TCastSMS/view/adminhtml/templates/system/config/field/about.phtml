@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © 2023 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_TCastSMS
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+/** @var $block CTCD\TCastSMS\Block\Adminhtml\System\Config\Field\About */
+?>
+<div id="tcastsms-otp-about">
+    <h3><?= __('SMS OTP Configuration') ?></h3>
+    <div class="info">
+        <?= __('Module to manage SMS OTP for customer verification. This module is customized only for <b>TCASHSMS</b> provider - <i>https://tcastsms.co.id/</i>') ?>
+    </div>
+    <div class="balance">
+        <span class="b-title"><?= __('Current Balance:') ?></span>
+        <span class="b-value">IDR <?= $block->getCurrentBalance() ?></span>
+    </div>
+</div>

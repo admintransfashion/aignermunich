@@ -1,0 +1,31 @@
+{
+    "name": "trans/aigner",
+    "description": "Aigner Themes Version 1",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "~7.1.3||~7.2.0",
+        "magento/framework": "102.0.*",
+        "magento/theme-frontend-blank": "100.3.*"
+    },
+    "type": "magento2-theme",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    },
+    "version": "100.3.2",
+    "authors": [
+        {
+          "name": "J.P",
+          "email": "jaka.pondan@transdigital.co.id",
+          "homepage": "http://www.ctcorpora.com/",
+          "role": "Developer"
+        }
+      ]
+}

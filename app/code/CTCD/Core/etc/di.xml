@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Core
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Version\Controller\Index\Index">
+        <plugin name="CTCD_Core_Plugin_Magento_Version_Controller_Index_Index" type="CTCD\Core\Plugin\Magento\Version\Controller\Index\Index" />
+    </type>
+
+	<virtualType name="CTCD\Core\ImageUpload" type="CTCD\Core\Model\ImageUploader">
+		<arguments>
+		    <argument name="baseTmpPath" xsi:type="string">test/tmp</argument>
+		    <argument name="basePath" xsi:type="string">test</argument>
+		    <argument name="allowedExtensions" xsi:type="array">
+		        <item name="jpg" xsi:type="string">jpg</item>
+		        <item name="jpeg" xsi:type="string">jpeg</item>
+		        <item name="gif" xsi:type="string">gif</item>
+		        <item name="png" xsi:type="string">png</item>
+		    </argument>
+		</arguments>
+	</virtualType>
+
+    <type name="Magento\Sales\Api\Data\OrderInterface">
+        <plugin name="CTCD_Core_Plugin_Magento_Sales_Model_Order" type="CTCD\Core\Plugin\Magento\Sales\Model\Order" sortOrder="10" disabled="false"/>
+    </type>
+
+    <type name="Magento\Framework\Locale\FormatInterface">
+        <plugin name="CTCD_Core_Model_Plugin_Framework_Locale_Format" type="CTCD\Core\Plugin\Magento\Framework\Locale\Format" sortOrder="10" disabled="false"/>
+    </type>
+
+    <type name="Magento\Framework\CurrencyInterface">
+        <plugin name="CTCD_Core_Model_Plugin_Framework_Currency" type="CTCD\Core\Plugin\Magento\Framework\Currency" sortOrder="10" disabled="false"/>
+    </type>
+
+    <type name="Magento\Framework\Pricing\PriceCurrencyInterface">
+        <plugin name="CTCD_Core_Plugin_Magento_Directory_Model_PriceCurrency" type="CTCD\Core\Plugin\Magento\Directory\Model\PriceCurrency" sortOrder="10" disabled="false"/>
+    </type>
+
+    <type name="Magento\Framework\App\Action\AbstractAction">
+        <plugin name="customer-session-data-to-context" type="CTCD\Core\Plugin\CustomerSessionContext" sortOrder="15"/>
+    </type>
+
+    <preference for="Magento\Webapi\Controller\Rest\SynchronousRequestProcessor" type="CTCD\Core\Preference\Magento\Webapi\Controller\Rest\SynchronousRequestProcessor" />
+
+</config>

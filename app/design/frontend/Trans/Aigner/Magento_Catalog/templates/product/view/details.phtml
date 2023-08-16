@@ -1,0 +1,54 @@
+<?php
+/**
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Catalog\Block\Product\View\Details $block */
+?>
+<?php if ($detailedInfoGroup = $block->getGroupSortedChildNames('detailed_info', 'getChildHtml')):?>
+    <div class="product info detailed">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <?php $descImage = $block->getDescriptionImage() ?>
+
+            <?php if($descImage) { ?>
+                <div class="attribute-image">
+                    <img src="<?php echo $descImage; ?>" />
+                </div>
+            <?php } ?>
+            <div class="product-detail-custom">
+                <?php foreach ($detailedInfoGroup as $name):?>
+                    <?php
+                        $html = $layout->renderElement($name);
+                        if (!trim($html)) {
+                            continue;
+                        }
+                        $alias = $layout->getElementAlias($name);
+                        $label = $block->getChildData($alias, 'title');
+                    ?>
+                    <div class="data item title"
+                         aria-labelledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
+                         data-role="collapsible" id="tab-label-<?= /* @escapeNotVerified */ $alias ?>" style="display: none;">
+                        <a class="data switch"
+                           tabindex="-1"
+                           data-toggle="switch"
+                           href="#<?= /* @escapeNotVerified */ $alias ?>"
+                           id="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title">
+                            <?= /* @escapeNotVerified */ $label ?>
+                        </a>
+                    </div>
+                    <div class="data item content" id="<?= /* @escapeNotVerified */ $alias ?>" data-role="content">
+                        
+                        <?= /* @escapeNotVerified */ $html ?>
+                    </div>
+                <?php endforeach;?>
+            </div>
+            
+        </div>
+    </div>
+<?php endif; ?>

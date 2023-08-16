@@ -1,0 +1,176 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Trans\Reser\Block\Customer\Reservation\Detail */
+?>
+
+<?php $reservation = $block->getReservationData(); ?>
+<?php $items = $reservation->getItems(); ?>
+
+<div class="reservation-data reservation-data-detail">
+    <div class="reservation-detail-head">
+        <?php if($block->isCancelled($reservation)) : ?>
+            <div class="reservation-data-status">
+                <span class="label"><?php echo __('Reservation Already Cancelled') ?></span>
+            </div>
+        <?php endif; ?>
+
+        <div class="reservation-data-status">
+    	   <span class="label"><?php echo __('Reservation ID') ?></span><br/>
+           <span class="reservation-number" title="reservation-number">#<?php echo $reservation->getReservationNumber()?></span>
+        </div>
+        <div class="reservation-data-status">
+           <span class="label"><?php echo __('Created Date') ?></span><br/>
+           <span class="reservation-date" title="reservation-date"><?php echo $block->changeDateFormat($reservation->getReservationDateSubmit(), 'd F Y g:i A') ?></span>
+        </div>
+    </div>
+
+	<?php if($reservation->getReservationDateConfirm()) : ?>
+		<span class="label"><?php echo __('Reservation Attendance') ?></span> : <span class="reservation-attendance" title="reservation-attendance"><?php echo $block->changeDateFormat($reservation->getDateConfirm()) ?></span>
+	<?php endif; ?>
+
+	<div class="table-wrapper reservation-items">
+        <table class="data table table-items history" id="my-reservation-items-table">
+            <caption class="table-caption"><?= /* @escapeNotVerified */ __('reservations items') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col item"><?= /* @escapeNotVerified */ __('Item') ?></th>
+                    <th scope="col" class="col price"><?= /* @escapeNotVerified */ __('Price') ?></th>
+                    <th scope="col" class="col reserve-id"><?= /* @escapeNotVerified */ __('ID') ?></th>
+                    <th scope="col" class="col Expired Date"><?= /* @escapeNotVerified */ __('Expired Date') ?></th>
+                    <th scope="col" class="col Status"><?= /* @escapeNotVerified */ __('Status') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($reservation->getItems() as $item): ?>
+                    <?php $store = $block->getSourceData($item->getSourceCode()); ?>
+                	<?php $product = $block->getProductById($item->getProductId()); ?>
+                    <tr class="item-info">
+                        <?php if($product) : ?>
+                            <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
+                                <img src="<?php echo $block->getImageUrl($product); ?>" class="cart_page_product_thumbnail"/>
+                            </td>
+                            <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+                                <div class="product-item-details">
+                                    <div class="item-detail item-name">
+                                        <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($product) ?>"><?= $block->escapeHtml($product->getName()) ?></a>
+                                    </div>
+                                    <?php $color =  $product->getResource()->getAttribute('color')->getFrontend()->getValue($product); ?>
+                                    <?php if($color): ?>
+                                    <div class="item-detail item-color">
+                                        <span class="item-title"><?= __('Color : ') ?></span>
+                                        <span class="item-value"><?= $color ?></span>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php $size =  $product->getResource()->getAttribute('size')->getFrontend()->getValue($product); ?>
+                                    <?php if($size): ?>
+                                    <div class="item-detail item-size">
+                                        <span class="item-title"><?= __('Size : ') ?></span>
+                                        <span class="item-value"><?= $size ?></span>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php $modelGroup =  $product->getResource()->getAttribute('model_group')->getFrontend()->getValue($product); ?>
+                                    <?php if($modelGroup): ?>
+                                    <div class="item-detail item-modelgroup">
+                                        <span class="item-title"><?= __('Model Group : ') ?></span>
+                                        <span class="item-value"><?= $modelGroup ?></span>
+                                    </div>
+                                    <?php endif; ?>
+                                    <div class="item-detail item-qty">
+                                        <span class="item-title"><?= __('Qty : ') ?></span>
+                                        <span class="item-value"><?= $item->getQty() ?></span>
+                                    </div>
+                                    <?php $articleGroup =  $product->getResource()->getAttribute('article_group')->getFrontend()->getValue($product); ?>
+                                    <?php if($articleGroup): ?>
+                                        <div class="control attribute">
+                                            <span class="label"><?php echo __('Article No'); ?> :</span>
+                                            <span><?= $articleGroup ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="item-detail item-price">
+                                        <span class="item-title"><?= __('Price : ') ?></span>
+                                        <?php
+                                            $basePrice = $item->getBasePrice();
+                                            $finalPrice = $item->getFinalPrice();
+                                            $isSale =  ($finalPrice < $basePrice) ? true : false;
+                                        ?>
+                                        <?php if($isSale): ?>
+                                            <span class="item-value old-price"><?php echo $block->formatPrice($basePrice); ?></span>
+                                            <span class="item-value special-price"><?php echo $block->formatPrice($finalPrice); ?></span>
+                                        <?php else: ?>
+                                            <span class="item-value price"><?php echo $block->formatPrice($finalPrice); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col reserve-id" data-th="<?= $block->escapeHtml(__('ID')) ?>">
+                                <p style="margin: 0;"><?php echo $item->getReferenceNumber(); ?></p>
+                                <p style="margin: 0;text-decoration: underline;"><?php echo $store ? $store->getName() : '-'; ?></p>
+                            </td>
+                            <td class="col expire" data-th="<?= $block->escapeHtml(__('Expired Date')) ?>">
+                                <?php echo $block->getDateTime()->date('d F Y', $item->getReservationDateEnd()) . ' ' . $block->formatedDate($item->getReservationTimeEnd(), 'g:i A') ?>
+                            </td>
+                            <td class="col status" data-th="<?= $block->escapeHtml(__('Status')) ?>">
+                                <div class="field status">
+                                    <div class="control status">
+                                        <?php echo $block->getStatus($item); ?>
+                                    </div>
+                                </div>
+                            </td>
+                        <?php else: ?>
+                            <td><?php echo __('Product not found. Product already deleted by administrator.') ?></td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr class="detail-subtotal">
+                    <td colspan="3">
+                        <span><?= __('Subtotal :') ?></span>
+                    </td>
+                    <td colspan="2">
+                        <span><?= $block->getFormattedSubtotal() ?></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script type = 'text/javascript'>
+    require([
+            'jquery',
+            'Magento_Ui/js/modal/confirm',
+            'mage/translate'
+        ],
+        function ($, confirmation) {
+        $('.cancel-item').click(function (event) {
+            event.preventDefault();
+
+            var url = event.currentTarget.href;
+            confirmation({
+                title: $.mage.__('Cancel Item'),
+                content: $.mage.__('Do you wish to cancel this item?'),
+                actions: {
+                    confirm: function () {
+                        window.location.href = url;
+                    },
+                    cancel: function () {},
+                    always: function () {}
+                }
+            });
+            return false;
+        });
+    });
+</script>

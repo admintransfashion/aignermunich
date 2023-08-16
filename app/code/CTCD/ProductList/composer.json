@@ -1,0 +1,28 @@
+{
+    "name": "ctcd/productlist",
+    "description": "Custom Product List Module",
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "type": "magento2-module",
+    "version": "100.0.0",
+    "license": [
+        "Proprietary"
+    ],
+    "authors": [
+        {
+            "name": "Edi Suryadi",
+            "email": "edi.suryadi@ctcorpdigital.com",
+            "homepage": "https://www.ctcorpdigital.com",
+            "role": "Magento Developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CTCD\\ProductList\\": ""
+        }
+    }
+}

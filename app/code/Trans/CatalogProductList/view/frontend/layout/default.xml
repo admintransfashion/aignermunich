@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category Trans
+ * @package  Trans_CatalogProductList
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Muhammad Randy <muhammad.randy@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="sidebar.additional">
+            <!-- Block for display SubCategories in leftNav Category List Page-->
+              <block class="Magento\Framework\View\Element\Template" name="catalog.category.sidebar"
+                     template="Trans_CatalogProductList::product/category/sidebar.phtml">
+              </block>
+            <!-- End Block for display SubCategories in leftNav Category List Page-->
+            
+            <!-- Block for display Data SubCategories -->
+              <block class="Trans\CatalogProductList\Block\Category\Subcategories" name="catalog.category.sidebar"
+                     template="Trans_CatalogProductList::product/category/sidebar.phtml">
+              </block>
+            <!-- End Block for Data SubCategories-->
+
+            <!-- Remove Compare and Wishlist in catalog list page -->
+              <referenceBlock name="catalog.compare.sidebar" remove="true"/> 
+              <referenceBlock name="wishlist_sidebar" remove="true" />
+            <!-- End Remove Compare and Wishlist in catalog list page -->
+          </referenceContainer>
+
+      <!-- Remove Reorder Left Side in catalog list page -->    
+      <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+      <!-- End Remove Reorder Left Side in catalog list page -->    
+
+    </body>
+</page>

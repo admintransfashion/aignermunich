@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2023 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_TCastSMS
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="CTCD\TCastSMS\Api\LogOtpRepositoryInterface" type="CTCD\TCastSMS\Model\LogOtpRepository" />
+    <preference for="CTCD\TCastSMS\Api\Data\LogOtpInterface" type="CTCD\TCastSMS\Model\LogOtp" />
+    <preference for="CTCD\TCastSMS\Api\Data\LogOtpSearchResultsInterface" type="CTCD\TCastSMS\Model\LogOtpSearchResult" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ctcd_logotp_data_source" xsi:type="string">CTCD\TCastSMS\Model\ResourceModel\LogOtp\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="CTCD\TCastSMS\Model\ResourceModel\LogOtp\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tcast_otp</argument>
+            <argument name="eventPrefix" xsi:type="string">tcastotplog_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">tcastotplog_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">CTCD\TCastSMS\Model\ResourceModel\LogOtp</argument>
+        </arguments>
+    </type>
+</config>

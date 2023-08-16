@@ -1,0 +1,57 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+$helper = $this->helper(\Magento\Search\Helper\Data::class);
+?>
+<?php if ($block->getResultCount()): ?>
+<?= $block->getChildHtml('tagged_product_list_rss_link') ?>
+<div class="search results">
+    <?php if ($messages = $block->getNoteMessages()):?>
+    <div class="message notice">
+        <div>
+            <?php foreach ($messages as $message):?>
+                <?= /* @escapeNotVerified */ $message ?><br />
+            <?php endforeach;?>
+        </div>
+    </div>
+    <?php endif; ?>
+    <?= $block->getProductListHtml() ?>
+</div>
+<?php else: ?>
+<div class="message notice not-found">
+    <div>
+        <div class="tips-texts">
+            <?= /* @escapeNotVerified */ __('We\'re sorry that we couldn\'t find any products matching your search, please make sure that you have entered the correct search term and try again.') ?>
+        </div>
+        <div class="block-content-custom">
+            <h2><?= /* @escapeNotVerified */ __('Search Tips') ?></h2>
+            <ul class="tips-text">
+              <li><?= /* @escapeNotVerified */ __('Check your spelling and try again') ?></li>
+              <li><?= /* @escapeNotVerified */ __('Try a similar but different search term') ?></li>
+              <li><?= /* @escapeNotVerified */ __('Keep your search term simple, as our search facility works best with shorter description') ?></li>
+              <li><?= /* @escapeNotVerified */ __('Try looking within the department shown below') ?></li>
+            </ul>
+        </div>
+        <div class="try-looking">
+            <ul>
+                <li>
+                    <a href="<?php echo $block->getUrl('men.html'); ?>"><?= /* @escapeNotVerified */ __('Men') ?></a>
+                </li>
+                <li>
+                    <a href="<?php echo $block->getUrl('women.html'); ?>"><?= /* @escapeNotVerified */ __('Women') ?></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery'], function($){
+      $('body').addClass('empty');
+    });
+</script>
+<?php endif; ?>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+		    <block class="Magento\Customer\Block\Account\SortLinkInterface" ifconfig="reservation/general/enabled" name="customer-account-navigation-reservation-list-link">
+		         <arguments>
+		             <argument name="label" xsi:type="string" translate="true">My Reservation</argument>
+		             <argument name="path" xsi:type="string">reservation/customer/history</argument>
+		             <argument name="sortOrder" xsi:type="number">220</argument>
+		         </arguments>
+		    </block>
+		</referenceBlock>
+    </body>
+</page>

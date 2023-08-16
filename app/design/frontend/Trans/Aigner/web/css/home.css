@@ -1,0 +1,227 @@
+
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ 
+ */
+ @media only screen and (min-width: 600px) {
+    /* ============= Home Category */
+
+    #home-mood {
+        margin-bottom: 60px;
+        display: block;
+    }
+    #home-mood .span_4 {
+        /* width: 33.3333333333%; */
+        width: 32%;
+        border-left-width: 5px;
+        padding: 0;
+        margin-left: 0;
+    }
+    #home-mood .col{
+        float: left;
+    }
+    #home-mood .mood-wrapper-left, .mood-wrapper-right {
+        margin-top: 95px;
+    }
+    
+    #home-mood .mood-element-wrapper {
+        position: relative;
+        margin-bottom: 10px;
+    }
+    
+    #home-mood .mood-wrapper-left, #home-mood .mood-wrapper-middle , #home-mood .mood-wrapper-right {
+        padding-right: 9px;
+        margin-left:6px
+    }
+    .video {
+        position: relative;
+        float: none;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+    }
+    
+    #home-mood .mood-element-wrapper img, #home-mood .mood-element-wrapper iframe {
+        width: 100%;
+    }
+    #home-mood .mood-element-wrapper a div {
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        height: 99%;
+        -webkit-transition: -webkit-all .15s ease;
+        -moz-transition: -moz-all .15s ease;
+        -ms-transition: -ms-all .15s ease;
+        -o-transition: -o-all .15s ease;
+        transition: all .15s ease;
+        opacity: 0;
+    }
+    #home-mood .mood-element-wrapper a div span {
+        left: 0;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        color: #fff;
+        font-size: 17px;
+        text-decoration: underline;
+        text-transform: uppercase;
+    }
+    #home-mood .mood-element-wrapper a div:hover {
+        background: rgba(34,34,34,0.3);
+        opacity: 1;
+    }
+
+     /* ============= Home Feature Product */
+
+     #home-featured-products {
+        position: relative;
+        margin: 0 110px 80px;
+    }
+    #home-featured-products .span_6 {
+        width: 50%;
+        border-left-width: 5px;
+        padding: 0;
+        margin-left: 0;
+    }
+    #home-featured-products .col {
+        border: 0 solid rgba(0,0,0,0);
+        float: left;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+        -moz-background-clip: padding-box !important;
+        -webkit-background-clip: padding-box !important;
+        background-clip: padding-box !important;
+    }
+    #home-featured-products h2 {
+        font-size: 96px;
+        letter-spacing: 5px;
+        position: absolute;
+        top: 10px;
+        right: 90px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+    #home-featured-products #featured-products-subheadline {
+        margin: 150px 0 0 60px;
+        font-size: 16px;
+    }
+    #home-featured-products #featured-products-footer {
+        position: absolute;
+        bottom: -15px;
+        margin-left: 60px;
+    }
+    #home-featured-products #featured-products-footer #featured-products-link {
+        display: block;
+        text-transform: uppercase;
+        text-decoration: underline;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    #home-featured-products img.feature-product-list{
+        width:100px;
+        margin-right:30px;
+    }
+
+
+    /* FAVORITE PRODUCT */
+    #home-favorites {
+        position: relative;
+    }
+    #home-favorites section {
+        margin-bottom: 40px;
+    }
+    #home-favorites .span_6 {
+        width: 50%;
+        border-left-width: 5px;
+        padding: 0;
+        margin-left: 0;
+    }
+    .clearfix:after {
+        display: block;
+        content: ".";
+        clear: both;
+        font-size: 0;
+        line-height: 0;
+        height: 0;
+        overflow: hidden;
+    }
+    #home-favorites .col {
+        border: 0 solid rgba(0,0,0,0);
+        float: left;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+        -moz-background-clip: padding-box !important;
+        -webkit-background-clip: padding-box !important;
+        background-clip: padding-box !important;
+    }
+    #home-favorites #favorites-wrapper-top #favorites-headline {
+        font-size: 120px;
+        color: #bbb;
+        position: absolute;
+        top: 50px;
+        right: 17.5%;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+    }
+    #home-favorites #favorites-wrapper-top #mood-favorites-top {
+        width: 82%;
+    }
+    #home-favorites #favorites-wrapper-top #mood-favorites-bottom {
+        position: absolute;
+        top: 49%;
+        left: 14%;
+        width: 32.2%;
+    }
+    #home-favorites #favorites-wrapper-bottom {
+        position: relative;
+        padding: 190px 0 0 20px;
+    }
+    
+    
+    #home-favorites img {
+        width: 100%;
+    }
+    #home-favorites #favorites-wrapper-bottom .favorites-product {
+        max-width: 300px;
+        width: 48.6%;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+    
+    #home-favorites #favorites-wrapper-bottom #favorites-product-middle {
+        position: absolute;
+        right: 0;
+        top: 40%;
+    }
+    
+    
+    #home-favorites #favorites-wrapper-bottom .favorites-product {
+        max-width: 300px;
+        width: 48.6%;
+        margin-bottom: 50px;
+    }
+    #home-favorites a{
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+    }
+    
+    #home-favorites a:hover{
+        color: #222;
+    }
+    
+    
+
+}

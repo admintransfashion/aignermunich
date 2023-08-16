@@ -1,0 +1,63 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+ /* @var $block Trans\Reservation\Block\Store\Location */
+?>
+
+<?php $sources = $block->getSources() ?>
+
+<div class="source-list">
+	<div class=" table-wrapper">
+            <table id="shopping-table"
+                   class=" items data table"
+                   data-mage-init='{"shopping":{"emptyButton": ".action.clear",
+                   "updateActionContainer": "#update__action_container"}}'>
+                <caption class="table-caption"><?= /* @escapeNotVerified */ __('Stores Location') ?></caption>
+                <tbody class="stores">
+                        <?php foreach ($sources as $source): ?>
+                            <tr class="item-info">
+                                <td data-th="<?= $block->escapeHtml(__('Store')) ?>" class="col item">
+                                    <span class="store-name">
+                                    	<?php echo $source->getName(); ?>
+                                    </span>
+                                    <br/>
+                                    <span class="hours-info">
+                                    	<span>Open hours : </span>
+                                    	<?php echo $block->getSourceHours($source) ?>
+                                    </span>
+                                </td>
+                                <td class="col store-address" data-th="<?= $block->escapeHtml(__('Address')) ?>">
+                                    <?php echo $block->getSourceAddress($source); ?>
+                                </td>
+                                <td class="col contact-info" data-th="<?= $block->escapeHtml(__('Contact')) ?>">
+                                    <span class="contact-info-label">Phone</span>
+                                    <span class="contact-info-value"><a href="tel:<?php echo $source->getPhone(); ?>"><?php echo $source->getPhone(); ?></a></span>
+                                    <br/>
+                                    <?php if($source->getEmail()) : ?>
+	                                    <span class="contact-info-label">Email</span>
+	                                    <span class="contact-info-value"><?php echo $source->getEmail(); ?></span>
+                                    	<br/>
+	                                <?php endif; ?>
+
+	                                <?php if($source->getFax()) : ?>
+	                                    <span class="contact-info-label">Fax</span>
+	                                    <span class="contact-info-value"><?php echo $source->getFax(); ?></span>
+                                    	<br/>
+	                                <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+</div>

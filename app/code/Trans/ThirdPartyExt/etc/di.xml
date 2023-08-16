@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--  
+/**
+ * @category Trans
+ * @package  Trans_ThirdPartyExt
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Muhammad Randy <muhammad.randy@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id> 
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	
+	<!-- overide activate module Mageplaza -->
+	<preference for="Mageplaza\Core\Model\Config\Structure\Data" type="Trans\ThirdPartyExt\Model\Mageplaza\Core\Model\Config\Structure\Data" />
+    <!-- end overide activate module Mageplaza -->
+
+    <!-- Plugin Product Slider Mageplaza -->
+    <type name="Mageplaza\Productslider\Block\AbstractSlider">
+        <plugin name="ProductSliderMageplaza" type="Trans\ThirdPartyExt\Plugin\Productslider\Block\AbstractSlider"/>
+    </type>
+
+</config>

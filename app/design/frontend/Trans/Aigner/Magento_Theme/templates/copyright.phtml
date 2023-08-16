@@ -1,0 +1,21 @@
+<?php
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id> 
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+?>
+
+<div class="footer-bot">
+    <div class="container">
+        <?php
+        echo $this->getLayout()
+        ->createBlock('Magento\Cms\Block\Block')
+        ->setBlockId('footer_copyright')
+        ->toHtml();
+        ?>
+    </div>
+</div>
+

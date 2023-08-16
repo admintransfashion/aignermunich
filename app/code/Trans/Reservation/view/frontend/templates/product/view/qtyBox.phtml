@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+/** @var $block Magento\Catalog\Block\Product\View */
+?>
+
+<?php if ($block->shouldRenderQuantity()): ?>
+<div class="field qty">
+    <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+    <div class="control">
+        <input type="number"
+               name="qty"
+               id="qty"
+               value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+               title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+               class="input-text qty"
+               data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+               />
+    </div>
+</div>
+<?php endif; ?>

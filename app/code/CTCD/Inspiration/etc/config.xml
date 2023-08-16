@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Inspiration
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ctcd_inspiration>
+            <general>
+                <active>0</active>
+            </general>
+            <topmenu>
+                <active>0</active>
+                <parent_label>Inspiration</parent_label>
+                <include_content>1</include_content>
+            </topmenu>
+        </ctcd_inspiration>
+    </default>
+</config>

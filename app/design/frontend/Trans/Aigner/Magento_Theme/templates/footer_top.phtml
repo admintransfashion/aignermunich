@@ -1,0 +1,138 @@
+<?php
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ * @author   Babono <babono@transdigital.co.id>
+ * @author   Ilma Dinnia Alghani <ilma.dinnia@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ * TODO NEXT trus & subcription
+ */
+?>
+<style type="text/css">
+.footer-input {
+    border: none;
+    outline: none;
+    padding: 8px 16px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'Futura Book', Fallback, sans-serif;
+    background: #fff;
+}
+
+.footer-link:visited {
+    color: #000;
+}
+
+.footer-button {
+    font-weight: 300;
+}
+</style>
+<?php $gtmHelper = $this->helper('Trans\Gtm\Helper\Data'); ?>
+<?php $getCustomerId = $gtmHelper->getCurrentCustomerId() ?>
+<div class="footer-top">
+    <div class="container">
+        <div class="footer-wrapper" style="padding: 40px 0;">
+            <div class="footer-shopfinder">
+                <div class="footer-title"><?= __('Aigner Shops'); ?></div>
+                <div class="footer-text"><?= __('Find Aigner Shops in Indonesia.'); ?><br /><br /></div>
+                <div class="footer-shopfinder-input">
+                    <form action="<?=$block->getBaseUrl()?>storelocator" method="post" id="shop-finder-form">
+                        <?php /*
+                        <input class="footer-input" type="text" placeholder="Find City" style="width: auto; height: auto; display: none;" />
+                        */ ?>
+                        <button id="btnShopFinderForm" class="footer-button" style="margin-left: 0;"><?= __('Find Shops'); ?></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-subscribe">
+                <form class="form subscribe form-subscribe" novalidate action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>" method="post" data-mage-init='{"validation": {"errorClass": "mage-error"}}' id="newsletter-validate-detail">
+                    <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+                    <div>
+                        <div class="footer-title">
+                            <?= __('SUBSCRIBE TO GET ETIENNE AIGNER NEWSLETTER'); ?>
+                        </div>
+                        <div class="footer-text">
+                            <?= __('Please register here to receive our free newsletter.<br>Your consent to be sent the newsletter can be revoked at any time.'); ?>
+                        </div>
+                    </div>
+
+                    <div class="footer-subscribe-input">
+                        <input class="footer-input" type="text" name="email" type="email" id="newsletter" placeholder="Your email address" style="height: auto;" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true}" />
+                        <select id="subscribe-for" name="subscribe">
+                            <option value="<?= Trans\Newsletter\Api\Data\NewsletterAdditionalInterface::SUBSCRIBE_CATEGORY_ALL ?>"><?= Trans\Newsletter\Api\Data\NewsletterAdditionalInterface::SUBSCRIBE_CATEGORY_ALL ?></option>
+                            <option value="<?= Trans\Newsletter\Api\Data\NewsletterAdditionalInterface::SUBSCRIBE_CATEGORY_MEN ?>"><?= Trans\Newsletter\Api\Data\NewsletterAdditionalInterface::SUBSCRIBE_CATEGORY_MEN ?></option>
+                            <option value="<?= Trans\Newsletter\Api\Data\NewsletterAdditionalInterface::SUBSCRIBE_CATEGORY_WOMEN ?>"><?= Trans\Newsletter\Api\Data\NewsletterAdditionalInterface::SUBSCRIBE_CATEGORY_WOMEN ?></option>
+                        </select>
+                    </div>
+                    <div class="footer-newsletter-button">
+                        <button id="btnRegisterNewsletter" class="footer-button" type="submit"><?= __('Register') ?></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footer-categories">
+            <?php
+                echo $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId('footer_categories')
+                ->toHtml();
+                ?>
+        </div>
+    </div>
+</div>
+<script>
+// <![CDATA[
+require(
+    [
+        'jquery',
+        'mage/storage',
+        'mage/url',
+        'mage/translate'
+    ],
+    function($, storage, urlBuilder) {
+        'use strict';
+
+        /**
+         * Check username are email or phone number
+         */
+        function checkUsernameType(username) {
+            var type = 'email',
+                intRegex = /[0-9 -()+]+$/;
+
+            if (intRegex.test(username)) { type = 'phone'; }
+
+            return type;
+        }
+
+        $(document).ready(function () {
+            $("#shop-finder-form").submit(function(e) {
+                dataLayer.push({'event': 'find_shop','query': '','user_id': '<?= $getCustomerId ?>'});
+                event.preventDefault();
+            });
+            $("button#btnShopFinderForm").on("click", function() {
+                $("#shop-finder-form").submit();
+            });
+
+            $("#newsletter-validate-detail").submit(function(e) {
+                var email = $("input#newsletter").val();
+                if(email){
+                    var hashedEmail = forge_sha256(email);
+                    var subscribeFor = $("#subscribe-for option:selected").text().toUpperCase();
+                    var gender = subscribeFor.charAt(0);
+                    dataLayer.push({'event': 'newsletter_subscription','email': ''+hashedEmail+'','gender': ''+gender+'','user_id': '<?= $getCustomerId ?>'});
+                }
+
+                event.preventDefault();
+            });
+            $("button#btnRegisterNewsletter").on("click", function() {
+                $("#newsletter-validate-detail").submit();
+            });
+        });
+    }
+);
+// ]]>
+</script>
+
+

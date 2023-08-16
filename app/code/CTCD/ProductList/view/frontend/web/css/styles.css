@@ -1,0 +1,135 @@
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_ProductList
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+.custom-product-list-pages .column.main .products-grid .product-items {
+    margin: 0;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item {
+    display: inline-block;
+    margin: 0;
+    width: calc(100% / 4);
+    padding: 10px 15px;
+    -webkit-transition: background 0.15s ease-in-out;
+    -o-transition: background 0.15s ease-in-out;
+    transition: background 0.15s ease-in-out;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item .product-item-info {
+    width: 100%;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item .product-item-info .product-item-details{
+    margin-top: 10px;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item .product-item-info .product-item-details .price-box{
+    margin: 0;
+    text-align: center;
+    opacity: 0;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+    padding-bottom: 32px;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item .product-image-container {
+    width: 100% !important;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 100% !important;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item .product-image-photo
+{
+    bottom: 0;
+    display: block;
+    height: auto;
+    max-height: initial;
+    left: 0;
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item:hover{
+    background: #f8f8f8;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item .product-item-info .product-item-details .price-box {
+    opacity: 0;
+    display: none;
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+.custom-product-list-pages .column.main .products-grid .product-items .product-item:hover .product-item-info .product-item-details .price-box {
+    opacity: 1;
+    display: inline-block;
+}
+.custom-product-list-pages .product-item-info .product-badge-container {
+    text-align: center;
+    margin-top: 10px;
+    height: 77px;
+}
+.custom-product-list-pages .product-item:hover .product-badge-container {
+    display: none;
+}
+.custom-product-list-pages .column.main .toolbar-products{
+    padding-left: 15px;
+}
+.custom-product-list-pages .column.main .toolbar .toolbar-sorter #sorter{
+    padding: 10px;
+}
+.custom-product-list-pages .column.main .toolbar .sorter:before {
+    content: '';
+    position: absolute;
+    padding: 2px;
+    border: solid #222;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    top: 19px;
+    right: 2px;
+    -webkit-transition: all .15s ease;
+    -o-transition: all .15s ease;
+    transition: all .15s ease;
+    z-index: 2;
+}
+.custom-product-list-pages .column.main .toolbar .limiter{
+    display: none;
+}
+.custom-product-list-pages .message.info {
+    width: 80%;
+    margin: 60px auto 0;
+    padding: 0;
+    display: block;
+    line-height: 1.5;
+    font-size: 1.3rem;
+    background: transparent;
+    color: #222222;
+    position: relative;
+    text-align: center;
+}
+.custom-product-list-pages .message.info>*:first-child {
+    font-size: 24px;
+}
+.custom-product-list-pages .message.info>*:last-child {
+    font-size: 20px;
+}
+.custom-product-list-pages .message.info>*:first-child:before{
+    content: "";
+}
+@media only screen and (max-width: 768px) {
+    .custom-product-list-pages .column.main .products-grid .product-items .product-item {
+        width: calc(100% / 2);
+    }
+    .custom-product-list-pages .message.info{
+        margin: 0 auto;
+    }
+}

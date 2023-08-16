@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Core
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ctcdcore>
+            <company_logo>
+                <active>0</active>
+                <logo_title>Magento Admin Panel</logo_title>
+                <admin_login_page></admin_login_page>
+            </company_logo>
+            <magento_version>
+                <active>0</active>
+                <response_type>0</response_type>
+            </magento_version>
+            <decimal_price>
+                <active>0</active>
+                <show_decimal>1</show_decimal>
+                <precision>2</precision>
+            </decimal_price>
+            <file_logger>
+                <active>1</active>
+            </file_logger>
+            <external_image>
+                <active>0</active>
+            </external_image>
+            <delete_prompt>
+                <active>0</active>
+            </delete_prompt>
+            <catalog_mode>
+                <active>0</active>
+            </catalog_mode>
+        </ctcdcore>
+    </default>
+</config>

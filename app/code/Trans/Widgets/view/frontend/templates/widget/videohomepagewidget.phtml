@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   HaDi <ashadi.sejati@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php $dataId = $block->generateId(); ?>
+<?php $widgetId = 'widget'.$dataId; ?>
+<section class="home-video video-<?= $block->getData('fullwidthx')?>">
+    <div class="video paused" data-id="<?php echo $dataId ?>">
+        <style>
+            [data-id="<?php echo $dataId ?>"] {
+                background-image: url("https://img.youtube.com/vi/<?= $block->getData('videoid');?>/maxresdefault.jpg");
+            }
+        </style>
+        <iframe src="//www.youtube.com/embed/<?= $block->getData('videoid');?>?enablejsapi=1&amp;vq=hd1080&amp;controls=0&amp;showinfo=0&ampmodestbranding=1&amp;rel=0&amp;loop=1&amp;html5=1&amp;version=3" frameborder="0" id="<?php echo $widgetId ?>">
+        </iframe>
+    </div>
+</section>
+
+<script type="text/javascript">
+    require(['jquery'], function($){
+        $(document).ready( function() {
+            $('[data-id="<?php echo $dataId ?>"]').on('click', function(){
+                if ($(this).hasClass('paused')) {
+                    $('#<?php echo $widgetId ?>')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+                    $(this).toggleClass('paused');
+                    $(this).toggleClass('play');
+                }
+                else {
+                    $('#<?php echo $widgetId ?>')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+                    $(this).toggleClass('paused');
+                    $(this).toggleClass('play');
+                }
+            });
+        });
+    });
+</script>

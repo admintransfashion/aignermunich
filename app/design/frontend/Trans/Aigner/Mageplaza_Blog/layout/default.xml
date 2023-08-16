@@ -1,0 +1,18 @@
+<!--
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ * @author   Babono <babono@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="footer_links">
+            <block class="Mageplaza\Blog\Block\Html\Footer" name="mp_footer_link" template="html/footer.phtml"/>
+        </referenceBlock>
+    </body>
+</page>
+

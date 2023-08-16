@@ -1,0 +1,40 @@
+<?php 
+/**
+ * @category Trans
+ * @package  Trans_InstagramFeed
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Muhammad Randy <muhammad.randy@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Trans\Instagramfeed\Block\Widget\Instafeed $block */
+
+/* Extensions placeholder */ 
+
+?>
+
+<section id="instafeed" class="instafeed">
+  <a href="https://www.instagram.com/aignermunich" class="instafeed-link" target="_blank">
+    <svg class="icon instagram">
+      <use xlink:href="#icon-instagram">
+      <svg class="icon instagram">
+        <use xlink:href="#icon-instagram"></use>
+      </svg> 
+      </use>
+    </svg>
+    <span style="color: #000;">#AIGNER</span>
+  </a>
+  <a class="instafeed-photo" href="<?php echo $block->getLinkLeft(); ?>" target="_blank"
+    style="background-image: url('<?php echo $block->getImageLeft(); ?>');"></a>
+  <a class="instafeed-photo" href="<?php echo $block->getLinkMid(); ?>" target="_blank"
+    style="background-image: url('<?php echo $block->getImageMid(); ?>');"></a>
+  <a class="instafeed-photo" href="<?php echo $block->getLinkRight(); ?>" target="_blank"
+    style="background-image: url('<?php echo $block->getImageRight(); ?>');"></a>
+</section>

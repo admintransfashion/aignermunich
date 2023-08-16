@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Catalog
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+ /** @var $block Trans\Catalog\Block\Product\View\Colors */
+?>
+
+<?php
+    $items = $block->getItems();
+    $image = 'product_thumbnail_image';
+?>
+<?php if($items): ?>
+	<div class="fieldset">
+		<div class="product-colors text-avail"><span><?= /* @escapeNotVerified */ __('ALSO AVAILABLE IN THESE COLORS') ?></span></div>
+		<div class="product-color-list">
+			<div class="products wrapper grid products-grid">
+	            <ol class="products list items product-items">
+	                <?php foreach ($items as $item): ?>
+	                	<?php if($item): ?>
+			                <?php $available = ''; ?>
+			                <?php if (!$item->isComposite() && $item->isSaleable()): ?>
+			                    <?php if (!$item->getRequiredOptions()): ?>
+			                        <?php $available = 'related-available'; ?>
+			                    <?php endif; ?>
+			                <?php endif; ?>
+			                <li class="item product product-item">
+			                    <div class="product-item-info <?= /* @escapeNotVerified */ $available ?>">
+			                    <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($item) ?>" class="product photo product-item-photo">
+			                        <?php echo $block->getImage($item, $image)->toHtml() ?>
+			                    </a>
+			                        <div class="product details product-item-details">
+			                            <strong class="product name product-item-name">
+			                            	<a class="product-item-link" title="<?= $block->escapeHtml($item->getName()) ?>" href="<?= /* @escapeNotVerified */ $block->getProductUrl($item) ?>">
+				                                <?php echo $item->getResource()->getAttribute('color')->getFrontend()->getValue($item); ?>
+				                            </a>
+			                            </strong>
+			                        </div>
+			                    </div>
+			                </li>
+		            	<?php endif; ?>
+	                <?php endforeach; ?>
+	            </ol>
+	        </div>
+		</div>
+	</div>
+<?php endif; ?>

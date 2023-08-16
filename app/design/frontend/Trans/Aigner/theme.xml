@@ -1,0 +1,12 @@
+<!--
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<theme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/theme.xsd">
+    <title>Trans Aigner</title>
+    <parent>Magento/blank</parent>
+</theme>

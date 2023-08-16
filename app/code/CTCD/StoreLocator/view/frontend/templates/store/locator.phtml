@@ -1,0 +1,55 @@
+<?php 
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_StoreLocator
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Hadi <ashadi.sejati@ctcorpdigital.com>
+ */
+
+ /* @var $block CTCD\StoreLocator\Block\Store\Locator */
+?>
+
+<?php $sources = $block->getSources() ?>
+
+
+<div class="page-main">
+    <div class="page-blockTitle category-view-title">
+        <div class="page-title-wrapper">
+            <h1 class="page-title" id="page-title-heading" aria-labelledby="page-title-heading toolbar-amount">
+                <span class="base" data-ui-id="page-title-wrapper">STORE<br/>LOCATOR</span>
+            </h1>
+        </div>
+        <div class="category-view">
+            <div class="category-image">
+                <img src="<?php echo $this->getViewFileUrl('images/image-store-locator-2.jpg'); ?>" title="Image store locator" class="image">
+            </div>
+        </div>
+    </div>
+    <div class="storeLocator-content">
+        <div class="storeLocator-list">
+            <!-- <div class="storeLocator-head">Indonesia</div> -->
+            <?php foreach ($sources as $source): ?>
+            <?php if ($source->getEnabled() == 1) : ?>
+            <div class="storeLocator-item">
+                <div class="storeLocator-pin">
+                    <svg class="icon pin">
+                        <use xlink:href="#icon-pin"></use>
+                    </svg>
+                </div>
+                <div class="storeLocator-info">
+                    <div class="storeLocator-title"><?php echo $source->getCity(); ?></div>
+                    <div class="storeLocator-address"><?php echo $source->getName(); ?></div>
+                    <div class="storeLocator-phone"><a href="tel:<?php echo $source->getPhone(); ?>"><?php echo $source->getPhone(); ?></a></div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php endforeach ?>
+        </div>
+    </div>
+</div>
+

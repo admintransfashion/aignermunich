@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="adminhtml.newsletter.subscriber.container">
+            <referenceBlock name="adminhtml.newslettrer.subscriber.grid">
+                <referenceBlock name="adminhtml.newslettrer.subscriber.grid.columnSet">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.subscribecategory" as="subscribe_category">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Subscribe Category</argument>
+                            <argument name="index" xsi:type="string">subscribe_category</argument>
+                            <argument name="header_css_class" xsi:type="string">col-last-name</argument>
+                            <argument name="column_css_class" xsi:type="string">col-last-name</argument>
+                        </arguments>
+                    </block>
+                </referenceBlock>
+            </referenceBlock>
+        </referenceBlock>
+    </body>
+</page>

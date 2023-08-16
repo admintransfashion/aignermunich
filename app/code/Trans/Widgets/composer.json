@@ -1,0 +1,35 @@
+{
+  "name": "ctcd/lastestmagazinehomepage",
+  "description": "widget nos homepage",
+  "require": {
+    "php": "~5.6.0|7.0.2|~7.0.6"
+  },
+  "type": "magento2.3-module",
+  "version": "1.0.0",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "authors": [
+      {
+          "name": "Ashadi Muliawan Sejati",
+          "email": "ashadi.sejati@ctcorpdigital.com",
+          "homepage": "https://www.ctcorpdigital.com",
+          "role": "Magento Developer"
+      },
+      {
+          "name": "Edi Suryadi",
+          "email": "edi.suryadi@ctcorpdigital.com",
+          "homepage": "https://www.ctcorpdigital.com",
+          "role": "Magento Developer"
+      }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Trans\\Widgets\\": ""
+    }
+  }
+}

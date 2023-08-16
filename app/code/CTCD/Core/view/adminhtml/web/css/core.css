@@ -1,0 +1,128 @@
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Core
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+.admin__menu .submenu .column:only-of-type .submenu-group-title {
+    display: block;
+}
+
+.ctcd-custom-modules .entry-edit ._disabled{
+    opacity: 1;
+}
+
+.ctcd-custom-modules .entry-edit textarea:disabled,
+.ctcd-custom-modules .entry-edit input[type="text"]:disabled{
+    opacity: 1;
+    background-color: #f9f9f9;
+}
+.ctcd-custom-modules .entry-edit ._disabled>.admin__field-label{
+    color: #303030;
+}
+.ctcd-custom-modules .entry-edit .json-format-small textarea{
+    min-height: 5em;
+}
+.ctcd-custom-modules .entry-edit .json-format-middle textarea{
+    min-height: 15em;
+}
+.ctcd-custom-modules .entry-edit .json-format-large textarea{
+    min-height: 30em;
+}
+
+.adminhtml-auth-login .page-wrapper {
+    padding: 40px 60px 20px;
+}
+
+.adminhtml-auth-login .page-wrapper .login-content {
+    padding: 20px;
+    border: 1px solid #c5c5c5;
+    background-color: #fafafa;
+    border-radius: 10px;
+}
+
+.copyright .link-copyright:before {
+    content: "";
+}
+
+.menu-wrapper .logo .logo-img.custom-logo {
+    width: auto;
+}
+
+.adminhtml-auth-login .page-wrapper .login-footer {
+    margin: 30px 0 0 0;
+    position: relative;
+}
+
+.ctcdcoretab .admin__page-nav-title::before {
+    content: url(../images/logo.svg);
+}
+.ctcdcoretab .admin__page-nav-title strong {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+.admin__menu #menu-ctcd-core-core.item-core.parent.level-0 > a:before {
+    content: "";
+}
+.admin__menu #menu-ctcd-core-core.item-core > a:before {
+    content: "";
+    background: url(../images/ctcorp-bw-74.png) no-repeat center center;
+    width: 100%;
+    height: 35px;
+    display: block;
+    background-size: 50px;
+}
+.admin__menu #menu-ctcd-core-core.level-0>.submenu>ul>.level-1:only-of-type>.submenu-group-title {
+    display: block;
+}
+
+/* Styles for STATUS grid column */
+.data-grid-cell-content.status-column {
+    text-align: center;
+    color: #303030;
+    padding: 3px 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+.data-grid-cell-content.status-success{
+    background-color: #008000;
+    color: #ffffff;
+}
+.data-grid-cell-content.status-failed{
+    background-color: #B82506;
+    color: #ffffff;
+}
+.data-grid-cell-content.status-error{
+    background-color: #B82506;
+    color: #ffffff;
+}
+.data-grid-cell-content.status-pending{
+    border: 1px solid #eb5202;
+}
+.data-grid-cell-content.status-locked{
+    background-color: #41362f;
+    color: #ffffff;
+}
+.data-grid-cell-content.status-canceled{
+    background-color: #91007F;
+    color: #ffffff;
+}
+.data-grid-cell-content.status-manual{
+    background-color: #93604b;
+    color: #ffffff;
+}
+.data-grid-cell-content.status-hold{
+    background-color: #eb5202;
+    color: #ffffff;
+}
+.data-grid-cell-content.status-progress{
+    background-color: #E5A722;
+    color: #ffffff;
+}

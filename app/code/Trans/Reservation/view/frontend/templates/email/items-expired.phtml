@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+ /** @var $block Trans\Reservation\Block\Cart\Grid */
+?>
+
+<div class="cart table-wrapper" style="padding-top: 50px;padding-bottom: 30px;">
+
+    <table id="shopping-cart-table" class="cart items data table" style="width: 100%;">
+        <thead>
+            <tr>
+                <th class="col item" style="padding: 10px 8px 10px 0;text-align:left;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;border-bottom: solid 8px #e7e6e2;font-weight: normal;" scope="col"><span><?= /* @escapeNotVerified */ __('Reservation Items') ?></span></th>
+                <th class="col item" style="padding: 10px 8px;text-align:right;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;border-bottom: solid 8px #e7e6e2;font-weight: normal;" scope="col"></th>
+                <th class="col item" style="padding: 10px 0 10px 8px;text-align:right;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;border-bottom: solid 8px #e7e6e2;font-weight: normal;" scope="col"><span><?= /* @escapeNotVerified */ __('Items Price') ?></span></th>
+            </tr>
+        </thead>
+        <tbody class="cart item">
+            <?php $reservation = $block->getData('reservation'); ?>
+            <?php $isSales = $block->getData('is_sales'); ?>
+            <?php $store = $block->getData('sales_store') ? $block->getData('sales_store') : null; ?>
+
+            <?php if($reservation) { ?>
+                <?php $items = $reservation->getItems(); ?>
+                <?php foreach ($items as $item): ?>
+                    <?php
+                        if($isSales) {
+                            $store = $block->getData('sales_store');
+                            if($store != $item->getSourceCode()) {
+                                continue;
+                            }
+                        }
+                    ?>
+                    <?php $source = $block->getSourceByCode($item->getSourceCode()); ?>
+                    <?php $product = $block->getProductById($item->getProductId()); ?>
+                    <?php if($product) { ?>
+                        <tr class="item-info">
+                            <td style="border-bottom: solid 1px #ebebeb;border-top: solid 1px #ebebeb;padding: 20px 0;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;" data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
+                                <!-- <img src="<?php //echo $block->getImageUrl($product); ?>" class="cart_page_product_thumbnail"/> -->
+                                <div class="product-item-details">
+                                    <div style="float: left;width: 110px;">
+                                        <img src="<?php echo $block->getImageUrl($product); ?>" class="cart_page_product_thumbnail" style="width: 110px;"/>
+                                    </div>
+                                    <div class="control attribute" style="padding-left: 130px;">
+                                        <span class="product-item-name" style="font-size: 16px;">
+                                            <span><?= $block->escapeHtml($product->getName()) ?></span>
+                                        </span>
+                                        <p style="margin: 0;line-height: 1.2;"><span><b><?php echo __('Quantitiy'); ?></b> : <?php echo $item->getQty(); ?></span></p>
+                                        <p style="margin: 0;line-height: 1.2;"><span><b><?php echo __('Pick up at'); ?></b> : <?php echo $source->getName(); ?></span></p>
+                                        <p style="margin: 0;line-height: 1.2;">
+                                            <span>
+                                                <?php echo __('<b>Reserved until</b> : %1', $block->formatedDate($item->getReservationDateEnd(), 'l, F d Y')) ?> <?php echo $block->formatedDate($item->getReservationTimeEnd(), 'g:i A') ?>
+                                            </span>
+                                        </p>
+                                        <p style="margin-top: 0;margin-bottom: 10px;margin: 0;line-height: 1.2;color: red;font-weight: 600;">EXPIRED</p>
+                                        <?php //$colorValue = $product->getResource()->getAttribute('color')->getFrontend()->getValue($product); ?>
+                                        <?php //if($colorValue) { ?>
+                                            <?php //$colorLabel = $product->getResource()->getAttribute('color')->getFrontendLabel(); ?>
+                                            <!-- <span class="label"><?php //echo $colorLabel; ?> :</span> -->
+                                            <!-- <span><?php //echo $colorValue; ?></span> -->
+                                        <?php //} ?>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- <td class="col quantity"style="border-bottom: solid 1px #ebebeb;border-top: solid 1px #ebebeb;padding: 10px 8px;text-align: right;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                                <div class="control qty">
+                                    <?php //echo $item->getQty(); ?>
+                                </div>
+                            </td> -->
+                            <td class="col item" style="border-bottom: solid 1px #ebebeb;border-top: solid 1px #ebebeb;padding: 20px 0;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;"></td>
+                            <td style="border-bottom: solid 1px #ebebeb;border-top: solid 1px #ebebeb;padding: 20px 0;text-align: right;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px;">
+                                <div class="control attribute">
+                                    <span><?php echo $block->getProductPrice($product); ?></span>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                <?php endforeach ?>
+                <tr class="subtotal">
+                    <td colspan="2" align="right" style="padding: 20px;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Subtotal</td>
+                    <td align="right" style="padding: 20px 0;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;"><?php echo $block->getFormattedSubtotal(null, null, $items, $store); ?></td>
+                </tr>
+                <tr class="subtotal">
+                    <td colspan="2" align="right" style="padding: 20px;font-weight: 400;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Total</td>
+                    <td align="right" style="padding: 20px 0;font-size: 20px;font-weight: 700;font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;"><?php echo $block->getFormattedSubtotal(null, null, $items, $store); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>

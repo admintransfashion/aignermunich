@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category Trans
+ * @package  Magento_Customer
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="columns.top">
+            <block class="Magento\Framework\View\Element\Template" name="custom.title.myaccount" before="-" template="Magento_Customer::title-myaccount.phtml">
+                <action method="setPageTitle">
+                    <argument name="name" xsi:type="string">My Account</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Customer\Block\Account\Dashboard\Info" name="customer_account_dashboard_info_name" template="Magento_Customer::account/dashboard/info-name.phtml" cacheable="false" before="info" />
+        </referenceContainer>
+        <referenceBlock name="customer_account_dashboard_address" remove="true"/>
+    </body>
+</page>

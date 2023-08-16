@@ -1,0 +1,109 @@
+<?php
+ /**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   HaDi <ashadi.sejati@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<section class="mood">
+    <div class="mood-column top">
+        <div class="mood-grid">
+            <div class="mood-item">
+                <?php
+                    $imageTitle = $block->getData('topleftimagetitle') ? $block->getData('topleftimagetitle') : '';
+                    $url = $block->getData('toplefturl') ? $block->getData('toplefturl') : '#';
+                    $urlTitle = $block->getData('toplefturltitle') ? $block->getData('toplefturltitle') : '';
+                ?>
+                <img src="<?php echo /* @escapeNotVerified */ $block->getImage('topleft'); ?>" alt="<?php echo /* @escapeNotVerified */ $imageTitle ?>">
+                <a href="<?php echo /* @escapeNotVerified */ $url; ?>" class="mood-link">
+                    <div class="mood-overlay">
+                        <span class="mood-category"><?php echo /* @escapeNotVerified */ $urlTitle; ?></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="mood-grid">
+            <div class="mood-item">
+                <?php
+                    $imageTitle = $block->getData('topcenterimagetitle') ? $block->getData('topcenterimagetitle') : '';
+                    $url = $block->getData('topcenterurl') ? $block->getData('topcenterurl') : '#';
+                    $urlTitle = $block->getData('topcenterurltitle') ? $block->getData('topcenterurltitle') : '';
+                ?>
+                <img src="<?php echo /* @escapeNotVerified */ $block->getImage('topcenter'); ?>" alt="<?php echo /* @escapeNotVerified */ $imageTitle ?>">
+                <a href="<?php echo /* @escapeNotVerified */ $url; ?>" class="mood-link">
+                    <div class="mood-overlay">
+                        <span class="mood-category"><?php echo /* @escapeNotVerified */ $urlTitle; ?></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="mood-grid">
+            <div class="mood-item">
+                <?php
+                    $imageTitle = $block->getData('toprightimagetitle') ? $block->getData('toprightimagetitle') : '';
+                    $url = $block->getData('toprighturl') ? $block->getData('toprighturl') : '#';
+                    $urlTitle = $block->getData('toprighturltitle') ? $block->getData('toprighturltitle') : '';
+                ?>
+                <img src="<?php echo /* @escapeNotVerified */ $block->getImage('topright'); ?>" alt="<?php echo /* @escapeNotVerified */ $imageTitle ?>">
+                <a href="<?php echo /* @escapeNotVerified */ $url; ?>" class="mood-link">
+                    <div class="mood-overlay">
+                        <span class="mood-category"><?php echo /* @escapeNotVerified */ $urlTitle; ?></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="mood-column bottom">
+        <div class="mood-grid">
+            <div class="mood-item">
+                <?php
+                    $imageTitle = $block->getData('bottomleftimagetitle') ? $block->getData('bottomleftimagetitle') : '';
+                    $url = $block->getData('bottomlefturl') ? $block->getData('bottomlefturl') : '#';
+                    $urlTitle = $block->getData('bottomlefturltitle') ? $block->getData('bottomlefturltitle') : '';
+                ?>
+                <img src="<?php echo /* @escapeNotVerified */ $block->getImage('bottomleft'); ?>" alt="<?php echo /* @escapeNotVerified */ $imageTitle ?>">
+                <a href="<?php echo /* @escapeNotVerified */ $url; ?>" class="mood-link">
+                    <div class="mood-overlay">
+                        <span class="mood-category"><?php echo /* @escapeNotVerified */ $urlTitle; ?></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="mood-grid">
+            <div class="mood-item">
+                <?php
+                    $imageTitle = $block->getData('bottomcenterimagetitle') ? $block->getData('bottomcenterimagetitle') : '';
+                    $url = $block->getData('bottomcenterurl') ? $block->getData('bottomcenterurl') : '#';
+                    $urlTitle = $block->getData('bottomcenterurltitle') ? $block->getData('bottomcenterurltitle') : '';
+                ?>
+                <img src="<?php echo /* @escapeNotVerified */ $block->getImage('bottomcenter'); ?>" alt="<?php echo /* @escapeNotVerified */ $imageTitle ?>">
+                <a href="<?php echo /* @escapeNotVerified */ $url; ?>" class="mood-link">
+                    <div class="mood-overlay">
+                        <span class="mood-category"><?php echo /* @escapeNotVerified */ $urlTitle; ?></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="mood-grid">
+            <div class="mood-item">
+                <?php
+                    $imageTitle = $block->getData('bottomrightimagetitle') ? $block->getData('bottomrightimagetitle') : '';
+                    $url = $block->getData('bottomrighturl') ? $block->getData('bottomrighturl') : '#';
+                    $urlTitle = $block->getData('bottomrighturltitle') ? $block->getData('bottomrighturltitle') : '';
+                ?>
+                <img src="<?php echo /* @escapeNotVerified */ $block->getImage('bottomright'); ?>" alt="<?php echo /* @escapeNotVerified */ $imageTitle ?>">
+                <a href="<?php echo /* @escapeNotVerified */ $url; ?>" class="mood-link">
+                    <div class="mood-overlay">
+                        <span class="mood-category"><?php echo /* @escapeNotVerified */ $urlTitle; ?></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

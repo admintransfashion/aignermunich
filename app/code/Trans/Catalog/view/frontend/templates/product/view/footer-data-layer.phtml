@@ -1,0 +1,47 @@
+<?php
+/**
+ * @category Trans
+ * @package  Trans_Catalog
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author   Ashadi <ashadi.sejati@ctcorpdigital.com>
+ *
+ * Copyright © 2019 CT Corp Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+ /** @var $block Magento\Catalog\Block\Product\View */
+?>
+<?php
+$gtmHelper = $this->helper('Trans\Gtm\Helper\Data');
+$product = $block->getProduct();
+$gtmHelper = $this->helper('Trans\Gtm\Helper\Data');
+
+$catName = $gtmHelper->getCategoryNamesByProduct($product);
+$catNameParent = $gtmHelper->getCategoryC0NamesByProduct($product);
+
+?>
+<script>
+(function  () {
+    require(["jquery"],function($) {
+        $(document).ready(function() {
+            dataLayer.push({
+			    'event': 'productDetailView',
+			    'product_size': '<?= $product->getResource()->getAttribute('size')->getFrontend()->getValue($product); ?>',
+			    'product_for': '<?=$catNameParent?>',
+			    'user_id': '<?= $gtmHelper->getCurrentCustomerId() ?>',
+			  'ecommerce': {
+			    'detail': {
+			      'actionField': {'list': 'Product Detail View'},
+			      'products': [{
+			        'name': '<?=$product->getName()?>',
+			        'id': '<?=$product->getSku()?>',
+			        'price': '<?= $product->getFinalPrice() ?>',
+			        'brand': 'Aigner',
+			        'category': '<?=$catName?>',
+			        'variant': '<?= $product->getResource()->getAttribute('color')->getFrontend()->getValue($product); ?>'
+			}]}}});
+        });
+    });
+})();
+</script>

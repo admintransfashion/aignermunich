@@ -1,0 +1,33 @@
+<?php
+/**
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper(\Trans\Gtm\Preference\Search\Helper\Data::class);
+?>
+
+<!-- datalayer GTM search -->
+  <script type="text/javascript">
+  //<![CDATA[
+  require([
+    'jquery'
+  ], function ($) {
+    window.dataLayer = window.dataLayer || [];
+    $(document).ready(function() {
+      dataLayer.push({
+        'event': 'search_query',
+        'query': '<?= /* @escapeNotVerified */ $helper->getEscapedQueryText() ?>',
+        'user_id': '<?= (!$helper->getCustomerIdCustom()) ? 'Not Login yet' : $helper->getCustomerIdCustom() ?>'
+      });    
+    });
+  });
+  //]]>
+</script>

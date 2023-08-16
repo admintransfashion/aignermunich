@@ -1,0 +1,20 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Newsletter subscription success"}} @-->
+<!--@vars {
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+
+
+{{template config_path="design/email/header_template"}}
+
+<h1 style="text-align: center;">{{trans 'Welcome !'}}</h1>
+
+<p style="text-align: center;">{{trans 'Thank you for your interest in our newsletter! Please click on the following button to complete your newsletter subscription.'}}</p>
+<p style="margin-top:50px;margin-bottom:30px;text-align: center;">{{trans 'Kind regards,'}}<br/>{{trans 'Your <b>AIGNER</b> team' |raw}}</p>
+{{template config_path="design/email/footer_template"}}

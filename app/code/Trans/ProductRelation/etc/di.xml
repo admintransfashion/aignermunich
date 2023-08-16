@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\Catalog\Model\Product"
+                type="Trans\ProductRelation\Model\Product"/>
+    <preference for="Magento\Catalog\Model\Product\Link"
+                type="Trans\ProductRelation\Model\Catalog\Product\Link"/>
+    <preference for="Magento\Catalog\Model\Product\Link\Proxy"
+                type="Trans\ProductRelation\Model\Catalog\Product\Link\Proxy"/>
+
+    <type name="Magento\Catalog\Model\Product\Initialization\Helper\ProductLinks">
+        <plugin sortOrder="4" name="afterInitializeLinks"
+                type="Trans\ProductRelation\Model\Product\Initialization\Helper\ProductLinks"/>
+    </type>
+
+    <preference for="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related"
+                type="Trans\ProductRelation\Ui\DataProvider\Product\Form\Modifier\Related"/>
+
+    <type name="Magento\Catalog\Model\Product\LinkTypeProvider">
+        <arguments>
+            <argument name="linkTypes" xsi:type="array">
+                <item name="combinations" xsi:type="const">Trans\ProductRelation\Model\Catalog\Product\Link::LINK_TYPE_COMBINATIONS</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Model\ProductLink\CollectionProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="combinations" xsi:type="object">Trans\ProductRelation\Model\Product\Link\CollectionProvider\Combinations</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

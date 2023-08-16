@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--  
+/**
+ * @category Trans
+ * @package  Trans_Gtm
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author   hadi <ashadi.sejati@ctcorpdigital.com>
+ *
+ * Copyright © 2019 CT Corp Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!-- search -->
+	<preference for="Magento\Search\Helper\Data" type="Trans\Gtm\Preference\Search\Helper\Data" />
+	<!-- end search -->
+	<!-- theme -->
+	<preference for="Magento\Theme\Block\Html\Topmenu" type="Trans\Gtm\Preference\Theme\Block\Html\Topmenu" />
+	<!-- end theme -->
+	<!-- catalog -->
+	<preference for="Magento\Catalog\Block\Product\ProductList\Toolbar" type="Trans\Gtm\Preference\Catalog\Block\Product\ProductList\Toolbar" />
+	<!-- end catalog -->
+	<!-- Swatches -->
+	<preference for="Magento\Swatches\Block\LayeredNavigation\RenderLayered" type="Trans\Gtm\Preference\Swatches\Block\LayeredNavigation\RenderLayered" />
+	<!-- end Swatches -->
+	<!-- LayeredNavigation -->
+	<!-- <preference for="Magento\LayeredNavigation\Block\Navigation" type="Trans\Gtm\Preference\LayeredNavigation\Block\Navigation" /> -->
+	<!-- end LayeredNavigation -->
+	<!-- related -->
+	<preference for="Magento\Catalog\Block\Product\ProductList\Related" type="Trans\Gtm\Preference\Catalog\Block\Product\ProductList\Related" />
+	<!-- end related -->
+</config>

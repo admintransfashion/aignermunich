@@ -1,0 +1,234 @@
+<?php 
+/**
+ * Copyright © 2023 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Customer
+ * @license  Proprietary
+ *
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php $otpCodeLen = $this->getOTPCodeLength() ?>
+<?php 
+    $wrapperClass = '';
+    $digitGroupClass = '';
+    switch ($otpCodeLen) {
+        case 8:
+            $wrapperClass = 'w-700';
+            $digitGroupClass = 'digit-8';
+            break;
+        case 7:
+            $wrapperClass = 'w-600';
+            $digitGroupClass = 'digit-7';
+            break;
+        default:
+            $wrapperClass = '';
+            $digitGroupClass = '';
+    }
+?>
+<section class="form form-otp">
+	<div class="form-block">
+    <div class="form-head"><?= __('Account Verification') ?></div>
+		<div class="form-block-wrapper <?php echo $wrapperClass ?>">
+			<form id="form-otp" class="form-otp form" action="<?php echo $block->getFormAction(); ?>" method="post" data-mage-init='{"validation":{}}'>
+				<?php echo $block->getBlockHtml('formkey'); ?>
+				<?php echo $block->generateFormFields(); ?>
+				<div class="form-group">
+					<div class="form-label"><?php echo __('Enter OTP Code') ?></div>
+					<div class="form-input">
+						<input type="hidden" name="otp" class="otp-code" data-validate="{required: true}" >
+						<div class="digit-group <?php echo $digitGroupClass ?>">
+					        <input type="number" name="digit1" id="digit1" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+						    <input type="number" name="digit2" id="digit2" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+						    <input type="number" name="digit3" id="digit3" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+						    <input type="number" name="digit4" id="digit4" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+						    <input type="number" name="digit5" id="digit5" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+						    <input type="number" name="digit6" id="digit6" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+                            <?php if ($otpCodeLen >= 7): ?>
+                            <input type="number" name="digit7" id="digit7" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+                            <?php endif; ?>
+                            <?php if ($otpCodeLen >= 8): ?>
+                            <input type="number" name="digit8" id="digit8" maxlength="1" required oninput="this.value=this.value.slice(0,this.maxLength)" />
+                            <?php endif; ?>
+						</div>
+						<div class="wrapper-msg" style="display: none;">
+							<span class="message" style="color: red;"></span>
+						</div>
+					</div>
+				</div>
+				<div class="didnt-receive">
+                <?php if($block->isStaticOTPEnabled()): ?>
+                    <?php $contactUsUrl =  '<a class="contact-link" target="_blank" href="'. $block->getTargetUrl() .'">contact us</a>' ?>
+                    <?php echo __('Please %1, if you have a problem with OTP code', $contactUsUrl) ?> 
+                <?php else: ?>
+                    <?php echo __('Didn’t receive the OTP Code? %1', '<button class="btn-resend">Re-Send Now!</button>') ?> 
+                <?php endif; ?>
+                </div>
+				<div class="form-action">
+					<button class="btn btn-verify"><?php echo __('Verify OTP') ?></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+
+<script>
+	// <![CDATA[
+	require(
+    [
+    	'jquery',
+        'mage/storage',
+        'mage/url',
+        'mage/validation',
+        'mage/translate',
+	    'domReady!'
+    ],
+    function ($, storage, urlBuilder) {
+        'use strict';
+
+     	var codeObj = $('.otp-code'),
+     	resendObj = $('.btn-resend'), 
+     	verifyObj = $('.btn-verify'), 
+     	form = $('#form-otp'),
+     	ignore = null,
+     	verificationId = "<?php echo $block->getVerificationId() ?>",
+        ajaxKey = "<?php echo $block->getAjaxRequestKey() ?>",
+        urlVerify = "<?php echo $block->getVerifyUrl() ?>";
+		
+		verifyObj.on('click', verifyOtp);
+
+		form.mage('validation', {
+	        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+	    }).find('input:text').attr('autocomplete', 'off');
+
+        <?php if(!$block->isStaticOTPEnabled()): ?>
+        var resendObj = $('.btn-resend');
+        var urlResend = "<?php echo $block->getSendUrl() ?>";
+        resendObj.on('click', resendOtp);
+		
+        function resendOtp() {
+			event.preventDefault();
+
+			$('.wrapper-msg .message').html('');
+            $('.wrapper-msg').hide();
+
+			var telephone = "<?php echo $block->getMobileNumber() ?>";
+			var postData = '{"telephone":"' + telephone + '", "verificationId":"' + verificationId + '", "isAjax":1, "key":"' + ajaxKey + '"}';
+			
+            $('body').trigger('processStart');
+			$.ajax({
+                type: 'post',
+                url: urlResend,
+                data: postData,
+                contentType: 'application/json',
+                cache: false,
+                success: function(resp) {
+                    var response = JSON.parse(resp), status = response.status; 
+                    if(status) {
+                        verificationId = response.verification_id;
+                    }
+                    if (response.message) {
+                        $('.wrapper-msg').show();
+						$('.wrapper-msg .message').html(response.message);
+                    }
+                    setTimeout(function(){
+                        $('body').trigger('processStop');
+                    }, 1000);
+                }
+            });
+		}
+        <?php endif; ?>
+
+		function verifyOtp() {
+			event.preventDefault();
+            $('.wrapper-msg .message').html('');
+            $('.wrapper-msg').hide();
+
+			if(!form.validation('isValid')) {
+                $('#digit1').focus();
+		    	return false;
+		    }
+
+			if(!verificationId) {
+				verificationId = $('input[name="verification_id"]').val();
+			}
+			
+			var postData = '{"code":"' + codeObj.val() + '", "verificationId":"' + verificationId + '", "key":"' + ajaxKey + '"}';
+			
+            $('body').trigger('processStart');
+			$.ajax({
+				type: 'post',
+				data: postData,
+				url: urlVerify,
+				contentType: 'application/json',
+				cache: false,
+			  	success: function(resp) {
+                    var response = JSON.parse(resp), status = response.status;
+			  		if(status) {
+						verifyObj.attr("disabled", true);
+						resendObj.attr("disabled", true);
+						form.submit();
+			  		} else {
+                        $('.wrapper-msg').show();
+						$('.wrapper-msg .message').html(response.message);
+                        setTimeout(function(){
+                            $('body').trigger('processStop');
+                        }, 1000);
+                        $('#digit1').focus();
+                    }
+			    }
+			});
+		}
+
+		// input otp
+		$('.digit-group').find('input').each(function(idx, item) {
+			$(this).on('change keyup', function(e) {
+				$('.otp-code').val(combineOTPCode());
+			});
+		});
+
+        function combineOTPCode() {
+            let codes = '';
+            $('.digit-group').find('input').each(function(idx, item) {
+                codes += $(item).val();
+            });
+            return codes;
+        }
+    });
+  
+   	function OTPInput() {
+	  const inputs = document.querySelectorAll('.digit-group > *[id]');
+      const allowedChars = [0,1,2,3,4,5,6,7,8,9];
+	  for (let i = 0; i < inputs.length; i++) {
+	    inputs[i].addEventListener('keydown', function(event) {
+	      if (event.key === "Backspace") {
+            if (i === inputs.length - 1) {
+                if (inputs[i].value !== '') {
+                    inputs[i].value = '';
+                } else {
+                    inputs[i - 1].focus();
+                }
+            } else {
+                inputs[i].value = '';
+                if (i > 0) inputs[i - 1].focus();
+            }
+	      } else {
+            if (allowedChars.includes(parseInt(event.key))) {
+                inputs[i].value = event.key;
+                if (i !== inputs.length - 1)
+                    inputs[i + 1].focus();
+                event.preventDefault();
+            } else {
+                return true;
+            }
+	      }
+	    });
+	  }
+	}
+	OTPInput();
+	// ]]>
+</script>

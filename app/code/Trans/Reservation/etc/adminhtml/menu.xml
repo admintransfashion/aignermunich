@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Trans_Reservation::main" title="Reservation" translate="title" module="Trans_Reservation" sortOrder="10" dependsOnModule="Trans_Reservation" parent="CTCD_Core::core" resource="Trans_Reservation::main"/>
+        <add id="Trans_Reservation::reservation" title="Reservation List" translate="title" module="Trans_Reservation" sortOrder="1" parent="Trans_Reservation::main" action="reservation/reservation" resource="Trans_Reservation::reservation"/>
+        <add id="Trans_Reservation::configuration" title="Configuration" translate="title" module="Trans_Reservation" sortOrder="2" parent="Trans_Reservation::main" resource="Trans_Reservation::configuration" action="adminhtml/system_config/edit/section/reservation" />
+    </menu>
+</config>

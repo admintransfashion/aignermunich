@@ -1,0 +1,98 @@
+<?php
+/**
+ * @category Trans
+ * @package  Trans_Blog
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author   Ilma Dinnia Alghani <ilma.dinnia@transdigital.co.id>
+ * This a Mageplaza Blog Module overiding
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+/** @var \Mageplaza\Blog\Block\Widget\Posts $block */
+
+$posts = $block->getCollection();
+?>
+<div class="blog-widget-title"><a></a></div>
+<div class="post-list-container mpcss" id="mpblog-list-container">
+    <div class="widget-title">
+        <a href="<?= $block->getBlogUrl(''); ?>">
+            <?= $block->getTitle(); ?></a>
+    </div>
+    <div class="page-main">
+        <?php $i = 1 ?>
+        <?php foreach ($posts as $post) :
+                      if($i === 1){ ?>
+        <div class="blog-summary-list">
+            <div class="post-list-item">
+                <div>
+                    <?php if ($post->getImage()) : ?>
+                    <a href="<?= $post->getUrl() ?>">
+                        <img src="<?= $block->resizeImage($post->getImage(), '1200x'); ?>" alt="<?= $block->escapeHtml($post->getName()); ?>" />
+                    </a>
+                    <?php endif; ?>
+                    <div class="blog-summary-content">
+                        <h2 class="blog-summary-title">
+                            <a class="post-link-title" title="<?= $post->getName(); ?>" href="<?= $post->getUrl() ?>">
+                                <?= $post->getName(); ?>
+                            </a>
+                        </h2>
+                        <div class="mp-post-info">
+                            <?= $block->getPostInfo($post) ?>
+                        </div>
+                        <div class="post-short-description">
+                            <p>
+                                <?= $post->getShortDescription(); ?>
+                            </p>
+                        </div>
+                        <div class="mp-clearfix"></div>
+                        <div class="mp-post-meta-info mp-alignright">
+                            <div class="blog-summary-button">
+                                <a class="btn-outline" href="<?= $post->getUrl(); ?>" title="<?= __('Read More'); ?>">
+                                    <?= __('Read more'); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-seasons">
+            <?php } else{ ?>
+            <div class="post-list-item ">
+                <div>
+                    <?php if ($post->getImage()) : ?>
+                    <a href="<?= $post->getUrl() ?>">
+                        <img src="<?= $block->resizeImage($post->getImage(), '1200x'); ?>" alt="<?= $block->escapeHtml($post->getName()); ?>" />
+                    </a>
+                    <?php endif; ?>
+                    <div class="blog-summary-content">
+                        <h2 class="blog-summary-title">
+                            <a class="post-link-title" title="<?= $post->getName(); ?>" href="<?= $post->getUrl() ?>">
+                                <?= $post->getName(); ?>
+                            </a>
+                        </h2>
+                        <div class="mp-post-info">
+                            <?= $block->getPostInfo($post) ?>
+                        </div>
+                        <div class="post-short-description">
+                            <p>
+                                <?= $post->getShortDescription(); ?>
+                            </p>
+                        </div>
+                        <div class="mp-clearfix"></div>
+                        <div class="mp-post-meta-info mp-alignright">
+                            <div class="blog-summary-button">
+                                <a class="btn-outline" href="<?= $post->getUrl(); ?>" title="<?= __('Read More'); ?>">
+                                    <?= __('Read more'); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } $i++; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>

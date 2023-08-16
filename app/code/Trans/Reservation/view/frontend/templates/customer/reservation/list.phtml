@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Trans\Reser\Block\Customer\Reservation\ReserveList */
+?>
+
+<?php $reservations = $block->getList(); ?>
+<?= $block->getChildHtml('info') ?>
+<?php if ($reservations && count($reservations)): ?>
+    <div class="table-wrapper reservations-history">
+        <table class="data table table-order-items history" id="my-reservations-table">
+            <caption class="table-caption"><?= /* @escapeNotVerified */ __('reservations') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= /* @escapeNotVerified */ __('Reservation ID') ?></th>
+                    <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Date Created') ?></th>
+                    <th scope="col" class="col status"><?= /* @escapeNotVerified */ __('Status') ?></th>
+                    <th scope="col" class="col actions"><?= /* @escapeNotVerified */ __('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($reservations as $reserve): ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtml(__('Reservation ID')) ?>" class="col id"><?= /* @escapeNotVerified */ $reserve->getReservationNumber() ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Date Created')) ?>" class="col date"><?= /* @escapeNotVerified */ $block->changeDateFormat($reserve->getReservationDateSubmit(), 'd F Y g:i A') ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status"><?= /* @escapeNotVerified */ $block->getReservationStatus($reserve->getFlag()) ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?= /* @escapeNotVerified */ $block->getViewUrl($reserve) ?>" class="action view">
+                                <span><?= /* @escapeNotVerified */ __('View') ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?= /* @escapeNotVerified */ __('You have placed no reservations.') ?></span></div>
+<?php endif ?>

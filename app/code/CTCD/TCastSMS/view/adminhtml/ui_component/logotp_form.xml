@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2023 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_TCastSMS
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">logotp_form.ctcd_logotp_data_source</item>
+            <item name="deps" xsi:type="string">logotp_form.ctcd_logotp_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">logotp_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">CTCD\TCastSMS\Block\Adminhtml\Log\Edit\Buttons\Back</item>
+        </item>
+    </argument>
+    <dataSource name="ctcd_logotp_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">CTCD\TCastSMS\Ui\DataProvider\Grid\LogOtpDataProvider</argument>
+            <argument name="name" xsi:type="string">ctcd_logotp_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="main_section">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string"/>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+        <field name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                    <item name="dataScope" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="verification_id" sortOrder="10" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Verification ID</label>
+                <dataScope>verification_id</dataScope>
+            </settings>
+        </field>
+        <field name="message_id" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Message ID</label>
+                <dataScope>message_id</dataScope>
+            </settings>
+        </field>
+        <field name="mobile_number" sortOrder="30" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Mobile Number</label>
+                <dataScope>mobile_number</dataScope>
+            </settings>
+        </field>
+        <field name="otp_code" sortOrder="40" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">OTP Code</label>
+                <dataScope>otp_code</dataScope>
+            </settings>
+        </field>
+        <field name="delivered" sortOrder="50" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Delivered to Customer</label>
+                <dataScope>delivered</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="CTCD\TCastSMS\Model\Config\Source\Deliveryoptions"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="verified" sortOrder="60" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Verified by Customer</label>
+                <dataScope>verified</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="created_at" sortOrder="70" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Created Date</label>
+                <dataScope>created_at</dataScope>
+            </settings>
+        </field>
+        <field name="updated_at" sortOrder="80" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">main_section</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Last Update</label>
+                <dataScope>updated_at</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="api_responses">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">API Responses</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <field name="delivery_request_resp" sortOrder="10" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">api_responses</item>
+                    <item name="cols" xsi:type="number">15</item>
+                    <item name="rows" xsi:type="number">14</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Delivery Request Response</label>
+                <dataScope>delivery_request_resp</dataScope>
+            </settings>
+        </field>
+        <field name="delivery_request_string" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">api_responses</item>
+                    <item name="additionalInfo" xsi:type="string" translate="true"><![CDATA[For a detailed explanation of the error code, please check <a target="_blank" href="https://user.tcastsms.net/ApiDocument/ApiDocs">https://user.tcastsms.net/ApiDocument/ApiDocs</a>]]></item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Delivery Request</label>
+                <dataScope>delivery_request_string</dataScope>
+            </settings>
+        </field>
+        <field name="delivery_status_resp" sortOrder="30" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">api_responses</item>
+                    <item name="cols" xsi:type="number">15</item>
+                    <item name="rows" xsi:type="number">16</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Delivery Status Response</label>
+                <dataScope>delivery_status_resp</dataScope>
+            </settings>
+        </field>
+        <field name="delivery_status_string" sortOrder="40" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">api_responses</item>
+                    <item name="additionalInfo" xsi:type="string" translate="true"><![CDATA[For a detailed explanation of the error code, please check <a target="_blank" href="https://user.tcastsms.net/ApiDocument/ApiDocs">https://user.tcastsms.net/ApiDocument/ApiDocs</a>]]></item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Delivery Status</label>
+                <dataScope>delivery_status_string</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

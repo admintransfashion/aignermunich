@@ -1,0 +1,81 @@
+<?php
+/**
+ * @category Trans
+ * @package  Trans_Sms
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Muhammad Randy <muhammad.randy@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+?>
+
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Trans\CatalogProductList\Block\Category\Subcategories $block */
+?>
+<?php $categories = $block->getCategories(); ?>
+<div class="side-products">
+    <?php if(!empty($categories)): ?>
+        <?php foreach ($categories as $category): ?>
+            <?php $activeClass = $category['active'] ? 'active' : ''; ?>
+            <?php $parentClass = $category['parent'] ? 'parent' : ''; ?>
+            <?php $categoryData = $category['category']; ?>
+            <?php if(!$block->checkCatagoryProduct($categoryData->getId())) { continue; } ?>
+            <div class="block-category-list dckap-list">
+                <div class="block-title category-sidebar-title <?= $parentClass ?> <?= $activeClass ?>">
+                    <?php if($category['active']): ?>
+                        <a href="javascript:void(0)">
+                            <?php echo $categoryData->getName() ?>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?php echo $categoryData->getUrl() ?>" onclick="dataLayer.push({'event': 'product_navigation','menu_name': '<?php echo $categoryData->getName() ?>','user_id': '<?=(!$block->getCustomerIdCustom()) ? 'Not Login yet' : $block->getCustomerIdCustom()?>'});">
+                            <?php echo $categoryData->getName() ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
+<!-- for mobile -->
+<?php $mobileCategories = $block->getMobileCategories(); ?>
+<div class="side-products side-products-mobile">
+    <?php if(!empty($mobileCategories)): ?>
+        <div class="block-cat-cont">
+            <div class="block-cat-title" id="blockCatTitle"><?= $mobileCategories['title'];?></div>
+            <div class="block-cat-content">
+                <?php foreach ($mobileCategories['categories'] as $cat): ?>
+                    <?php $category = $cat['category']; ?>
+                    <?php if($cat['level'] == 3): ?>
+                        <div class="block-category-list dckap-list">
+                            <div class="block-title category-sidebar-title">
+                                <a href="<?= $category->getUrl() ?>" onclick="dataLayer.push({'event': 'product_navigation','menu_name': '<?= $category->getName() ?>','user_id': '<?= (!$block->getCustomerId()) ? 'Not Login yet' : $block->getCustomerId()?>'});"><strong><?= $category->getName() ?></strong></a>
+                            </div>
+                    <?php elseif($cat['level'] == 4): ?>
+                        <?php if($cat['first'] == true): ?>
+                            <div class="block-content category-sidebar-content"><ol class="items">
+                        <?php endif; ?>
+                            <li class="item"><a href="<?= $category->getUrl() ?>"><?= $category->getName() ?></a></li>
+                        <?php if($cat['last'] == true): ?>
+                            </ol></div></div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <script type="text/javascript">
+            require([
+                'jquery'
+            ], function ($) {
+                $("#blockCatTitle").on('click', function(){
+                    $(this).next(".block-cat-content").slideToggle();
+                });
+            });
+        </script>
+    <?php endif; ?>
+</div>

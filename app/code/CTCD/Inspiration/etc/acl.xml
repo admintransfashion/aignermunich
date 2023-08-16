@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Inspiration
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="CTCD_Core::core">
+                    <resource id="CTCD_Inspiration::main" title="Inspiration Module" sortOrder="10">
+                        <resource id="CTCD_Inspiration::inspiration" title="Manage Content" sortOrder="0">
+                            <resource id="CTCD_Inspiration::inspiration_update" title="Update Content" sortOrder="0" />
+                            <resource id="CTCD_Inspiration::inspiration_delete" title="Delete Content" sortOrder="1" />
+                        </resource>
+                        <resource id="CTCD_Inspiration::configuration" title="Configuration" sortOrder="1" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

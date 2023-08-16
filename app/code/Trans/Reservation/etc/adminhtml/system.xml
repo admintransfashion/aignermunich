@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="reservation" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Reservation</label>
+            <tab>ctcdcoretab</tab>
+            <resource>Trans_Reservation::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="disable_sales" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Sales Modules</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="guest_add_to_cart" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable guest add reservation to cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="reservation_number" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Reservation Number</label>
+                <field id="reservation_number_digit" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reservation Number Digit</label>
+                    <validate>validate-number</validate>
+                    <comment>example reservation number digit is 5, then reservation number will be 00011</comment>
+                </field>
+                <field id="use_stocecode_prefix" translate="label" type="select" sortOrder="88" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use store code as prefix</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="reservation_number_code" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reservation Number Prefix</label>
+                    <comment>example reservation number code is 'AIGNER', then reservation number will be AIGNER00011. Leave blank if dont want to use it.</comment>
+                </field>
+                <field id="reservation_number_delimiter" translate="label" type="text" sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delimiter</label>
+                    <comment>Leave blank if dont want to use it.</comment>
+                </field>
+            </group>
+            <group id="reservation_rules" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Reservation Rules</label>
+                <field id="enable_expire_nextday" translate="label" type="select" sortOrder="88" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Expire Next Day</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="expire_time" translate="label" type="text" sortOrder="88" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Expire At</label>
+                    <comment>Reservation will expire nexday at this expire time set.</comment>
+                </field>
+            </group>
+            <group id="product" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Config Rule</label>
+                <field id="multi_store" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Reservation From Multi Store</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_max_qty" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Max Qty Configuration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>if set no, system will use global max item qty.</comment>
+                </field>
+                <field id="default_qty" translate="label" type="text" sortOrder="88" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Qty Per Item</label>
+                </field>
+                <field id="buffer" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Global Product Buffer</label>
+                    <comment></comment>
+                </field>
+                <field id="max_item_qty" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Global Max Item Qty</label>
+                    <comment></comment>
+                </field>
+                <field id="priority" translate="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Filter Priority</label>
+                    <frontend_model>Trans\Reservation\Block\Adminhtml\Form\Field\FilterPriority</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+                <field id="hours_priority" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                   <label>Reservation Time Priority</label>
+                   <source_model>Trans\Reservation\Model\Config\Source\HoursPriority</source_model>
+                </field>
+                <field id="buffer_priority" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                   <label>Buffer Priority</label>
+                   <source_model>Trans\Reservation\Model\Config\Source\ConfigPriority</source_model>
+                </field>
+                <field id="maxqty_priority" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                   <label>Max Qty Priority</label>
+                   <source_model>Trans\Reservation\Model\Config\Source\ConfigPriority</source_model>
+                </field>
+                <field id="date_priority" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                   <label>Date Config Priority</label>
+                   <source_model>Trans\Reservation\Model\Config\Source\HoursPriority</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

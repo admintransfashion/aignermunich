@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Inspiration
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php
+/**
+ * $block \CTCD\Inspiration\Block\Inspiration\Content
+ */
+$menus = $block->getSidebarMenus();
+?>
+<?php if(!empty($menus)): ?>
+    <div class="inspiration-menus-mobile">
+        <?php foreach ($menus as $menu): ?>
+            <?php if($menu['active']): ?>
+                <div class="inspiration-mobile-title" id="inspirationMobileMenu">
+                    <span><?= $menu['title'] ?></span>
+                </div>
+                <?php break; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <div class="inspiration-mobile-items">
+        <?php foreach ($menus as $menu): ?>
+            <div class="inspiration-mobile-item <?= $menu['active'] ? 'active' : '' ?>">
+                <a href="<?= $menu['url'] ?>" onclick="<?= $menu['active'] ? '' : $menu['onclick'] ?>">
+                    <span><?= $menu['title'] ?></span>
+                </a>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
+<div class="inspiration-content">
+    <?= /* @noEscape */ $block->getContentHtml()  ?>
+</div>
+

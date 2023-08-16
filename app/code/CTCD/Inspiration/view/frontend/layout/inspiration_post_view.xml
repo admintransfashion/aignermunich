@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Inspiration
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="CTCD_Inspiration::css/styles.css" media="all" />
+        <script src="CTCD_Inspiration::js/inspiration.js"/>
+    </head>
+    <body>
+        <referenceContainer name="sidebar.additional">
+            <block class="CTCD\Inspiration\Block\Inspiration\Sidebar" name="inspiration.sidebar" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="CTCD\Inspiration\Block\Inspiration\Content" name="inspiration.content" />
+        </referenceContainer>
+    </body>
+</page>

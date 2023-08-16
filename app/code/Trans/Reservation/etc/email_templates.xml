@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Email/etc/email_templates.xsd">
+	<template id="reservation_notification" label="Reservation Email Notification" file="reservation_notification.html" type="html" module="Trans_Reservation" area="frontend"/>
+	<template id="reservation_reminder_notification" label="Reservation Email Notification Reminder" file="reservation_reminder_notification.html" type="html" module="Trans_Reservation" area="frontend"/>
+	<template id="reservation_sales_notification" label="Reservation Email Notification Sales" file="reservation_sales_notification.html" type="html" module="Trans_Reservation" area="frontend"/>
+	<template id="cancel_reservation_notification" label="Cancel Reservation Email Notification" file="cancel_reservation_notification.html" type="html" module="Trans_Reservation" area="frontend"/>
+	<template id="autocancel_reservation_notification" label="Auto Cancel Reservation Email Notification" file="autocancel_reservation_notification.html" type="html" module="Trans_Reservation" area="frontend"/>
+</config>

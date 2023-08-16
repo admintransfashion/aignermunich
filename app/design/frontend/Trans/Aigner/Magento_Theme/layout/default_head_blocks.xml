@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id> 
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../vendor/magento/framework/Module/etc/module.xsd">
+  <head>
+   <css src="css/home.css" order="100"/>
+   <css src="css/main.css" order="100"/>
+   <css src="css/custom-h.css" order="100"/>
+   <css src="css/custom.css" order="100"/>
+   <script src="js/custom-h.js"/>
+  </head>
+</page>

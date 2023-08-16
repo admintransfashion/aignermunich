@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category Trans
+ * @package  Trans_Customer
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author  Imam Kusuma <imam.kusuma@transdigital.co.id>
+ * @author  Babono <babono@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <move element="customer_form_login" destination="customer.login.container.aigner"  before="customer_form_register"/>
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="content">
+            <container name="customer.login.container.aigner" label="Customer Login Container Aigner" htmlTag="div" htmlClass="form-columns">
+                <referenceBlock name="customer_form_login">
+                    <action method="setTemplate">
+                        <argument name="template" xsi:type="helper" helper="Trans\Customer\Helper\Config::getLoginTemplate"></argument>
+                    </action>
+                </referenceBlock>
+
+                <!-- Create New Account Page -->
+                <block class="Magento\Customer\Block\Form\Register" name="customer_form_register" template="Magento_Customer::form/register.phtml">
+                    <arguments>
+                        <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+                    </arguments>
+                    <container name="form.additional.info" as="form_additional_info"/>
+                    <container name="customer.form.register.fields.before" as="form_fields_before" label="Form Fields Before" htmlTag="div" htmlClass="customer-form-before"/>
+                </block>
+                <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+                    <arguments>
+                        <argument name="triggers" xsi:type="array">
+                            <item name="registerSubmitButton" xsi:type="string">.action.submit</item>
+                        </argument>
+                    </arguments>
+                </block>
+                <!-- End Create New Account Page -->
+            </container>
+        </referenceContainer>
+
+        <!-- Remove New Customer in Login Page -->
+        <referenceBlock name="customer.new" remove="true"/> 
+        <!-- End Remove New Customer in Login Page -->
+
+        <!-- Telephone Layout -->
+        <referenceContainer name="form.additional.info">
+            <block class="Trans\Customer\Block\Account\Form\Field\Telephone" name="form_additional_info_customer" template="Trans_Customer::additional.phtml"/>
+        </referenceContainer>
+        <!-- End Telephone Layout -->
+    </body>
+</page>

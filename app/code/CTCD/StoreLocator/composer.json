@@ -1,0 +1,40 @@
+{
+    "name": "ctcd/storelocator",
+    "description": "Core Module for CTCorp Projects",
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "Proprietary"
+    ],
+    "authors": [
+        {
+            "name": "Imam Kusuma",
+            "email": "imam.kusuma@ctcorpdigital.com",
+            "homepage": "https://www.ctcorpdigital.com",
+            "role": "Magento Developer"
+        },
+        {
+            "name": "Ashadi Muliawan Sejati",
+            "email": "ashadi.sejati@ctcorpdigital.com",
+            "homepage": "https://www.ctcorpdigital.com",
+            "role": "Magento Developer"
+        },
+        {
+            "name": "Edi Suryadi",
+            "email": "edi.suryadi@ctcorpdigital.com",
+            "homepage": "https://www.ctcorpdigital.com",
+            "role": "Magento Developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CTCD\\StoreLocator\\": ""
+        }
+    }
+}

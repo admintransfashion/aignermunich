@@ -1,0 +1,127 @@
+<?php
+/**
+ * @category Trans
+ * @package  Trans_Blog
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author   Babono <nurul.akbar@transdigital.co.id>
+ * @author   Ilma Dinnia Alghani <ilma.dinnia@transdigital.co.id>
+ * 
+ * This a Mageplaza Blog Module overiding
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+/** @var \Mageplaza\Blog\Block\Frontend $block */
+$helperCustId = $this->helper(\Trans\Gtm\Helper\Data::class); 
+$getCustomerId = (!$helperCustId->getCustomerIdCustom()) ? 'Not Login yet' : $helperCustId->getCustomerIdCustom() ;
+?>
+<section class="blog">
+    <div class="page-content" id="mpblog-list-container">
+        <div class="page-main">
+            <div class="blog-summary-list">
+                <?php $postCollection = $block->getPostCollection(); ?>
+                <?php if ($postCollection && $postCollection->getSize()) : ?>
+                <?php $i = 1 ?>
+                <?php /** @var \Mageplaza\Blog\Model\Post $post */
+
+                foreach ($postCollection as $post) : 
+                    if($i === 1){ ?>
+                <div class="blog-summary-item">
+                    <a href="<?= $post->getUrl() ?>" class="blog-summary-link">
+                        <?php if ($post->getImage()) : ?>
+                        <img src="<?= $block->resizeImage($post->getImage(), '1200x'); ?>" alt="<?= $block->escapeHtml($post->getName()); ?>" />
+                        <?php endif; ?>
+                    </a>
+                    <div class="blog-summary-content">
+                        <div class="blog-summary-title"><a title="<?= $block->escapeHtml($post->getName()); ?>" href="<?= $post->getUrl() ?>">
+                                <?= $post->getName(); ?></a></div>
+                        <div class="blog-summary-meta">
+                            <span>•</span>
+                            <?= $block->getPostInfo($post); ?>
+                        </div>
+                        <div class="blog-summary-description">
+                            <?= $block->maxShortDescription($post->getShortDescription()); ?>
+                        </div>
+                        <div class="blog-summary-button">
+                            <a href="<?= $post->getUrl(); ?>" title="<?= __('Read More'); ?>" class="btn-outline" onclick="dataLayer.push({'event': 'read_article','content_title': '<?= $post->getName(); ?>','content_publishDate': '<?= $this->getDateFormat($post->getPublishDate())?>','user_id': '<?=$getCustomerId?>' });">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="instafeed" class="instafeed-ig">
+                    <div class="label-instagram">
+                        <?= __('LATEST LOOKS WITH AIGNER'); ?>
+                    </div>
+                    <p class="title all-photos">
+                        <a class="link-to-profile" href="https://transfashionindonesia.com/aigner/" target="_blank">
+                            <?= __('All photos'); ?></a>
+                    </p>
+                    <div class="img-overflow">
+                        <div class="image-wrapper wrapper-instagram">
+                            <div>
+                                <a href="https://transfashionindonesia.com/aigner/" target="_blank">
+                                    <img class="img-ig" src="<?php echo $this->getViewFileUrl('Mageplaza_Blog::images/ig_post1.jpg'); ?>">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://transfashionindonesia.com/aigner/" target="_blank">
+                                    <img class="img-ig" src="<?php echo $this->getViewFileUrl('Mageplaza_Blog::images/ig_post2.jpg'); ?>">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://transfashionindonesia.com/aigner/" target="_blank">
+                                    <img class="img-ig" src="<?php echo $this->getViewFileUrl('Mageplaza_Blog::images/ig_post3.jpg'); ?>">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://transfashionindonesia.com/aigner/" target="_blank">
+                                    <img class="img-ig" src="<?php echo $this->getViewFileUrl('Mageplaza_Blog::images/ig_post4.jpg'); ?>">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://transfashionindonesia.com/aigner/" target="_blank">
+                                    <img class="img-ig" src="<?php echo $this->getViewFileUrl('Mageplaza_Blog::images/ig_post5.jpg'); ?>">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php } else{ ?>
+                <div class="blog-summary-item">
+                    <a href="<?= $post->getUrl() ?>" class="blog-summary-link">
+                        <?php if ($post->getImage()) : ?>
+                        <img src="<?= $block->resizeImage($post->getImage(), '1200x'); ?>" alt="<?= $block->escapeHtml($post->getName()); ?>" />
+                        <?php endif; ?>
+                    </a>
+                    <div class="blog-summary-content">
+                        <div class="blog-summary-title"><a title="<?= $block->escapeHtml($post->getName()); ?>" href="<?= $post->getUrl() ?>">
+                                <?= $post->getName(); ?></a></div>
+                        <div class="blog-summary-meta">
+                            <span>•</span>
+                            <?= $block->getPostInfo($post); ?>
+                        </div>
+                        <div class="blog-summary-description">
+                            <?= $block->maxShortDescription($post->getShortDescription()); ?>
+                        </div>
+                        <div class="blog-summary-button">
+                            <a href="<?= $post->getUrl(); ?>" title="<?= __('Read More'); ?>" class="btn-outline" onclick="dataLayer.push({'event': 'read_article','content_title': '<?= $post->getName(); ?>','content_publishDate': '<?= $this->getDateFormat($post->getPublishDate())?>','user_id': '<?=$getCustomerId?>' });">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <?php } $i++; ?>
+                <?php endforeach; ?>
+                <?= $block->getPagerHtml() ?>
+                <?php else : ?>
+                <?= __('There are no posts at this moment'); ?>
+                <?php endif; ?>
+                <?= $this->getChildHtml('additional'); ?>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+require(['jquery'], function($) {
+    $('.limiter').remove();
+});
+</script>

@@ -1,0 +1,50 @@
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<!--@subject {{trans "Incoming reservation email"}} @-->
+<!--@vars {
+"var content|raw":"Content",
+"var reservation|raw":"Reservation",
+"var is_sales|raw":"Is Sales",
+"var sales_store|raw":"Sales Store",
+"var placed_date|raw":"Placed Date",
+"var customer|raw":"Customer",
+"var source_name|raw":"Source Name"
+"var storeName|raw":"Store Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h1 style="text-align: center;">{{trans '%storeName' storeName=$storeName}}</h1>
+<p style="text-align: center;">
+    You have 1 new reservation with the following details.<br/><br/>
+    Customer Info:<br/>
+    {{trans '<strong>%customerName</strong>' customerName=$customer.getName() | raw}}<br/>
+    {{trans '<strong>%customerTelephone</strong>' customerTelephone=$customer.getTelephone() | raw}}<br/>
+    {{trans '<strong>%customerEmail</strong>' customerEmail=$customer.getEmail() | raw}}<br/><br/>
+    {{trans 'Reservation ID: <strong>%reservationNumber</strong>' reservationNumber=$reservation.getReservationNumber() | raw}}
+</p>
+
+{{layout handle="reservation_email_items" reservation=$reservation is_sales=1 sales_store=$sales_store area="frontend"}}
+
+<div style="
+    border-top: solid 8px #e7e6e2;
+    border-bottom: solid 8px #e7e6e2;
+    padding-top: 50px;
+    padding-bottom: 50px;
+">
+    <p style="text-align: center;">{{trans 'It's time to prepare the item!.'}}</p>
+</div>
+
+{{template config_path="design/email/footer_template"}}

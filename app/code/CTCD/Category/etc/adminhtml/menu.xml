@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Category
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="CTCD_Category::main" title="Category Management" translate="title" module="CTCD_Category" sortOrder="100" dependsOnModule="CTCD_Category" parent="CTCD_Core::core" resource="CTCD_Category::main"/>
+        <add id="CTCD_Category::import" title="Bulk Importer" translate="title" module="CTCD_Category" sortOrder="1" parent="CTCD_Category::main" action="ctcdcategory/import" resource="CTCD_Category::import"/>
+        <add id="CTCD_Category::configuration" title="Configuration" translate="title" module="CTCD_Category" sortOrder="2" parent="CTCD_Category::main" resource="CTCD_Category::configuration" action="adminhtml/system_config/edit/section/category_importer" />
+   </menu>
+</config>

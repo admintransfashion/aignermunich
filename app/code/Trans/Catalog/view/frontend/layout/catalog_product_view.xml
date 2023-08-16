@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--  
+/**
+ * @category Trans
+ * @package  Trans_Catalog
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ *
+ * Copyright © 2019 CT Corp Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Trans\Catalog\Block\Product\View\Colors" name="product.colors" as="product.colors" template="Trans_Catalog::product/view/colors.phtml" after="product.colors.info" cacheable="false"/>
+        </referenceContainer>
+
+        <referenceContainer name="sticky.pdp.custom.container.item">
+        <container name="sticky.pdp.custom.container.item.image" htmlTag="div" htmlClass="stickyNav-image" before="-" >
+            <block class="Trans\Catalog\Block\Product\View\Colors" name="sticky.pdp.custom.container.item.imagee" template="Trans_Catalog::product/view/sticky-pdp.phtml" before="-" cacheable="false"/>
+        </container>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Catalog\Block\Product\View" name="gtm.datalayer.pdp" after="-" template="Trans_Catalog::product/view/footer-data-layer.phtml" />
+        </referenceContainer>
+    </body>
+</page>

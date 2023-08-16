@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php
+$buttonTitle = $block->getData('buttontitle') ? : \Trans\Widgets\Block\Widget\EditorialFeaturedProduct::DEFAULT_BUTTON_TITLE;
+?>
+<?php if ($products = $block->getProductCollection()) : ?>
+<?php $transProductHelper = $this->helper('Trans\Catalog\Helper\Product'); ?>
+<?php $helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<section class="product-grid editorial-product-grid editorial-section">
+    <div class="wrapper">
+        <?php if($block->getTitle()): ?>
+        <h3><?= $block->getTitle() ?></h3>
+        <?php endif; ?>
+        <div class="product-items">
+        <?php foreach ($products as $product) : ?>
+            <div class="product-item">
+                <div class="product-item-info">
+                    <?php $productImage = $block->getImage($product, 'category_page_grid'); ?>
+                    <a href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1"><?= $productImage->toHtml() ?></a>
+                </div>
+                <div class="product details product-item-details">
+                    <strong class="product name product-item-name">
+                        <a class="product-item-link"
+                           href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
+                            <?= /* @escapeNotVerified */ $helper->productAttribute($product, $product->getName(), 'name') ?>
+                        </a>
+                    </strong>
+                    <?php if($badgeHtml = $transProductHelper->getProductBadge($product)): ?>
+                        <div class="product-badge-container"><?= $badgeHtml ?></div>
+                    <?php endif; ?>
+                    <?= /* @escapeNotVerified */ $block->getProductPrice($product) ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </div>
+ </section>
+<?php endif; ?>

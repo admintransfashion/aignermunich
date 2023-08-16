@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Inspiration
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="CTCD_Inspiration::main" title="Inspiration Management" translate="title" module="CTCD_Inspiration" sortOrder="10" dependsOnModule="CTCD_Inspiration" parent="CTCD_Core::core" resource="CTCD_Inspiration::main"/>
+        <add id="CTCD_Inspiration::inspiration" title="Manage Content" translate="title" module="CTCD_Inspiration" sortOrder="1" parent="CTCD_Inspiration::main" action="ctcdinspiration/inspiration" resource="CTCD_Inspiration::inspiration"/>
+        <add id="CTCD_Inspiration::configuration" title="Configuration" translate="title" module="CTCD_Inspiration" sortOrder="2" parent="CTCD_Inspiration::main" resource="CTCD_Inspiration::configuration" action="adminhtml/system_config/edit/section/ctcd_inspiration" />
+    </menu>
+</config>

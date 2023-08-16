@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--  
+/**
+ * @category Trans
+ * @package  Trans_CatalogSeacrh
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author   hadi <ashadi.sejati@ctcorpdigital.com>
+ *
+ * Copyright © 2019 CT Corp Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!-- catalog search -->
+	<type name="Magento\CatalogSearch\Block\Result">
+		<plugin name="catalog_search_plugin" type="Trans\CatalogSearch\Plugin\Catalog\Block\Result" sortOrder="1" />
+	</type>
+	<!-- end catalog search -->
+</config>

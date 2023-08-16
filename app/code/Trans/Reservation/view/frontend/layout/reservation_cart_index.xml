@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    	<referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="content">
+            <block class="Trans\Reservation\Block\Cart\Grid" name="reservation.cart.form" as="cart-items" template="Trans_Reservation::cart/form.phtml" cacheable="false">
+            	<block class="Trans\Reservation\Block\Cart\Customer" name="reservation.cart.form.login" as="cart-login" template="Trans_Reservation::cart/login.phtml" cacheable="false"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

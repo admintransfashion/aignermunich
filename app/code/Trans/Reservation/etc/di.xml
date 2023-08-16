@@ -1,0 +1,211 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- reservation -->
+	<preference for="Trans\Reservation\Api\Data\ReservationInterface" type="Trans\Reservation\Model\Reservation"/>
+    <preference for="Trans\Reservation\Api\ReservationRepositoryInterface" type="Trans\Reservation\Model\ReservationRepository"/>
+    <!-- end reservation -->
+
+    <!-- reservation config -->
+    <preference for="Trans\Reservation\Api\Data\ReservationConfigInterface" type="Trans\Reservation\Model\ReservationConfig"/>
+    <preference for="Trans\Reservation\Api\ReservationConfigRepositoryInterface" type="Trans\Reservation\Model\ReservationConfigRepository"/>
+    <!-- end reservation config -->
+
+    <!-- reservation item -->
+    <preference for="Trans\Reservation\Api\Data\ReservationItemInterface" type="Trans\Reservation\Model\ReservationItem"/>
+    <preference for="Trans\Reservation\Api\ReservationItemRepositoryInterface" type="Trans\Reservation\Model\ReservationItemRepository"/>
+    <!-- end reservation item -->
+
+    <!-- reservation attribute -->
+    <preference for="Trans\Reservation\Api\Data\ReservationAttributeInterface" type="Trans\Reservation\Model\ReservationAttribute"/>
+    <preference for="Trans\Reservation\Api\ReservationAttributeRepositoryInterface" type="Trans\Reservation\Model\ReservationAttributeRepository"/>
+    <!-- end reservation attribute -->
+
+    <!-- source attribute -->
+    <preference for="Trans\Reservation\Api\Data\SourceAttributeInterface" type="Trans\Reservation\Model\SourceAttribute"/>
+    <preference for="Trans\Reservation\Api\SourceAttributeRepositoryInterface" type="Trans\Reservation\Model\SourceAttributeRepository"/>
+    <!-- end source attribute -->
+
+    <!-- source attribute -->
+    <preference for="Trans\Reservation\Api\Data\UserStoreInterface" type="Trans\Reservation\Model\UserStore"/>
+    <preference for="Trans\Reservation\Api\UserStoreRepositoryInterface" type="Trans\Reservation\Model\UserStoreRepository"/>
+    <!-- end source attribute -->
+
+    <!-- source data provider -->
+    <type name="Magento\InventoryAdminUi\Ui\DataProvider\SourceDataProvider">
+		<plugin name="displaySourceAttribute" type="Trans\Reservation\Plugin\InventoryAdminUi\Ui\DataProvider\SourceDataProvider" />
+	</type>
+    <!-- end source data provider -->
+
+    <!-- block product view -->
+    <preference for="Magento\Catalog\Block\Product\View" type="Trans\Reservation\Preference\Catalog\Block\Product\View"/>
+    <!-- end block product view -->
+
+    <!-- block product list -->
+    <preference for="Magento\Catalog\Block\Product\ListProduct" type="Trans\Reservation\Preference\Catalog\Block\Product\ListProduct"/>
+    <preference for="Magento\CatalogSearch\Block\SearchResult\ListProduct" type="Trans\Reservation\Preference\Catalog\Block\Product\ListProduct"/>
+    <!-- end block product list -->
+
+    <!-- block pager -->
+    <type name="Magento\Framework\Data\Collection">
+        <plugin name="data_collection_custom" type="Trans\Reservation\Plugin\Framework\Data\Collection"/>
+    </type>
+    <!-- end block pager -->
+
+    <!-- admin grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="reservation_listing_data_source" xsi:type="string">Trans\Reservation\Model\ResourceModel\Reservation\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Trans\Reservation\Model\ResourceModel\Reservation\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">reservation</argument>
+            <argument name="eventPrefix" xsi:type="string">trans_reservation_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">trans_reservation_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">\Trans\Reservation\Model\ResourceModel\Reservation</argument>
+        </arguments>
+    </type>
+    <!-- end admin grid -->
+
+    <!-- reservation product buffer admin grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="reservation_buffer_listing_data_source" xsi:type="string">Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\BufferCollection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">reservation_product_config</argument>
+            <argument name="eventPrefix" xsi:type="string">trans_reservation_buffer_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">trans_reservation_buffer_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">\Trans\Reservation\Model\ResourceModel\ReservationConfig</argument>
+        </arguments>
+    </type>
+    <!-- reservation product buffer admin grid -->
+
+    <!-- reservation product max qty config admin grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="reservation_maxqty_listing_data_source" xsi:type="string">Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\MaxqtyCollection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">reservation_product_config</argument>
+            <argument name="eventPrefix" xsi:type="string">trans_reservation_maxqty_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">trans_reservation_maxqty_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">\Trans\Reservation\Model\ResourceModel\ReservationConfig</argument>
+        </arguments>
+    </type>
+    <!-- reservation product max qty config admin grid -->
+
+    <!-- reservation hours admin grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="reservation_hours_listing_data_source" xsi:type="string">Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\HoursCollection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">reservation_product_config</argument>
+            <argument name="eventPrefix" xsi:type="string">trans_reservation_hours_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">trans_reservation_hours_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">\Trans\Reservation\Model\ResourceModel\ReservationConfig</argument>
+        </arguments>
+    </type>
+    <!-- reservation hours admin grid -->
+
+    <!-- reservation date admin grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="reservation_date_listing_data_source" xsi:type="string">Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\DateCollection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Trans\Reservation\Model\ResourceModel\ReservationConfig\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">reservation_product_config</argument>
+            <argument name="eventPrefix" xsi:type="string">trans_reservation_date_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">trans_reservation_date_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">\Trans\Reservation\Model\ResourceModel\ReservationConfig</argument>
+        </arguments>
+    </type>
+    <!-- reservation date admin grid -->
+
+    <!-- Looger -->
+    <type name="Trans\Reservation\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Trans\Reservation\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">reservationLog</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Trans\Reservation\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Trans\Reservation\ConfigReservationUploader" type="Trans\Reservation\Model\Import\Reservation\Uploader">
+        <arguments>
+                <argument name="baseTmpPath" xsi:type="string">test/tmp</argument>
+                <argument name="basePath" xsi:type="string">test</argument>
+                <argument name="allowedExtensions" xsi:type="array">
+                    <item name="xls" xsi:type="string">xls</item>
+                </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Trans\Reservation\Controller\Adminhtml\Config\Upload">
+        <arguments>
+                <argument name="uploader" xsi:type="object">Trans\Reservation\ConfigReservationUploader</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="import_config_sku_bulk" xsi:type="string">Trans_Reservation</item>
+                <item name="import_sku_bulk" xsi:type="string">Trans_Reservation</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                 <item name="TransReservationAutoCancelConsole" xsi:type="object">Trans\Reservation\Console\AutoCancel</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

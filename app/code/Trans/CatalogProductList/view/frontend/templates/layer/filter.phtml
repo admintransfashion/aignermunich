@@ -1,0 +1,99 @@
+<?php
+/**
+ * @category Trans
+ * @package  Trans_CatalogProductList
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Muhammad Randy <muhammad.randy@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+?>
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation\FilterRenderer
+ */
+?>
+<?php $getCustomerId = $block->getCurrentCustomerId() ?>
+<?php if ($filter instanceof Magento\CatalogSearch\Model\Layer\Filter\Price): ?>
+    <?php $range = $block->getPriceRange($filter); ?>
+    <?php $url = str_replace('price=', '', $block->getFilterUrl($filter)); ?>
+    <?php $url = str_replace('?&', '?', $url); ?>
+    <?php
+        if(strpos($url, '?') === false){
+            $url .= '?price=';
+        }
+        else{
+            $urls = explode('?', $url);
+            if(count($urls) > 1 && $urls[1] != ''){
+                $url .= '&price=';
+            }
+            else{
+                $url .= 'price=';
+            }
+        }
+    ?>
+    <script>
+        var price_url = "<?= $url; ?>";
+        require([
+            'jquery',
+            "jquery/ui",
+            'domReady!'
+        ], function ($) {
+            $("div#price-slider").slider({
+                range: true,
+                step: 500000,
+                min: <?= $range['min'] ?>,
+                max: <?= $range['max'] ?>,
+                values: [<?= $range['min'] ?>, <?= $range['max'] ?>],
+                slide: function (event, ui) {
+                    $("#amount").val(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+                },
+                change: function (event, ui) {
+                    dataLayer.push({
+                    'event': 'filter_by',
+                    'filter_category': 'Price',
+                    'filter_name': ''+ ui.values[0] + '-' + ui.values[1]+'',
+                    'user_id': '<?=$getCustomerId?>'
+                    });
+
+                    window.location.href = price_url + ui.values[0] + "-" + ui.values[1];
+                }
+            });
+            $("#amount").val($("#price-slider").slider("values", 0) + " - " + $("#price-slider").slider("values", 1));
+        });
+    </script>
+    <?php ?>
+    <div class="filter-price-range">
+        <label for="amount" style="display: none;"><?= __('Price range:') ?></label>
+        <input type="text" id="amount" readonly />
+    </div>
+    <div id="price-slider"></div>
+
+<?php else: ?>
+    <div class="radio-custom">
+        <?php foreach ($filterItems as $filterItem): ?>
+            <div class="radio-col">
+                <?php if ($filterItem->getCount() > 0): ?>
+                    <a href="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>" onclick="dataLayer.push({'event': 'filter_by','filter_category': '<?= /** @noEscape */ __($filter->getName()) ?>','filter_name': '<?php echo $filterItem->getLabel() ?>','user_id': '<?=$getCustomerId?>'});">
+                        <input type="radio" name="pro-size" id="<?php /* @escapeNotVerified */ echo $filterItem->getId() ?>">
+                        <label for="<?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>"> <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?></label>
+                    </a>
+                <?php else: ?>
+                    <label for="<?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>"> <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?></label>
+                <?php endif; ?>
+            </div>
+        <?php endforeach ?>
+    </div>
+<?php endif; ?>

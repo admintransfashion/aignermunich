@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Trans\Reser\Block\Cart\Grid */
+?>
+<?php $reservation = $block->getReservation() ?>
+<?php $items = $block->getItems(); ?>
+<?php if(count($items) > 0 && $block->isItemsProductExists($items)) : ?>
+        <div class="cart table-wrapper">
+            <table id="shopping-cart-table" class="cart items data table" data-mage-init='{"shoppingCart":{"emptyCartButton": ".action.clear", "updateCartActionContainer": "#update_cart_action_container"}}'>
+                <tbody class="cart item">
+                    <?php foreach ($items as $item): ?>
+                        <?php $product = $block->getProductById($item->getProductId()); ?>
+                        <?php if(!$product) { continue; } ?>
+                        <tr class="item-info">
+                            <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
+                                <img src="<?php echo $block->getImageUrl($product); ?>" class="cart_page_product_thumbnail"/>
+                            </td>
+                            <td class="col info" data-th="<?= $block->escapeHtml(__('Info')) ?>">
+                                <div class="product-item-details" style="padding-bottom: 0px;">
+                                    <strong class="product-item-name">
+                                        <span><?php echo $block->escapeHtml($product->getName()) ?></span>
+                                    </strong>
+                                    <div class="product-item-attribute">
+                                        <span>
+                                            <?php if($product->getResource()->getAttribute('color')->getFrontend()->getValue($product)) { ?>
+                                                <?php echo $product->getResource()->getAttribute('color')->getFrontendLabel(); ?> :
+                                                <?php echo $product->getResource()->getAttribute('color')->getFrontend()->getValue($product); ?>
+                                            <?php } ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+<?php else: ?>
+    <div>
+        <p><?php echo __('Keranjang reservasi anda kosong.'); ?></p>
+        <p><?php echo __('Klik <a href="%1">disini</a> untuk melanjutkan reservasi.', $block->getBaseUrl()); ?></p>
+    </div>
+<?php endif; ?>

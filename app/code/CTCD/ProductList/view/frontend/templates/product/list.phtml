@@ -1,0 +1,126 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_ProductList
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php
+$productCollection = $block->getLoadedProductCollection();
+$helper = $this->helper('Magento\Catalog\Helper\Output');
+$transProductHelper = $this->helper('Trans\Catalog\Helper\Product');
+$gtmHelper = $this->helper('Trans\Gtm\Helper\Data');
+$getCustomerId = $gtmHelper->getCurrentCustomerId();
+?>
+<?php if (!$productCollection || !$productCollection->count()): ?>
+    <div class="message info empty">
+        <div><?= /* @escapeNotVerified */ __('SORRY, NO PRODUCTS FOUND') ?></div>
+        <div><?= /* @escapeNotVerified */ __('We\'re sorry that we couldn\'t find any products matching, please make sure that you have entered the correct search term and try again.') ?></div>
+    </div>
+<?php else: ?>
+    <?= $block->getToolbarHtml() ?>
+    <?php
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    ?>
+    <div class="products wrapper <?= /* @escapeNotVerified */ $viewMode ?> products-<?= /* @escapeNotVerified */ $viewMode ?>">
+        <ol class="products list items product-items">
+            <?php $counter = 1; foreach ($productCollection as $_product): ?>
+                <li class="item product product-item">
+                    <div class="product-item-info" data-container="product-<?= /* @escapeNotVerified */ $viewMode ?>">
+                        <?php $productImage = $block->getImage($_product, $imageDisplayArea); ?>
+                        <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" id="productList<?=$counter?>" class="product photo product-item-photo" onclick="dataLayer.push({
+                        'event': 'product_click',
+                        'product_size': '<?= $gtmHelper->getProductAttributeValue($_product->getId(), 'size'); ?>',
+                        'product_for': '<?= $gtmHelper->getCategoryC0NamesByProduct($_product) ?>',
+                        'user_id': '<?= $getCustomerId ?>',
+                        'ecommerce': {
+                          'click': {
+                            'actionField': {'list': 'Shop'},
+                            'products': [{
+                              'name': '<?= /* @escapeNotVerified */ $helper->productAttribute($_product, $_product->getName(), 'name') ?>',
+                              'id': '<?= /* @escapeNotVerified */ $helper->productAttribute($_product, $_product->getSku(), 'sku') ?>',
+                              'price': '<?= /* @escapeNotVerified */ $helper->productAttribute($_product, $_product->getFinalPrice(), 'price') ?>',
+                              'brand': 'Aigner',
+                              'category': '<?= $gtmHelper->getCategoryNamesByProduct($_product) ?>',
+                              'variant': '<?= $gtmHelper->getProductAttributeValue($_product->getId(), 'color'); ?>',
+                              'position': '<?=$counter?>'
+                             }]}}});
+                        "
+                         data-layer-already="0" tabindex="-1"><?= $productImage->toHtml() ?></a>
+                        <span class="datalayer-click" style="display: none;" onclick='dataLayer.push({"event": "product_view","product_size": "<?= $gtmHelper->getProductAttributeValue($_product->getId(), 'size'); ?>","product_for": "<?= $gtmHelper->getCategoryC0NamesByProduct($_product) ?>","user_id": "<?=$getCustomerId?>","ecommerce": {"currencyCode": "IDR","impressions": [{"name": "<?=$helper->productAttribute($_product, $_product->getName(), 'name') ?>","sku": "<?=$helper->productAttribute($_product, $_product->getSku(), 'sku') ?>","price": "<?=$helper->productAttribute($_product, $_product->getFinalPrice(), 'price') ?>","brand": "Aigner","category": "<?= $gtmHelper->getCategoryNamesByProduct($_product) ?>","variant": "<?= $gtmHelper->getProductAttributeValue($_product->getId(), 'color'); ?>","list": "Shop","position": "<?=$counter?>"}]}});'></span>
+                        <div class="product details product-item-details">
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link"
+                                   href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>">
+                                    <?= /* @escapeNotVerified */ $helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                                </a>
+                            </strong>
+                            <?php if($badgeHtml = $transProductHelper->getProductBadge($_product)): ?>
+                                <div class="product-badge-container"><?= $badgeHtml ?></div>
+                            <?php endif; ?>
+                            <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                        </div>
+                    </div>
+                </li>
+            <?php $counter++; endforeach; ?>
+        </ol>
+    </div>
+
+    <?= $block->getToolbarHtml() ?>
+<?php endif; ?>
+
+<script type="text/javascript">
+    require([
+    'jquery',
+    'domReady!'
+], function ($) {
+    function isOnScreen(elem) {
+        // if the element doesn't exist, abort
+        if( elem.length == 0 ) {
+            return;
+        }
+        var $window = $(window)
+        var viewport_top = $window.scrollTop()
+        var viewport_height = $window.height()
+        var viewport_bottom = viewport_top + viewport_height
+        var $elem = $(elem)
+        var top = $elem.offset().top
+        var height = $elem.height()
+        var bottom = top + height
+
+        return (top >= viewport_top && top < viewport_bottom) ||
+        (bottom > viewport_top && bottom <= viewport_bottom) ||
+        (height > viewport_height && top <= viewport_top && bottom >= viewport_bottom)
+    }
+
+    $(window).on('scroll', function() {
+        $(".product-items .product-item .product").each(function(){
+            var idData = '#' + $(this).attr('id');
+            if( isOnScreen( $(idData) ) ) {
+                if ($(this).attr('data-layer-already') == 0) {
+                    $(this).next('span.datalayer-click').click();
+                    $(this).attr('data-layer-already','1');
+                }
+            }
+        });
+    });
+    $(".product-items .product-item .product").each(function(){
+        var idData = '#' + $(this).attr('id');
+        if( isOnScreen( $(idData) ) ) {
+            if ($(this).attr('data-layer-already') == 0) {
+                $(this).next('span.datalayer-click').click();
+                $(this).attr('data-layer-already','1');
+            }
+        }
+    });
+
+});
+</script>

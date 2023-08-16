@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_ProductList
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="CTCD_ProductList::main" title="Custom Product List" translate="title" module="CTCD_ProductList" sortOrder="10" dependsOnModule="CTCD_ProductList" parent="CTCD_Core::core" resource="CTCD_ProductList::main"/>
+        <add id="CTCD_ProductList::configuration" title="Configuration" translate="title" module="CTCD_ProductList" sortOrder="2" parent="CTCD_ProductList::main" resource="CTCD_ProductList::configuration" action="adminhtml/system_config/edit/section/customproductlist" />
+    </menu>
+</config>

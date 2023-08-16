@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_ProductList
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php
+    /**
+     * @var $block \CTCD\ProductList\Block\Product\Header
+     */
+    $title = $block->getTitle();
+    $imageUrl = $block->getImageUrl();
+?>
+<div class="page-blockTitle category-view-title">
+    <div class="page-title-wrapper">
+        <h1 class="page-title" id="page-title-heading" aria-labelledby="page-title-heading toolbar-amount"><span class="base" data-ui-id="page-title-wrapper"><?= $title ?></span></h1>
+    </div>
+    <?php if($imageUrl): ?>
+    <div class="category-view">
+        <div class="category-image"><img src="<?= $imageUrl ?>" alt="<?= $title ?>" title="<?= $title ?>" class="image"></div>
+    </div>
+    <?php endif; ?>
+</div>

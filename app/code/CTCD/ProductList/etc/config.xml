@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_ProductList
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customproductlist>
+            <general>
+                <active>0</active>
+                <display_by_badge>1</display_by_badge>
+            </general>
+            <newproduct>
+                <active>0</active>
+                <menu_order>0</menu_order>
+                <header_title>NEW IN</header_title>
+            </newproduct>
+            <bestseller>
+                <active>0</active>
+                <menu_order>1</menu_order>
+                <header_title>BEST SELLER</header_title>
+            </bestseller>
+            <saleproduct>
+                <active>0</active>
+                <menu_order>2</menu_order>
+                <header_title>SALE</header_title>
+            </saleproduct>
+        </customproductlist>
+    </default>
+</config>

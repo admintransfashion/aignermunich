@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<section class="featured">
+    <?php
+        $catalogImageTitle = $block->getData('title') ? $block->getData('title') : '';
+        $content = $block->getData('content') ? $block->getData('content') : '';
+        $contentTitle = $block->getData('content_title') ? $block->getData('content_title') : '';
+        $shopnow = $block->getData('shopnow') ? $block->getData('shopnow') : '';
+        $buttonLabel = $block->getData('btn_label') ? $block->getData('btn_label') : '';
+    ?>
+    <div class="featured-image">
+        <img src="<?php echo $block->getImageUrl(); ?>" alt="<?php echo $catalogImageTitle; ?>" />
+    </div>
+    <div class="featured-info">
+        <div class="featured-name"><?php echo $block->getData('title'); ?></div>
+        <div class="featured-description">
+            <?php if($content): ?>
+                <?php echo $contentTitle; ?><br><br>
+            <?php endif; ?>
+            <?php if($content): ?>
+                <?php echo $content; ?>
+            <?php endif; ?>
+        </div>
+        <a href="<?php echo $shopnow ?>" class="featured-link"><?php echo $buttonLabel ?></a>
+    </div>
+</section>

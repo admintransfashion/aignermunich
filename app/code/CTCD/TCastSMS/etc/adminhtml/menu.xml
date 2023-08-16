@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2023 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_TCastSMS
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="CTCD_TCastSMS::main" title="SMS OTP" translate="title" module="CTCD_TCastSMS" sortOrder="1000" dependsOnModule="CTCD_TCastSMS" parent="CTCD_Core::core" resource="CTCD_TCastSMS::main"/>
+        <add id="CTCD_TCastSMS::view" title="OTP Log" translate="title" module="CTCD_TCastSMS" sortOrder="1" parent="CTCD_TCastSMS::main" resource="CTCD_TCastSMS::view" action="tcastsms/log" />
+        <add id="CTCD_TCastSMS::configuration" title="Configuration" translate="title" module="CTCD_TCastSMS" sortOrder="1" parent="CTCD_TCastSMS::main" resource="CTCD_TCastSMS::configuration" action="adminhtml/system_config/edit/section/tcastsms_otp" />
+    </menu>
+</config>

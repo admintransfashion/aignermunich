@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_ProductList
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="customproductlist" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Custom Product List</label>
+            <tab>ctcdcoretab</tab>
+            <resource>CTCD_ProductList::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_by_badge" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Product Based on Badge/Tag</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If <strong>Yes</strong>, the product will be only displayed in Sale/Bestseller/NewIn page based on its badge/tag. Otherwise the product will be displayed based on its status.]]></comment>
+                </field>
+            </group>
+            <group id="newproduct" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>New Product Page</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="menu_order" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Menu Order</label>
+                    <comment><![CDATA[The order of menu on top menu. Default is <strong>0</strong>.]]></comment>
+                </field>
+                <field id="header_title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Header Title</label>
+                    <comment><![CDATA[Leave it blank to use default. Default is <strong>NEW IN</strong>]]></comment>
+                </field>
+                <field id="header_image" translate="label comment" type="image" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Header Image</label>
+                    <backend_model>CTCD\ProductList\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">ctcd/productlist</base_url>
+                    <comment><![CDATA[Upload image for new product header image page. Allowed file types: <b>jpg</b>, <b>jpeg</b>, <b>gif</b>, <b>png</b>, <b>svg</b>.]]></comment>
+                </field>
+            </group>
+            <group id="bestseller" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Bestseller Page</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="menu_order" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Menu Order</label>
+                    <comment><![CDATA[The order of menu on top menu. Default is <strong>1</strong>.]]></comment>
+                </field>
+                <field id="header_title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Header Title</label>
+                    <comment><![CDATA[Leave it blank to use default. Default is <strong>BEST SELLER</strong>]]></comment>
+                </field>
+                <field id="header_image" translate="label comment" type="image" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Header Image</label>
+                    <backend_model>CTCD\ProductList\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">ctcd/productlist</base_url>
+                    <comment><![CDATA[Upload image for bestseller header image page. Allowed file types: <b>jpg</b>, <b>jpeg</b>, <b>gif</b>, <b>png</b>, <b>svg</b>.]]></comment>
+                </field>
+            </group>
+            <group id="saleproduct" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Sale Product Page</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="menu_order" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Menu Order</label>
+                    <comment><![CDATA[The order of menu on top menu. Default is <strong>2</strong>.]]></comment>
+                </field>
+                <field id="header_title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Header Title</label>
+                    <comment><![CDATA[Leave it blank to use default. Default is <strong>SALE</strong>]]></comment>
+                </field>
+                <field id="header_image" translate="label comment" type="image" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Header Image</label>
+                    <backend_model>CTCD\ProductList\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">ctcd/productlist</base_url>
+                    <comment><![CDATA[Upload image for sale product header image page. Allowed file types: <b>jpg</b>, <b>jpeg</b>, <b>gif</b>, <b>png</b>, <b>svg</b>.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

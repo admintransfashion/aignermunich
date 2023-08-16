@@ -1,0 +1,88 @@
+<?php
+/**
+ * @category Trans
+ * @package  Trans_Customer
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author	Imam Kusuma <imam.kusuma@transdigital.co.id>
+ * @author	Babono <babono@transdigital.co.id>
+ * @author	HaDI <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Form\Login $block */
+?>
+<div class="header-tabs-login">
+	<span class="login-regis-header active" id="loginClick"><?= $block->escapeHtmlAttr(__('SIGN IN')) ?></span>
+	<span class="login-regis-header" id="registerClick"><?= $block->escapeHtmlAttr(__('REGISTER')) ?></span>
+</div>
+
+<div id="loginContent" class="login-regis-content active">
+	 <form class="form form-login"
+              action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+              method="post"
+              id="login-form"
+              data-mage-init='{"validation":{}}'>
+			<?= $block->getBlockHtml('formkey') ?>
+            <?php echo $block->getHomepageRedirectFormField() ?>
+			<div class="form-group field username required">
+				<div class="form-label"><?= __('Email / Phone Number') ?> *</div>
+				<div class="form-input control">
+					<input name="login[username]" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> id="username" type="text" class="input-text" title="<?= $block->escapeHtmlAttr(__('Username')) ?>" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true}" data-msg-required="Please complete all fields to continue.">
+				</div>
+			</div>
+			<div class="form-group field password required">
+				<div class="form-label"><?= __('Password') ?> *</div>
+				<div class="form-input">
+					<input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}" data-msg-required="Please complete all fields to continue.">
+				</div>
+			</div>
+			<div class="form-action forgot-pass">
+				<a href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>" class="form-link"><?= __('Forgot Password ?') ?></a>
+			</div>
+			<div class="form-action">
+				<button type="submit" class="btn"><?= __('SIGN IN') ?></button>
+			</div>
+	</form>
+</div>
+
+<script>
+require([
+    'jquery'
+], function($){
+    $(document).ready(function(){
+        function switchActiveTab(isLogin = true) {
+            if (isLogin) {
+                $('.login-regis-header').removeClass('active');
+                $('#loginClick').addClass('active');
+                $('.login-regis-content').removeClass('active');
+                $('#loginContent').addClass('active');
+            } else {
+                $('.login-regis-header').removeClass('active');
+                $('#registerClick').addClass('active');
+                $('.login-regis-content').removeClass('active');
+                $('#registerContent').addClass('active');
+            }
+        }
+
+        $('#loginClick').on('click', function() {
+            switchActiveTab();
+        });
+
+        $('#registerClick').on('click', function() {
+            switchActiveTab(false);
+        });
+        
+        <?php if ($this->getRequest()->getParam('register') === '1') : ?>
+            switchActiveTab(false);
+        <?php else: ?>
+            switchActiveTab();
+        <?php endif; ?>
+    });
+});
+</script>

@@ -1,0 +1,60 @@
+<?php 
+/**
+ * @category Trans
+ * @package  Magento_Customer
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+
+
+$customerAddressView = $block->getData('customer_address');
+?>
+
+<div class="block block-addresses-list">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Additional Address Entries')) ?></strong></div>
+    <div class="block-content">
+        <?php if ($_pAddsses = $block->getAdditionalAddresses()): ?>
+            <?php foreach ($_pAddsses as $address): ?>
+                <address>
+                    <?= $block->escapeHtml($address->getFirstname()) ?>
+                    <?= $block->escapeHtml($address->getLastname()) ?><br/>
+                    <?= $block->escapeHtml($block->getStreetAddress($address)) ?><br/>
+                    <?= $block->escapeHtml($address->getCity()) ?>,
+                    <?= /* @escapeNotVerified */ $address->getRegion()->getRegion() ?>,
+                    <?= $block->escapeHtml($address->getPostcode()) ?><br/>
+                    <?= /* @escapeNotVerified */ $block->getCountryByCode($address->getCountryId()) ?><br/>
+                    
+                    T: <?= $block->escapeHtml($address->getTelephone()) ?><br/>
+                    <div>
+                        <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/address/edit', ['id' => $address->getId()])) ?>"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a><span>|</span>
+                        <a class="action delete" href="#" role="delete-address" data-address="<?= $block->escapeHtmlAttr($address->getId()) ?>"><span><?= $block->escapeHtml(__('Delete Address')) ?></span></a>
+                    </div>
+                </address>
+            <?php endforeach; ?>
+            
+           
+        <?php else: ?>
+            <p class="empty"><?= $block->escapeHtml(__('You have no other address entries in your address book.')) ?></p>
+        <?php endif ?>
+    </div>
+</div>
+
+
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "deleteAddress": "div a[role='delete-address']",
+                "deleteUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getDeleteUrl())) ?>id/",
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?= $block->escapeJs($block->escapeUrl($block->getAddAddressUrl())) ?>"
+            }
+        }
+    }
+</script>

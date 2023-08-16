@@ -1,0 +1,25 @@
+{
+    "name": "trans/product-relation",
+    "description": "N/A",
+    "require": {
+        "php": "~7.0|~7.1|~7.2"
+    },
+    "type": "magento2-module",
+    "version": "1.1.0",
+    "authors": [
+        {
+          "name": "Imam Kusuma",
+          "email": "imam.kusuma@ctcorpdigital.com",
+          "homepage": "http://www.ctcorpora.com/",
+          "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Trans\\ProductRelation\\": ""
+        }
+    }
+}

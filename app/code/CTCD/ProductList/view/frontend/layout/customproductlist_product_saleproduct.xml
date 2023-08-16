@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_ProductList
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="CTCD_ProductList::css/styles.css" media="all" />
+    </head>
+    <body>
+        <attribute name="class" value="custom-product-list-pages" />
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="content">
+            <block class="CTCD\ProductList\Block\Product\Header" name="custom.products.list.header" as="custom_product_list_header">
+                <action method="setPageType">
+                    <argument name="name" xsi:type="string">saleproduct</argument>
+                </action>
+            </block>
+            <block class="CTCD\ProductList\Block\Product\SaleProduct" name="custom.products.list.saleproduct" as="sale_product_list" template="CTCD_ProductList::product/list.phtml" >
+                <block class="CTCD\ProductList\Block\Product\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                    <block class="CTCD\ProductList\Block\Product\Toolbar\Pager" name="product_list_toolbar_pager">
+                        <action method="setPageType">
+                            <argument name="name" xsi:type="string">saleproduct</argument>
+                        </action>
+                    </block>
+                    <action method="setPageType">
+                        <argument name="name" xsi:type="string">saleproduct</argument>
+                    </action>
+                </block>
+                <action method="setToolbarBlockName">
+                    <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+?>
+
+<span id="getCustomerHashEmail" data-hashemail="<?=$block->getCurrentCustomerId()?>"></span>
+
+<?php if ($block->getDataLayerLoginSuccess()) : ?>
+	<script>
+        <?php echo $block->getDataLayerLoginSuccess(); ?>
+	</script>
+<?php endif;  ?>
+<?php $block->unsFlagAfterLogin(); ?>
+
+<?php if ($block->getDataLayerRegister()): ?>
+	<script>
+        <?php echo $block->getDataLayerRegister(); ?>
+	</script>
+<?php endif;  ?>
+<?php $block->unsDataLayerRegister(); ?>
+

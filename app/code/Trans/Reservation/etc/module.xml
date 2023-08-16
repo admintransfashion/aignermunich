@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+	<module name="Trans_Reservation" setup_version="1.3.1">
+	 	<sequence>
+            <module name="CTCD_Core" />
+            <module name="Magento_Catalog"/>
+            <module name="Magento_ConfigurableProduct"/>
+            <module name="Magento_InventoryApi"/>
+            <module name="Magento_Inventory"/>
+            <module name="Magento_InventoryAdminUi"/>
+            <module name="Magento_ImportExport" />
+            <module name="Magento_User" />
+	    </sequence>
+	</module>
+</config>

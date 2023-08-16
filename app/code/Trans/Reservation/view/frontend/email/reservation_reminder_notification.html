@@ -1,0 +1,38 @@
+<!--
+ /**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcordigital.com>
+ * @author   hadi <ashadi.sejati@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<!--@subject {{trans "Reminder Reservation"}} @-->
+<!--@vars {
+"var content|raw":"Content",
+"var customer_name|raw":"Customer Name",
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h1 style="text-align: center;margin-bottom: 20px;">{{trans 'Hello, %customerName' customerName=$customer_name}}</h1>
+<p style="text-align: center; margin-bottom: 30px;">{{trans 'Today is the day. You reserved item(s) will be ready to go home with you. Please show up at Aigner shop before your reservation time expires and show the reservation email to our Store Assistant.'}}</p>
+
+<div style="
+    border-top: solid 8px #e7e6e2;
+    border-bottom: solid 8px #e7e6e2;
+    padding-top: 50px;
+    padding-bottom: 50px;
+">
+<p style="text-align: center; margin-bottom: 30px;">{{trans 'See you at Aigner shop!'}}</p><br/>
+
+<p style="text-align: center; margin-bottom: 0;">{{trans 'Kind regards,'}}</p>
+<p style="text-align: center; margin-bottom: 50px;">{{trans 'Your AIGNER team'}}</p>
+</div>
+{{template config_path="design/email/footer_template"}}

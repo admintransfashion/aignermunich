@@ -1,0 +1,57 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Magento
+ * @package  Magento_Catalog
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php $delimeter = $block->isCatalogSearchPage() ? '&' : '?'; ?>
+<?php $gtmHelper = $this->helper('Trans\Gtm\Helper\Data'); ?>
+<?php $getCustomerId = $gtmHelper->getCurrentCustomerId() ?>
+<div class="toolbar-sorter sorter">
+    <label class="sorter-label" for="sorter"><?= /* @escapeNotVerified */ __('Sort By') ?></label>
+    <select id="sorter" class="sorter-options" onchange="changeFuncDl();">
+        <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+            <?php if($_key === 'price'): ?>
+                <option data-url="<?= $block->generateRequestUrl(['product_list_order' => 'price', 'product_list_dir' => 'asc']) ?>" value="<?= /* @escapeNotVerified */ $_key ?>"
+                    <?php if ($block->isProductListOrderExist() && $block->isOrderCurrent($_key) && $block->getCurrentDirection() == 'asc'): ?>
+                        selected="selected"
+                    <?php endif; ?>
+                ><?= $block->escapeHtml(__('Price Ascending')) ?></option>
+                <option data-url="<?= $block->generateRequestUrl(['product_list_order' => 'price', 'product_list_dir' => 'desc']) ?>" value="<?= /* @escapeNotVerified */ $_key ?>"
+                    <?php if ($block->isProductListOrderExist() && $block->isOrderCurrent($_key) && $block->getCurrentDirection() == 'desc'): ?>
+                        selected="selected"
+                    <?php endif; ?>
+                ><?= $block->escapeHtml(__('Price Descending')) ?></option>
+            <?php endif; ?>
+            <?php if($block->isCatalogSearchPage()): ?>
+                <?php if($_key === 'relevance'): ?>
+                    <option data-url="<?= $block->generateRequestUrl(['product_list_order' => '', 'product_list_dir' => '']) ?>" value="<?= /* @escapeNotVerified */ $_key ?>"
+                        <?php if (! $block->isProductListOrderExist()): ?>
+                            selected="selected"
+                        <?php endif; ?>
+                    ><?= $block->escapeHtml(__($_order)) ?></option>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </select>
+
+    <script type="text/javascript">
+        function changeFuncDl() {
+            var selectBox = document.getElementById("sorter");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].text;
+
+            dataLayer.push({
+                'event': 'sort_by',
+                'sort_by': selectedValue,
+                'user_id': '<?= $getCustomerId ?>'
+            });
+            var selectedUrl = selectBox.options[selectBox.selectedIndex].getAttribute('data-url');
+            window.location = selectedUrl;
+        }
+    </script>
+</div>

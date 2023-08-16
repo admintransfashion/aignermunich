@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Catalog
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+/**
+ * @var $block \Trans\Catalog\Block\Product\View\Badge
+ */
+?>
+<?php if($badgeHtml = $block->getBadge()): ?>
+    <div class="product-badge-container"><?= $badgeHtml ?></div>
+<?php endif; ?>

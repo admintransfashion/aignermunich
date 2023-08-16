@@ -1,0 +1,173 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<div id="reservation-step-login" class="reservation-section">
+	<div class="step-title">
+		<span class="title">Login/Register</span>
+	</div>
+	<?php if($block->isCustomerLoggedIn()) : ?>
+		<?php $customer = $block->getCustomerData(); ?>
+		<div class="step-content">
+			<p class="user-is-logged-in">
+				<span>Hi <?php echo $customer->getFirstname() . ' ' . $customer->getLastname(); ?>,</span>
+				<span>here are your reservation details.</span>
+			</p>
+		</div>
+	<?php else: ?>
+		<div class="step-content">
+			<div class="login-method">
+				<form id="login-pre-auth-form" action="<?php echo $block->getLoginUr() ?>" method="post" data-mage-init='{"validation":{}}'>
+					<input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>">
+					<div class="fields clearfix">
+						<div class="field">
+							<label for="login-pre-auth-form-email">Email Address / Phone Number *</label>
+							<div class="form-login-reserv">
+								<input type="text" name="login[username]" id="login-pre-auth-form-email" value="" title="Email Address" class="input-text border-radius-full required-entry validation-passed" required="">
+							</div>
+							<div class="validation-advice" id="advice-validate-email-login-pre-auth-form-email" style="display: none; color: red;"></div>
+						</div>
+						<p id="login-pre-auth-form-info">If you have already registered, please press enter to login. <br/>Or click <a href="/customer/account/login/" style="text-decoration: underline;">here</a> to register if you don't have an account.</p>
+					</div>
+
+					<div id="login-pre-auth-form-container-password" style="display: none;">
+						<h3>Login?<span>There is a customer account matching your email.<br>If you want to login, please enter your password and click the button "login".</span></h3>
+						<div class="fields clearfix">
+							<div class="field">
+								<label for="login-pre-auth-form-password">Password</label>
+								<div class="form-login-reserv">
+									<input type="password" name="login[password]" id="login-pre-auth-form-password" value="" title="Password" class="input-text border-radius-full required-entry" required="">
+								</div>
+								<input type="hidden" name="mode" value="mothership_checkout">
+
+							</div>
+							<div class="field field-button-login">
+								<div class="buttons-set">
+									<button id="login-pre-auth-form-btn" class="button normal" title="Login">
+										Login
+									</button>
+									<a href="<?php echo $block->getForgotPasswordUrl(); ?>">
+										Forgot your password?
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	<?php endif; ?>
+</div>
+
+<script>
+	// <![CDATA[
+	require(
+    [
+    	'jquery',
+        'mage/storage',
+        'mage/url',
+        'mage/translate'
+    ],
+    function ($, storage, urlBuilder) {
+        'use strict';
+
+        $('#login-pre-auth-form-email').change(function() {
+			var username = $(this).val(), email, phone, type = 'email', html;
+			// var emailReg = /^([w-.]+@([w-]+.)+[w-]{2,4})?$/;
+			var emailReg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+			var intRegex = /[0-9 -()+]+$/;
+
+			type = checkUsernameType(username);
+
+			if(type == 'email') {
+				if(!emailReg.test(username) || username == '')
+				{
+					html = $.mage.__('Please enter a valid email address. For example johndoe@domain.com.');
+					$('.validation-advice').html(html);
+					$('.validation-advice').show();
+					$('#login-pre-auth-form-container-password').hide();
+				    return false;
+				}
+
+				var postData = '{"customerEmail":"' + username + '"}';
+				var redirectUrl = urlBuilder.build('rest/default/V1/customers/isEmailAvailable', {});
+
+				$.ajax({
+					type: 'post',
+					data: postData,
+					showLoader: true,
+					url: redirectUrl,
+					contentType: 'application/json',
+					cache: false,
+					beforeSend: function(xhr){
+					},
+				  	success: function(isEmailAvailable) {
+						$('.error-msg').html('');
+
+						if(!isEmailAvailable) {
+							$('#login-pre-auth-form-container-password').show();
+						} else {
+							$('#login-pre-auth-form-container-password').hide();
+						}
+				    }
+				});
+			}
+
+			if(type == 'phone') {
+				if((username.length < 6) || (!intRegex.test(username)))
+				{
+					html = $.mage.__('Please enter a valid phone number.');
+					$('.validation-advice').html(html);
+					$('.validation-advice').show();
+					$('#login-pre-auth-form-container-password').hide();
+				    return false;
+				}
+				var postData = '{"telephone":"' + username + '"}';
+				var redirectUrl = urlBuilder.build('customer/index/checkCustomerByPhone', {});
+				$.ajax({
+					type: 'post',
+					data: postData,
+					showLoader: true,
+					url: redirectUrl,
+					contentType: 'application/json',
+					cache: false,
+					beforeSend: function(xhr){
+					},
+				  	success: function(isTelephoneAvailable) {
+						$('.validation-advice').html('');
+						$('.validation-advice').hide();
+
+						if(isTelephoneAvailable) {
+							$('#login-pre-auth-form-container-password').show();
+						} else {
+							$('#login-pre-auth-form-container-password').hide();
+						}
+				    }
+				});
+			}
+		});
+
+        /**
+         * Check username are email or phone number
+         */
+		function checkUsernameType(username) {
+			var type = 'email', intRegex = /[0-9 -()+]+$/;
+
+			if(intRegex.test(username)) { type = 'phone'; }
+
+			return type;
+		}
+
+    }
+	);
+	// ]]>
+</script>

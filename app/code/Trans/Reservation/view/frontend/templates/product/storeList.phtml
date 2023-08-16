@@ -1,0 +1,193 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+ /** @var $block Trans\Reservation\Block\Product\View\Reservation */
+?>
+
+<?php $product = $block->getProduct(); ?>
+<?php $reserved = $block->isItemAlreadyReserved($product->getId()); ?>
+<?php $superAttribute = $block->getProductSuperAttribute(); ?>
+<?php //$productSources = $block->getProductSources(); ?>
+<?php $sourceKeys = $block->getSourceKeys(); ?>
+<?php $productSources = $block->getProductSourcesArray(); ?>
+
+<div class="reservation-wrapper">
+	<?php if(!empty($productSources)) { ?>
+		<div class="reservation-button">
+		    <div class="fieldset">
+		    	<!-- <div class="text-avail">
+		    		<?= /* @escapeNotVerified */ __('ALSO AVAILABLE IN THESE COLORS') ?>
+		    	</div> -->
+		        <div class="actions">
+		            <a href="#" title="<?= /* @escapeNotVerified */ __('Store List') ?>" class="action" data-action="open" id="store-list-button">
+		            	<span><?= /* @escapeNotVerified */ __('Check availability in stores') ?></span>
+		            </a>
+		        </div>
+		    </div>
+		</div>
+	<?php } ?>
+
+	<div id="reservation-store-list" style="display: none;">
+		<div class="storebox-head">
+			<?= /* @escapeNotVerified */ __('Product availability in stores') ?>
+		</div>
+		<div class="storebox-text">
+			<?= /* @escapeNotVerified */ __('The product is currently in stock in the following stores:') ?>
+		</div>
+		<ul>
+			<?php $number = 1; ?>
+			<?php foreach ($productSources as $row) { ?>
+				<?php $source = $row['source']; ?>
+				<li class="source-list source-list-<?php echo $number; ?> source-<?php echo $row['product_id'] ?>" style="display: none;">
+					<span class="label"><?php echo $source->getName(); ?></span><br/>
+					<span class="store-address"><?php echo $block->getSourceAddress($source); ?></span>
+					<span class="store-address"><?php echo $source->getPhone(); ?></span>
+				</li>
+				<?php $number++; ?>
+			<?php } ?>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// <![CDATA[
+	require([
+	    'jquery',
+	    'mage/url',
+	    'Magento_Customer/js/customer-data',
+	    'mage/validation',
+	    'domReady!'
+	], function ($, url, customerData) {
+		var redirectUrl, sourceCode, qty, form = $('#product_addtocart_form'), sourceKyes = <?php echo json_encode($block->getSourceKeys()); ?>,
+		sku, postData, attrId, selectedOpt, ignore = null, swatchObj, attributeId, optionSelected;
+
+        $('.swatch-option').live('click', function() {
+			swatchObj = $('.swatch-attribute');
+	        attributeId = swatchObj.attr('attribute-id');
+	        optionSelected = swatchObj.attr('option-selected');
+
+			var productHelperUrl = '<?php echo $block->getProductHelperUrl() ?>';
+			var parentId = $('input[name="product"').val();
+			var attributeInfo = {'attributeId' : attributeId, 'optionSelected' : optionSelected};
+			postData = {attribute: attributeInfo, parentId: parentId};
+
+			$.ajax({
+				type: 'post',
+				data: postData,
+				showLoader: true,
+				url: productHelperUrl,
+				cache: false,
+				beforeSend: function(xhr){
+				},
+			  	success: function(data) {
+					getList(data.product_id);
+			  	}//end of ajax success
+			});
+        });
+
+		getList(<?php echo $product->getId() ?>);
+
+	    form.mage('validation', {
+	        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+	    }).find('input:text').attr('autocomplete', 'off');
+
+	    <?php if(count($superAttribute)) : ?>
+		    <?php foreach($superAttribute as $key => $attr) : ?>
+		    	attrId = <?php echo $key ?>;
+		    	$('#attribute' + attrId).change(function() {
+		    		$("#reservation-store-list").hide();
+					console.log(optionSelected);
+
+		    		setTimeout(
+						function()
+						{
+							selectedOpt = $('input[name="selected_configurable_option"]').val();
+							getList(selectedOpt);
+						}, 500);
+					var btnaction = 'open';
+					$(this).data('action', btnaction);
+		    	});
+		    <?php endforeach ?>
+		<?php endif; ?>
+
+		function getList(key)
+		{
+			$('.source-list').hide();
+			$('.source-' + key).show();
+		}
+
+		$("#store-list-button").click(function() {
+			event.preventDefault();
+		    if(!form.validation('isValid')) {
+		    	return false;
+		    }
+
+		    var action = $(this).data('action');
+
+			if(action == 'open') {
+				$("#reservation-store-list").show();
+				var btnaction = 'close';
+			}
+
+			if(action == 'close') {
+				$("#reservation-store-list").hide();
+				var btnaction = 'open';
+			}
+
+			$(this).data('action', btnaction);
+		});
+
+		$(".reserve-product-store").each(function(){
+			$(this).click(function() {
+				qty = $('input[id="qty"]').val();
+				// sku = form.data().productSku;
+				sku = '<?php echo $product->getSku(); ?>';
+				sourceCode = $(this).attr('data-source');
+
+				postData = {qty: qty, sku: sku, sourceCode: sourceCode, childId: selectedOpt};
+				// redirectUrl = url.build('reservation/cart/addtoreservecart');
+				redirectUrl = '<?php echo $block->getAddToCartUrl(); ?>';
+
+				$.ajax({
+					type: 'post',
+					data: postData,
+					showLoader: true,
+					url: redirectUrl,
+					cache: false,
+					beforeSend: function(xhr){
+					},
+				  	success: function(data) {
+						var status = data.status;
+
+						customerData.set('messages', {
+							messages: [{
+							    type: status,
+							    text: data.message
+							}]
+						});
+
+						jQuery('body').loader('hide');
+
+						if(data.redirect) {
+							var redirectUrl = url.build(data.redirect);
+							window.location.href = redirectUrl;
+						}
+
+				      	// $("#popup").modal("closeModal");
+				  	}//end of ajax success
+				});
+			});
+		});
+	});
+	// ]]>
+</script>

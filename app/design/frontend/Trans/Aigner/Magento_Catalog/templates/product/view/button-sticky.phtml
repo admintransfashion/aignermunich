@@ -1,0 +1,31 @@
+<?php
+/**
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Catalog\Block\Product\View\Details $block */
+?>
+<div class="productDetail-button">
+    <button type="button" title="Reserve Now" class="btn toreserve" id="product-reserve-button-sticky">
+        <svg class="icon cart">
+            <use xlink:href="#icon-cart"></use>
+        </svg>
+        <span>Reserve Now</span>
+    </button>
+</div>
+
+
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            $("#product-reserve-button-sticky").on('click', function(){
+                $("#product-reserve-button").trigger('click');
+            });
+        });
+    });
+</script>

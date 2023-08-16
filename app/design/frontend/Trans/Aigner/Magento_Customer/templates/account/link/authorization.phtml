@@ -1,0 +1,46 @@
+<?php
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\AuthorizationLink $block */
+
+$dataPostParam = '';
+if ($block->isLoggedIn()) {
+    $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams());
+}
+?>
+<?php if ($block->isLoggedIn()):?>
+<div class="success-login-header">
+    <div class="my-account-login">
+        <a href="<?php echo $block->getBaseUrl(); ?>customer/account/">
+            <span>my account</span>
+            <svg class="icon account">
+                <use xlink:href="#icon-account"></use>
+            </svg>
+        </a>
+    </div>
+    <div class="authorization-link" data-label="<?= $block->escapeHtml(__('or')) ?>">
+        <a class="header-menu-link" <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?>>
+            <span>Log Out</span>
+            
+        </a>
+    </div>
+</div>
+
+
+<?php else:?>
+<div class="authorization-link" data-label="<?= $block->escapeHtml(__('or')) ?>">
+    <a class="header-menu-link" <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?>>
+        <span>Login - Register</span>
+        <svg class="icon account">
+            <use xlink:href="#icon-account"></use>
+        </svg>
+    </a>
+</div>
+<?php endif;?>

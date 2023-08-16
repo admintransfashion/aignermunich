@@ -1,0 +1,62 @@
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Core
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+& when (@media-common = true) {
+    #setokoFlashMessage {
+        position: fixed;
+        top: 195px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 999;
+        .flash-wrapper{
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            .flash-message{
+                font-family: "Poppins Medium";
+                b {
+                    font-family: "Poppins Bold";
+                    font-weight: normal;
+                }
+            }
+            .flash-icon{
+                width : 20px;
+                height : 20px;
+                margin-right: 7px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        &.setoko-flash-message.pick-variant {
+            .flash-wrapper {
+                border-radius: 0;
+                padding: 10px 40px;
+                .flash-message {
+                    display: flex;
+                    align-items: center;
+                    i {
+                        margin: 0 10px 0 0;
+                    }
+                }
+            }
+        }
+        .ico-danger {
+            background: url(../CTCD_Core/images/ico-danger.svg);
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+        }
+    }
+}

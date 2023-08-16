@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category Trans
+ * @package  Trans_ProductRelation
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root" label="Root">
+        <block class="Trans\ProductRelation\Block\Adminhtml\Catalog\Product\Edit\Tab\Combinations"
+               name="catalog.product.edit.tab.combinations"/>
+        <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="combinations_grid_serializer">
+            <arguments>
+                <argument name="input_names" xsi:type="string">position</argument>
+                <argument name="grid_block" xsi:type="string">catalog.product.edit.tab.combinations</argument>
+                <argument name="callback" xsi:type="string">getSelectedCombinationsProducts</argument>
+                <argument name="input_element_name" xsi:type="string">links[combinations]</argument>
+                <argument name="reload_param_name" xsi:type="string">products_combinations</argument>
+            </arguments>
+        </block>
+    </container>
+</layout>

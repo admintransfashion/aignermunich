@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="CTCD_Core::core">
+                    <resource id="Trans_Reservation::main" title="Reservation Module" sortOrder="10">
+                        <resource id="Trans_Reservation::reservation" title="Reservation" sortOrder="0">
+                            <resource id="Trans_Reservation::reservation_update" title="Update Data" sortOrder="0" />
+                        </resource>
+                        <resource id="Trans_Reservation::configuration" title="Configuration" sortOrder="1" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

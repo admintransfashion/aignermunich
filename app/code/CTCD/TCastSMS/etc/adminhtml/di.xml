@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2023 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_TCastSMS
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Config\Controller\Adminhtml\System\Config\Save">
+        <plugin name="CTCD_TCastSMS_Plugin_Config_Controller_Adminhtml_System_Config_Save" type="CTCD\TCastSMS\Plugin\Config\Controller\Adminhtml\System\Config\Save" sortOrder="1" disabled="false"/>
+    </type>
+    <virtualType name="CTCDTCastSMSDataProviderModifierPool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="tcastsmslogdata" xsi:type="array">
+                    <item name="class" xsi:type="string">CTCD\TCastSMS\Ui\DataProvider\Grid\Form\Modifier\LogOtpData</item>
+                    <item name="sortOrder" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="CTCD\TCastSMS\Ui\DataProvider\Grid\LogOtpDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">CTCDTCastSMSDataProviderModifierPool</argument>
+        </arguments>
+    </type>
+</config>

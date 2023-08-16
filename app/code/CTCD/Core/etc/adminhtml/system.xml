@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Core
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="ctcdcoretab" translate="label" sortOrder="2000" class="ctcdcoretab">
+			<label>CT Corp Digital</label>
+		</tab>
+		<section id="ctcdcore" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Base Configuration</label>
+            <tab>ctcdcoretab</tab>
+            <resource>CTCD_Core::configuration</resource>
+			<group id="company_logo" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Custom Admin Logo</label>
+				<field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="logo_title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Logo Title</label>
+					<comment><![CDATA[This field value will be used for alternate text and title for the logo/image tag]]></comment>
+					<depends>
+                        <field id="baseconfig/company_logo/active">1</field>
+                    </depends>
+				</field>
+				<field id="admin_login_page" translate="label comment" type="image" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Admin Login Page Logo</label>
+					<backend_model>CTCD\Core\Model\Config\Backend\Image</backend_model>
+					<base_url type="media" scope_info="1">ctcd/core</base_url>
+					<comment><![CDATA[Upload company logo for admin login page to replace default magento logo. Allowed file types: <b>jpg</b>, <b>jpeg</b>, <b>gif</b>, <b>png</b>, <b>svg</b>.]]></comment>
+					<depends>
+                        <field id="baseconfig/company_logo/active">1</field>
+                    </depends>
+				</field>
+				<field id="admin_sidebar" translate="label comment" type="image" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Admin Sidebar Logo</label>
+					<backend_model>CTCD\Core\Model\Config\Backend\Image</backend_model>
+					<base_url type="media" scope_info="1">ctcd/core</base_url>
+					<comment><![CDATA[Upload company logo for admin sidebar to replace default magento logo. Allowed file types: <b>jpg</b>, <b>jpeg</b>, <b>gif</b>, <b>png</b>, <b>svg</b>.]]></comment>
+					<depends>
+                        <field id="baseconfig/company_logo/active">1</field>
+                    </depends>
+				</field>
+            </group>
+			<group id="magento_version" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Hide Magento Version</label>
+				<field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="response_type" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Response Type</label>
+					<comment><![CDATA[Redirect to another page or give blank response when someone try to check the magento version from frontend]]></comment>
+					<source_model>CTCD\Core\Model\Config\Source\HideVersionResponseType</source_model>
+					<depends>
+                        <field id="ctcdcore/magento_version/active">1</field>
+                    </depends>
+				</field>
+            </group>
+            <group id="decimal_price" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Decimal Price Precision</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_decimal" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show the decimal?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="ctcdcore/decimal_price/active">1</field>
+                    </depends>
+                </field>
+                <field id="precision" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Decimal Length</label>
+                    <source_model>CTCD\Core\Model\Config\Source\Form\Field\Precision</source_model>
+                    <depends>
+                        <field id="ctcdcore/decimal_price/active">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="file_logger" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>File Logger</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="external_image" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Use External Image Source</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Using external images to show on frontend instead of Magento's images]]></comment>
+                </field>
+            </group>
+            <group id="delete_prompt" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Use Custom Delete Confirmation</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Using custom delete confirmation with validation input text instead of magento default delete confirmation]]></comment>
+                </field>
+            </group>
+            <group id="catalog_mode" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Catalog Mode Website</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+		</section>
+	</system>
+</config>

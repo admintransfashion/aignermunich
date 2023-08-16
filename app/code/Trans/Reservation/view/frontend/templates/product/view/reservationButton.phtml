@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+/** @var $block Trans\Reservation\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Reserve Now'); ?>
+
+<?php echo $this->getChildHtml('qty.box') ?>
+<div class="productDetail-button jsProductDetailButton">
+    <button <?php echo !$block->isReserveAble() ? 'disabled' : ''; ?> type="button" title="<?= /* @escapeNotVerified */ $buttonTitle ?>" class="btn toreserve" id="product-reserve-button">
+        <svg class="icon cart">
+            <use xlink:href="#icon-cart"></use>
+        </svg>
+        <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+    </button>
+</div>
+<div class="home-delivery-availability" style="margin-bottom: 30px;text-transform: uppercase;display:block;width:100%;">
+    <span><?= __('Available for home delivery') ?></span>
+</div>
+
+<?php echo $this->getChildHtml('popup') ?>
+<?php echo $this->getChildHtml('popup.additional') ?>
+
+<?php if($block->isReserveAble()) { ?>
+    <script type="text/x-magento-init">
+    {
+        "#product-reserve-button": {
+            "Trans_Reservation/js/addToReservationCart": {}
+        }
+    }
+    </script>
+<?php } ?>

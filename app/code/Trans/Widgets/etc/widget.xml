@@ -1,0 +1,634 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   HaDi <ashadi.sejati@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Trans\Widgets\Block\Widget\ImageGridWidget" id="aigner_imagegrid_widget">
+        <label>Aigner Image Grid</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/image-grid.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="topleft" sort_order="10" visible="true" xsi:type="block">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\SeparatorField">
+                    <data>
+                        <item name="separator" xsi:type="array">
+                            <item name="title" xsi:type="string">Top Left Section</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="toplefturl" sort_order="11" visible="true" xsi:type="text">
+                <label>URL</label>
+            </parameter>
+            <parameter name="toplefturltitle" sort_order="12" visible="true" xsi:type="text">
+                <label>URL Title </label>
+            </parameter>
+            <parameter name="topleftimage" xsi:type="block" visible="true" sort_order="13">
+                <label translate="true">Upload Image</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="topleftimagetitle" sort_order="14" visible="true" xsi:type="text">
+                <label>Image Title </label>
+            </parameter>
+
+            <parameter name="topcenter" sort_order="20" visible="true" xsi:type="block">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\SeparatorField">
+                    <data>
+                        <item name="separator" xsi:type="array">
+                            <item name="title" xsi:type="string">Top Center Section</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="topcenterurl" sort_order="21" visible="true" xsi:type="text">
+                <label>URL</label>
+            </parameter>
+            <parameter name="topcenterurltitle" sort_order="22" visible="true" xsi:type="text">
+                <label>URL Title </label>
+            </parameter>
+            <parameter name="topcenterimage" xsi:type="block" visible="true" sort_order="23">
+                <label translate="true">Upload Image</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="topcenterimagetitle" sort_order="24" visible="true" xsi:type="text">
+                <label>Image Title </label>
+            </parameter>
+
+            <parameter name="topright" sort_order="30" visible="true" xsi:type="block">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\SeparatorField">
+                    <data>
+                        <item name="separator" xsi:type="array">
+                            <item name="title" xsi:type="string">Top Right Section</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="toprighturl" sort_order="31" visible="true" xsi:type="text">
+                <label>URL</label>
+            </parameter>
+            <parameter name="toprighturltitle" sort_order="32" visible="true" xsi:type="text">
+                <label>URL Title </label>
+            </parameter>
+            <parameter name="toprightimage" xsi:type="block" visible="true" sort_order="33">
+                <label translate="true">Upload Image</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="toprightimagetitle" sort_order="34" visible="true" xsi:type="text">
+                <label>Image Title </label>
+            </parameter>
+
+            <parameter name="bottomleft" sort_order="40" visible="true" xsi:type="block">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\SeparatorField">
+                    <data>
+                        <item name="separator" xsi:type="array">
+                            <item name="title" xsi:type="string">Bottom Left Section</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bottomlefturl" sort_order="41" visible="true" xsi:type="text">
+                <label>URL</label>
+            </parameter>
+            <parameter name="bottomlefturltitle" sort_order="42" visible="true" xsi:type="text">
+                <label>URL Title </label>
+            </parameter>
+            <parameter name="bottomleftimage" xsi:type="block" visible="true" sort_order="43">
+                <label translate="true">Upload Image</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bottomleftimagetitle" sort_order="44" visible="true" xsi:type="text">
+                <label>Image Title </label>
+            </parameter>
+
+            <parameter name="bottomcenter" sort_order="50" visible="true" xsi:type="block">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\SeparatorField">
+                    <data>
+                        <item name="separator" xsi:type="array">
+                            <item name="title" xsi:type="string">Bottom Center Section</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bottomcenterurl" sort_order="51" visible="true" xsi:type="text">
+                <label>URL</label>
+            </parameter>
+            <parameter name="bottomcenterurltitle" sort_order="52" visible="true" xsi:type="text">
+                <label>URL Title </label>
+            </parameter>
+            <parameter name="bottomcenterimage" xsi:type="block" visible="true" sort_order="53">
+                <label translate="true">Upload Image</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bottomcenterimagetitle" sort_order="54" visible="true" xsi:type="text">
+                <label>Image Title </label>
+            </parameter>
+
+            <parameter name="bottomright" sort_order="60" visible="true" xsi:type="block">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\SeparatorField">
+                    <data>
+                        <item name="separator" xsi:type="array">
+                            <item name="title" xsi:type="string">Bottom Right Section</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bottomrighturl" sort_order="61" visible="true" xsi:type="text">
+                <label>URL</label>
+            </parameter>
+            <parameter name="bottomrighturltitle" sort_order="62" visible="true" xsi:type="text">
+                <label>URL Title </label>
+            </parameter>
+            <parameter name="bottomrightimage" xsi:type="block" visible="true" sort_order="63">
+                <label translate="true">Upload Image</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bottomrightimagetitle" sort_order="64" visible="true" xsi:type="text">
+                <label>Image Title </label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\BannerHomepageWidget" id="aigner_bannerhomepage_widget">
+        <label>Aigner Banner Homepage</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/banner-homepage.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" sort_order="10" visible="true" required="true" xsi:type="text">
+                <label>Banner Title</label>
+            </parameter>
+            <parameter name="onlyimage" sort_order="20" visible="true" required="true" xsi:type="select">
+                <label>Only Image ?</label>
+                <options>
+                    <option name="no" value="no" selected="true">
+                        <label>No</label>
+                    </option>
+                    <option name="yes" value="yes">
+                        <label>Yes</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="content" sort_order="30" visible="true" xsi:type="text">
+                <label>Content</label>
+            </parameter>
+            <parameter name="btn_label" sort_order="40" visible="true" xsi:type="text">
+                <label>Button Label</label>
+            </parameter>
+            <parameter name="catalogimg" xsi:type="block" visible="true" required="true" sort_order="50">
+                <label translate="true">Upload Image</label>
+                <description translate="true">Banner Image</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="shopnow" sort_order="60" visible="true" xsi:type="text">
+                <label>Page URL</label>
+            </parameter>
+            <parameter name="positioncontent" xsi:type="select" visible="true" required="true" sort_order="70">
+                <label translate="true">Position Content</label>
+                <options>
+                    <option name="right" value="right" selected="true">
+                        <label>Right</label>
+                    </option>
+                    <option name="left" value="left">
+                        <label>Left</label>
+                    </option>
+                    <option name="bottom" value="bottom">
+                        <label>Bottom</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\NosHomepageWidget" id="aigner_noshomepage_widget">
+        <label>Aigner NOS Homepage</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/nos-homepage.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" sort_order="20" visible="true" xsi:type="text">
+                <label>Main Title</label>
+            </parameter>
+            <parameter name="content_title" sort_order="30" visible="true" xsi:type="text">
+                <label>Content Title</label>
+            </parameter>
+            <parameter name="content" sort_order="30" visible="true" xsi:type="text">
+                <label>Content</label>
+            </parameter>
+            <parameter name="btn_label" sort_order="40" visible="true" xsi:type="text">
+                <label>Button Label</label>
+            </parameter>
+            <parameter name="catalogimg" xsi:type="block" visible="true" sort_order="50">
+                <label translate="true">Upload Image</label>
+                <description translate="true">Banner Image</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="shopnow" sort_order="60" visible="true" xsi:type="text">
+                <label>Page URL</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\VideoHomepageWidget" id="aigner_videohomepage_widget">
+        <label>Aigner Video Homepage</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/video-homepage.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="fullwidthx" sort_order="10" visible="true" xsi:type="select">
+                <label>Full Width ?</label>
+                <options>
+                    <option name="no" value="no" selected="true">
+                        <label>No</label>
+                    </option>
+                    <option name="full" value="full">
+                        <label>Yes</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="videoid" sort_order="60" visible="true" xsi:type="text">
+                <label>Youtube Video ID</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\LatestMagazineHomepage" id="aigner_latestmagazinehomepage_widget">
+        <label>Aigner Latest Magazine Post Homepage</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/latest-magazine.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" sort_order="20" visible="true" xsi:type="text">
+                <label>Main Title</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\FavoriteProduct" id="aigner_favoriteproduct_widget">
+        <label>Aigner Favorite Product Content Widget</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/favorite-product.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bannerimg1" xsi:type="block" visible="true" sort_order="10">
+                <label translate="true">Upload Banner 1</label>
+                <description translate="true">Favorite Banner 1</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bannerimgtitle1" sort_order="11" visible="true" xsi:type="text" >
+                <label>Banner 1 title</label>
+            </parameter>
+            <parameter name="bannerimg2" xsi:type="block" visible="true" sort_order="20">
+                <label translate="true">Upload Banner 2</label>
+                <description translate="true">Favorite Banner 2</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="bannerimgtitle2" sort_order="21" visible="true" xsi:type="text">
+                <label>Banner 2 title</label>
+            </parameter>
+            <parameter name="favoriteproductlist" xsi:type="block" visible="true" required="true" sort_order="30">
+                <label translate="true">List of Favorite Product (max 3)</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ProductChooser" />
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\FeaturedProduct" id="aigner_featureProduct_widget">
+        <label>Aigner Featured Product Content Widget</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/featured-product.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="shopnow" sort_order="10" visible="true" xsi:type="text">
+                <label>Page URL</label>
+            </parameter>
+            <parameter name="title" sort_order="11" visible="true" xsi:type="text">
+                <label>Main Title</label>
+            </parameter>
+            <parameter name="content_title" sort_order="12" visible="true" xsi:type="text">
+                <label>Content Title</label>
+            </parameter>
+            <parameter name="content" sort_order="13" visible="true" xsi:type="text">
+                <label>Content</label>
+            </parameter>
+            <parameter name="btn_label" sort_order="14" visible="true" xsi:type="text">
+                <label>Button Label</label>
+            </parameter>
+            <parameter name="catalogimg" xsi:type="block" visible="true" sort_order="15">
+                <label translate="true">Upload Image</label>
+                <description translate="true">Feature Product Image</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\BestsellerProductCarousel" id="aigner_bestsellerproductcarousel_widget">
+        <label>Aigner Bestseller Product Carousel Widget</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/bestseller-product-carousel.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+                <description translate="true">If blank the widget will use 'BEST SELLER' as widget title</description>
+            </parameter>
+            <parameter name="products" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Select Products</label>
+                <description translate="true">Bestseller product list</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\FilteredProductChooser">
+                    <data>
+                        <item name="filtertype" xsi:type="string">bestseller</item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\NewProductCarousel" id="aigner_newproductcarousel_widget">
+        <label>Aigner New Product Carousel Widget</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/new-product-carousel.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+                <description translate="true">If blank the widget will use 'NEW PRODUCTS' as widget title</description>
+            </parameter>
+            <parameter name="products" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Select Products</label>
+                <description translate="true">New product list</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\FilteredProductChooser">
+                    <data>
+                        <item name="filtertype" xsi:type="string">new</item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\FeaturedProductCarousel" id="aigner_featuredproductcarousel_widget">
+        <label>Aigner Featured Product Carousel Widget</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/featured-product-carousel.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+                <description translate="true">If blank the widget will use 'FEATURED PRODUCTS' as widget title</description>
+            </parameter>
+            <parameter name="products" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Select Products</label>
+                <description translate="true">Featured product list</description>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\FilteredProductChooser">
+                    <data>
+                        <item name="filtertype" xsi:type="string">featured</item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\EditorialFeaturedProduct" id="aigner_editorialfeaturedproduct_widget">
+        <label>Aigner Editorial: Featured Product</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/editorial-featured-product.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="buttontitle" sort_order="10" visible="true" xsi:type="text">
+                <label>Button Title</label>
+                <description translate="true">If blank the widget will use 'SHOW ALL PRODUCTS' as button title</description>
+            </parameter>
+            <parameter name="products" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Select Products (Max 3)</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ProductChooser" />
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\EditorialProductGrid" id="aigner_editorialproductgrid_widget">
+        <label>Aigner Editorial: Product Grid</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/editorial-product-grid.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+            </parameter>
+            <parameter name="products" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Select Products</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ProductChooser" />
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Trans\Widgets\Block\Widget\EditorialImageGrid" id="aigner_editorialimagegrid_widget">
+        <label>Aigner Editorial: Image Grid</label>
+        <description></description>
+        <parameters>
+            <parameter name="previewimage" xsi:type="block" visible="true" sort_order="1">
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImagePreview">
+                    <data>
+                        <item name="preview" xsi:type="array">
+                            <item name="image" xsi:type="string">Trans_Widgets::images/preview/editorial-image-grid.jpg</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="title" xsi:type="text" visible="true" sort_order="2" >
+                <label>Title</label>
+            </parameter>
+            <parameter name="imagegrid1" xsi:type="block" visible="true" sort_order="3">
+                <label translate="true">1st Image Upload</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="imagegrid2" xsi:type="block" visible="true" sort_order="4">
+                <label translate="true">2nd Image Upload</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="imagegrid3" xsi:type="block" visible="true" sort_order="5">
+                <label translate="true">3rd Image Upload</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="imagegrid4" xsi:type="block" visible="true" sort_order="6">
+                <label translate="true">4th Image Upload</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="description" xsi:type="block" visible="true" sort_order="7">
+                <label translate="true">Description</label>
+                <block class="Trans\Widgets\Block\Adminhtml\Widget\TextField"/>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

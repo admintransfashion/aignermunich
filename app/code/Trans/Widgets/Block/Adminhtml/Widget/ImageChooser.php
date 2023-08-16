@@ -1,0 +1,76 @@
+<?php
+ /**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   HaDi <ashadi.sejati@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+
+namespace Trans\Widgets\Block\Adminhtml\Widget;
+
+use Magento\Framework\Data\Form\Element\AbstractElement as Element;
+use Magento\Backend\Block\Template\Context as TemplateContext;
+use Magento\Framework\Data\Form\Element\Factory as FormElementFactory;
+use Magento\Backend\Block\Template;
+
+class ImageChooser extends Template
+{
+    /**
+     * @var \Magento\Framework\Data\Form\Element\Factory
+     */
+    protected $elementFactory;
+
+    /**
+     * @param TemplateContext $context
+     * @param FormElementFactory $elementFactory
+     * @param array $data
+     */
+    public function __construct(
+        TemplateContext $context,
+        FormElementFactory $elementFactory,
+        $data = []
+    ) {
+        $this->elementFactory = $elementFactory;
+        parent::__construct($context, $data);
+    }
+
+    /**
+     * Prepare chooser element HTML
+     *
+     * @param Element $element
+     * @return Element
+     */
+    public function prepareElementHtml(Element $element)
+    {
+        $config = $this->_getData('config');
+        $sourceUrl = $this->getUrl('cms/wysiwyg_images/index',
+            ['target_element_id' => $element->getId(), 'type' => 'file']);
+
+        /** @var \Magento\Backend\Block\Widget\Button $chooser */
+        $chooser = $this->getLayout()->createBlock('Magento\Backend\Block\Widget\Button')
+            ->setType('button')
+            ->setClass('btn-chooser action-primary')
+            ->setLabel($config['button']['open'])
+            ->setOnClick('MediabrowserUtility.openDialog(\''. $sourceUrl .'\')')
+            ->setStyle('margin-top:5px')
+            ->setDisabled($element->getReadonly());
+
+        /** @var \Magento\Framework\Data\Form\Element\Text $input */
+        $input = $this->elementFactory->create("text", ['data' => $element->getData()]);
+        $input->setId($element->getId());
+        $input->setForm($element->getForm());
+        $input->setClass("widget-option input-text admin__control-text");
+        if ($element->getRequired()) {
+            $input->addClass('required-entry');
+        }
+
+        $element->setData('after_element_html', $input->getElementHtml() . $chooser->toHtml());
+
+        return $element;
+    }
+}

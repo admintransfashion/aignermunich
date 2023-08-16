@@ -1,0 +1,73 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php if ($items = $block->getProductCollection()) : ?>
+    <?php $transProductHelper = $this->helper('Trans\Catalog\Helper\Product'); ?>
+    <section class="product-slider-widget <?= $block->getClassIdentifier() ?>">
+        <div class="psw-title"><?= $block->getTitle(); ?></div>
+        <div class="psw-swiper">
+            <div class="productSwiper">
+                <div class="productSwiper-container swiper-container jsProductSliderWidget">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($items as $item) : ?>
+                            <div class="swiper-slide">
+                                <div class="swiper-slide">
+                                    <a href="<?= $block->getProductUrl($item) ?>" class="productSwiper-link">
+                                        <div class="productSwiper-image">
+                                            <?= $block->getImage($item, 'recently_viewed_products_grid_content_widget')->toHtml(); ?>
+                                        </div>
+                                        <div class="productSwiper-name"><?= $block->escapeHtml($item->getName()) ?></div>
+                                        <?php if($badgeHtml = $transProductHelper->getProductBadge($item)): ?>
+                                            <div class="product-badge-container"><?= $badgeHtml ?></div>
+                                        <?php endif; ?>
+                                        <div class="productSwiper-price"><?= $block->getProductPrice($item); ?></div>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+        require(["jquery","domReady!"], function ($) {
+            $(document).ready(function () {
+                var productSliderWidget = new Swiper(".jsProductSliderWidget", {
+                    slidesPerView: 1,
+                    loop: true,
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: ".productSwiper .swiper-button-next",
+                        prevEl: ".productSwiper .swiper-button-prev"
+                    },
+                    pagination: {
+                        el: '.productSwiper .swiper-pagination',
+                        type: 'fraction',
+                        clickable: true
+                    },
+                    breakpoints: {
+                        420: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 4,
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+<?php endif; ?>

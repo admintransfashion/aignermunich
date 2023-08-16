@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @license  Proprietary
+ *
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
+    <media>
+        <images module="Magento_Catalog">
+            <image id="category_page_grid" type="small_image">
+                <width>500</width>
+                <height>500</height>
+            </image>
+            <image id="product_page_image_large" type="image"/>
+            <image id="product_page_image_medium" type="image">
+                <width>900</width>
+                <height>900</height>
+            </image>
+            <image id="product_favorite_image_widget" type="small_image">
+                <width>300</width>
+                <height>300</height>
+                <aspect_ratio>true</aspect_ratio>
+                <frame>false</frame>
+            </image>
+            <image id="related_products_list" type="small_image">
+                <width>300</width>
+                <height>300</height>
+                <aspect_ratio>true</aspect_ratio>
+                <frame>false</frame>
+            </image>
+            <image id="upsell_products_list" type="small_image">
+                <width>300</width>
+                <height>300</height>
+                <aspect_ratio>true</aspect_ratio>
+                <frame>false</frame>
+            </image>
+            <image id="cart_cross_sell_products" type="small_image">
+                <width>300</width>
+                <height>300</height>
+                <aspect_ratio>true</aspect_ratio>
+                <frame>false</frame>
+            </image>
+            <image id="new_products_content_widget_grid" type="small_image">
+                <width>300</width>
+                <height>300</height>
+                <aspect_ratio>true</aspect_ratio>
+                <frame>false</frame>
+            </image>
+        </images>
+    </media>
+    <vars module="Magento_Catalog">
+        <var name="breakpoints">
+            <var name="mobile">
+                <var name="conditions">
+                    <var name="max-width">767px</var>
+                </var>
+                <var name="options">
+                    <var name="options">
+                        <var name="nav">thumbs</var>
+                        <var name="arrows">true</var>
+                    </var>
+                </var>
+            </var>
+        </var>
+    </vars>
+</view>

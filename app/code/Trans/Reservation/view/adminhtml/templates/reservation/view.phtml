@@ -1,0 +1,245 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php /**  @var $block \Trans\Reservation\Block\Adminhtml\Grid\View */ ?>
+
+<?php $reservation = $block->getReservationData(); ?>
+<?php $items = $block->getReservationItemData(); ?>
+<?php $data = $block->prepareData($reservation); ?>
+<?php $customer = $block->getCustomerById($reservation->getCustomerId()); ?>
+
+<div class="page-main-actions">
+    <div class="page-actions-placeholder" style=""></div>
+    <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+        <div class="page-actions-inner" data-title="New Invoice">
+            <div class="page-actions-buttons">
+                <button id="back" title="Back" type="button" class="action-default scalable back" onclick="setLocation('<?php echo $block->getBackUrl() ?>')">
+                    <span><?= /* @escapeNotVerified */ __('Back') ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="admin__page-section reservation-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __('Reservation Information') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary">
+                    <tbody>
+                    <tr>
+                        <th style="font-weight: bold"><?php echo __('Reference Number') ?></th>
+                        <td>#<?php echo $reservation->getReservationNumber()?></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold"><?php echo __('Customer Name') ?></th>
+                        <td><?php echo $block->getCustomerName($customer) ?></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold"><?php echo __('Customer Telephone') ?></th>
+                        <td><?php echo $block->getCustomerTelephone($customer) ?></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold"><?php echo __('Customer Email') ?></th>
+                        <td><?php echo $block->getCustomerEmail($customer) ?></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold"><?php echo __('Placed On') ?></th>
+                        <td><?php echo $block->changeDateFormat($reservation->getReservationDateSubmit()) ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="admin__page-section reservation-detail">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __('Reservation Items') ?></span>
+    </div>
+    <?php foreach($data as $key => $value): ?>
+        <?php
+            $source = $block->getSourceData($value['store_code']);
+            $date = date('l, F d Y', strtotime($value['end_date']));
+            $time = date("g:i A", strtotime($value['end_time']));
+        ?>
+        <div class="admin__page-section-content" style="margin-bottom:30px">
+            <div class="admin__page-section-item-title" style="float: none;margin-bottom: 45px">
+                <div class="title" style="float:left; margin-right:20px"><?php echo __('Reservation ID') ?> : <span style="color:#ba4000">#<?php echo $value['order_id'] ?></span></div>
+                <?php if(!$block->isOrderReleased($value['order_id'])) : ?>
+                    <div class="action-release" style="float:left;">
+                        <form action="<?php echo $block->getReleaseUrl($value['order_id']) ?>" class="<?php echo 'item-' . $value['order_id']; ?>" method="POST">
+                            <input type="hidden" name="id" value="<?php echo $value['order_id'] ?>">
+                            <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+                            <button class="release-button action-primary" style="width:120px" data-item="<?php echo $value['order_id']; ?>"><?php echo __('Visit') ?></button>
+                        </form>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="admin__page-section-item order-information" style="float: none; margin-bottom:20px">
+                <div class="admin__page-section-item-content">
+                    <table class="admin__table-secondary">
+                        <tbody>
+                            <tr>
+                                <th style="font-weight: bold"><?php echo __('Reference Number') ?></th>
+                                <td><?php echo $source->getName() ?></td>
+                            </tr>
+                            <tr>
+                                <th style="font-weight: bold"><?php echo __('Valid Until') ?></th>
+                                <td><?php echo $date . ' ' . $time; ?></td>
+                            </tr>
+                            <tr>
+                                <th style="font-weight: bold"><?php echo __('Status') ?></th>
+                                <td><?php echo $block->getBusinessStatus($value['order_id']); ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <form action="<?php echo $block->getMassActionUrl($value['order_id']) ?>" method="POST">
+                <?php if($value['flag'] == \Trans\Reservation\Api\Data\ReservationItemInterface::FLAG_CONFIRM) { ?>
+                    <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+                    <div class="mass-action-container">
+                        <?php $option = $block->getMassActionOption(); ?>
+                        <span style="display: inline-block;margin-right: 10px;font-weight: bold;font-size: 16px;"><?= /* @escapeNotVerified */ __('Mass Action') ?></span>
+                        <select class="mass-action" name="mass_action" data-item="<?php echo $value['order_id'] ?>" style="margin-bottom:10px; padding:10px">
+                            <option value=""><?= /* @escapeNotVerified */ __('--- Select Action ---') ?></option>
+                            <?php foreach($option as $opt) { ?>
+                                <option value="<?php echo $opt['value'] ?>"><?php echo $opt['label'] ?></option>
+                            <?php } ?>
+                        </select>
+                        <button style="display: none;" class="mass-action-button" data-item="<?php echo $value['order_id'] ?>"><?php echo __('Submit') ?></button>
+                    </div>
+                <?php } ?>
+                <div class="admin__page-section-content grid">
+                <div class="admin__table-wrapper">
+                    <table class="data-table admin__table-primary order-invoice-tables">
+                        <thead>
+                            <tr class="headings" style="background-color:#514943; color:#ffffff; border-top:1px solid #adadad;">
+                                <th class="col-select">&nbsp;</th>
+                                <th class="col-product" style="font-size:16px"><span><?= /* @escapeNotVerified */ __('Item') ?></span></th>
+                                <th class="col-price" style="font-size:16px"><span><?= /* @escapeNotVerified */ __('Price') ?></span></th>
+                                <th class="col-qty" style="font-size:16px"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></th>
+                                <th class="col-status" style="font-size:16px"><span><?= /* @escapeNotVerified */ __('Status') ?></span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="even">
+                        <?php foreach ($data[$key]['items'] as $item): ?>
+                            <?php $product = $block->getProductById($item->getProductId()); ?>
+                            <?php if(!$product) { continue; } ?>
+                            <tr style="border-bottom: 1px solid #adadad; font-size:14px">
+                                <td class="col-select checkbox-visit-reserv" style="vertical-align:middle; text-align:center">
+                                <?php if($item->getFlag() == \Trans\Reservation\Api\Data\ReservationItemInterface::FLAG_CONFIRM): ?>
+                                    <input type="checkbox" name="item[]" class="admin__control-checkbox" value="<?php echo $item->getProductId(); ?>">
+                                    <label class="admin__field-label">&nbsp;</label>
+                                <?php  endif; ?>
+                                </td>
+                                <td class="col-product">
+                                    <?php if($block->getImageUrl($product)) : ?>
+                                        <div class="product-image" style="float:left;width:180px; margin-right:20px">
+                                            <img style="width:100%" src="<?php echo $block->getImageUrl($product); ?>"/>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="product-info" style="float:left;">
+                                        <div class="product-title" style="font-weight: bold; font-size: 16px"><?= /* @escapeNotVerified */ $block->escapeHtml($product->getName()) ?></div>
+                                        <div class="product-sku-block"><span><?= /* @escapeNotVerified */ __('SKU') ?>:</span> <?= /* @escapeNotVerified */ $block->escapeHtml($product->getSku()); ?></div>
+                                    </div>
+                                </td>
+                                <td class="col-price" style="vertical-align:middle">
+                                    <?php //echo $block->getProductPrice($product); ?>
+                                    <?php
+                                        $basePrice = $item->getBasePrice();
+                                        $finalPrice = $item->getFinalPrice();
+                                        $isSale =  ($finalPrice < $basePrice) ? true : false;
+                                    ?>
+                                    <? if($isSale): ?>
+                                        <div class="product-badge sale" style="background-color: maroon;display: inline-block;padding: 5px 10px;text-transform: uppercase;color: #fff;font-size: 13px;">
+                                            <span class="ng-binding">SALE</span>
+                                        </div>
+                                        <span class="old-price" style="display: block; color: #999999; text-decoration: line-through;"><?php echo $block->formatPrice($basePrice); ?></span>
+                                        <span class="special-price" style="display: block"><?php echo $block->formatPrice($finalPrice); ?></span>
+                                    <? else: ?>
+                                        <span class="price"><?php echo $block->formatPrice($finalPrice); ?></span>
+                                    <? endif; ?>
+                                </td>
+                                <td class="col-qty" style="vertical-align:middle">
+                                    <span class="qty"><?php echo $item->getQty(); ?></span>
+                                </td>
+                                <td class="col-status" style="vertical-align:middle">
+                                    <span class="status"><?php echo $block->getItemStatus($item); ?></span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                            <tr style="border-bottom: 1px solid #adadad; font-size:18px;font-weight: bold;background-color: #f1f1f1">
+                                <td colspan="2" style="text-align: right"><span>Subtotal :</span></td>
+                                <td colspan="3"><?php echo $block->getFormattedSubtotal(null, null, $key); ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </form>
+        </div>
+    <?php endforeach; ?>
+</section>
+<script type="text/javascript">
+    // <![CDATA[
+    require([
+            'jquery',
+            'Magento_Ui/js/modal/confirm'
+        ],
+        function($, confirmation) {
+            $('.release-button').each(function(event) {
+                $(this).on('click', function(event){
+                    var itemid = $(this).attr('data-item');
+                    event.preventDefault();
+                    confirmation({
+                        title: 'Action Confirmation',
+                        content: 'Are you sure to proceed this action?',
+                        actions: {
+                            confirm: function(){
+                                $('.item-' + itemid).submit();
+                            },
+                            cancel: function(){
+                                return false;
+                            },
+                            always: function(){
+                            }
+                        }
+                        // return false;
+                    });
+                });
+            });
+
+            $('.mass-action').each(function() {
+                $(this).change(function() {
+                    var order_id = $(this).data('item'),
+                        action = $('.mass-action[data-item="' + order_id + '"]').val(),
+                        buttonObj = $('.mass-action-button[data-item="' + order_id + '"]');
+
+                    if(order_id) {
+                        if(action) {
+                            buttonObj.show();
+                        } else {
+                            buttonObj.hide();
+                        }
+
+                    }
+                });
+            });
+        }
+    );
+    // ]]>
+</script>

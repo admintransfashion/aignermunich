@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   HaDi <ashadi.sejati@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+
+<section class="home-nos-banner">
+    <a href="<?php echo $block->getData('shopnow'); ?>" class="nos-banner-wrapper clearfix" onclick='<?php echo $block->generateDataLayer(); ?>'>
+        <div class="nos-text span_5">
+            <h1><?php echo $block->getData('title'); ?></h1>
+            <h3><?php echo $block->getData('content_title'); ?></h3>
+            <p><?php echo $block->getData('content'); ?></p>
+            <button class="button strong cta-button"><?php echo $block->getData('btn_label'); ?></button>
+        </div>
+        <img src="<?php echo $block->getImageUrl(); ?>" alt="<?php echo $block->getData('title'); ?>" class="span_7">
+    </a>
+</section>

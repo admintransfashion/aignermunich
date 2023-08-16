@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_CustomHeadBlock
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="CTCD_Core::core">
+                    <resource id="CTCD_CustomHeadBlock::main" title="Custom Head Block Module" sortOrder="10">
+                        <resource id="CTCD_CustomHeadBlock::configuration" title="Configuration" sortOrder="0" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

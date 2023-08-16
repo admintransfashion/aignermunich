@@ -1,0 +1,123 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   HaDi <ashadi.sejati@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<?php 
+    $randNumber = date('YmdHis').rand(100000, 999999);
+?>
+<section class="banner-homepage banner-homepage-<?= $randNumber; ?> <?= $block->getData('positioncontent'); ?>" data-layer-already="0">
+    <?php
+    if ($block->getImageUrl()) {
+        if ($block->getData('onlyimage') == 'yes' && $block->getData('shopnow')) {
+            ?>
+            <a href="<?= $block->getData('shopnow');?>" onclick='<?php echo $block->generateDataLayer(); ?>' id="promoBanner<?= $randNumber ?>">
+                <div class="banner-homepage-image">
+                    <img src="<?php echo $block->getImageUrl(); ?>" alt="<?php echo $block->escapeHtmlAttr($block->getData('title')) ?>" />
+                </div>
+            </a>
+            <span class="datalayer-click" style="display:none" onclick='<?php echo $block->generateDataLayer('view'); ?>'></span>
+            <?php
+        }
+        else {
+            ?>
+            <div class="banner-homepage-image">
+                <img src="<?php echo $block->getImageUrl(); ?>" alt="<?php echo $block->escapeHtmlAttr($block->getData('title')) ?>" />
+            </div>
+            <?php
+        }
+    }
+    ?>
+
+    <?php
+    if ($block->getData('onlyimage') == 'no') {
+        ?>
+        <div class="banner-homepage-image-info">
+            <?php
+            if ($block->getData('title')) {
+                ?>
+                <div class="banner-homepage-image-name"><?php echo $block->getData('title'); ?></div>
+                <?php
+            }
+            ?>
+            <?php
+            if ($block->getData('content')) {
+                ?>
+                <div class="banner-homepage-image-description">
+                    <?php echo $block->getData('content'); ?>
+                </div>
+                <?php
+            }
+            ?>
+            <?php
+            if ($block->getData('shopnow')) {
+                ?>
+                <div class="banner-homepage-button">
+                    <a href="<?php echo $block->getData('shopnow'); ?>" onclick="<?php echo $block->generateDataLayer(); ?>" id="promoBanner<?= $randNumber ?>">
+                        <?php echo $block->getData('btn_label'); ?>
+                    </a>
+                    <span class="datalayer-click" style="display:none" onclick='<?php echo $block->generateDataLayer('view'); ?>'></span>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+        <?php
+    }
+    ?>
+
+    <script type="text/javascript">
+    require([
+        'jquery',
+        'domReady!'
+    ], function ($) {
+        function isOnScreen<?= $randNumber; ?>(elem) {
+            // if the element doesn't exist, abort
+            if( elem.length == 0 ) {
+                return;
+            }
+            var $window = $(window)
+            var viewport_top = $window.scrollTop()
+            var viewport_height = $window.height()
+            var viewport_bottom = viewport_top + viewport_height
+            var $elem = $(elem)
+            var top = $elem.offset().top
+            var height = $elem.height()
+            var bottom = top + height
+
+            return (top >= viewport_top && top < viewport_bottom) ||
+            (bottom > viewport_top && bottom <= viewport_bottom) ||
+            (height > viewport_height && top <= viewport_top && bottom >= viewport_bottom)
+        }
+
+        $(window).on('scroll', function() {
+            $(".banner-homepage-<?= $randNumber; ?>").each(function(){
+                if( isOnScreen<?= $randNumber; ?>( $(this) ) ) {
+                    if ($(this).attr('data-layer-already') == 0) {
+                        $(this).find('span.datalayer-click').click();
+                        $(this).attr('data-layer-already','1');
+                    }
+                    
+                }
+            });
+        });
+        $(".banner-homepage-<?= $randNumber; ?>").each(function(){
+            if( isOnScreen<?= $randNumber; ?>( $(this) ) ) {
+                if ($(this).attr('data-layer-already') == 0) {
+                    $(this).find('span.datalayer-click').click();
+                    $(this).attr('data-layer-already','1');
+                }
+            }
+        });
+
+    });
+    </script>
+</section>

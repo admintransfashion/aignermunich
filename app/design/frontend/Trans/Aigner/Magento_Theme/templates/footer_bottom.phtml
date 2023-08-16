@@ -1,0 +1,76 @@
+<?php
+/**
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ * @author   Babono <babono@transdigital.co.id>
+ * @author   Ilma Dinnia Alghani<ilma.dinnia@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ * TODO NEXT trus & subcription
+ */
+?>
+<style type="text/css">
+/*custom new season 2020*/
+.mood {
+    flex-direction: column;
+}
+
+.mood .mood-column {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.mood .mood-column.top .mood-grid {
+    align-self: flex-end;
+}
+
+.mood .mood-column.bottom .mood-grid {
+    align-self: flex-start;
+}
+
+/*.mood-category {
+        color: #000;
+        font-size: 22px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+    }*/
+.banner.video-youtube iframe {
+    width: 100%;
+    height: 500px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .mood .mood-column {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .banner.video-youtube iframe {
+        width: 100%;
+        height: 250px;
+    }
+
+    
+}
+</style>
+<div class="footer-bot">
+    <div class="container">
+        <div>
+            <?php echo $this->getLayout()
+                            ->createBlock('Magento\Cms\Block\Block')
+                            ->setBlockId('footer-bottom')
+                            ->toHtml(); ?>
+        </div>
+    </div>
+</div>

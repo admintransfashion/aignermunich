@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Widget\Telephone $block */
+?>
+
+<div class="field telephone <?= $block->isRequired() ? 'required' : '' ?>">
+    <label for="telephone" class="label">
+        <span>
+            <?= $block->escapeHtml(__('Phone Number')) ?> *
+        </span>
+    </label>
+    <div class="control <?php if($block->isOtpEnable()): ?>otp-enable<?php endif; ?>">
+        <input type="text"
+               name="telephone"
+               id="telephone"
+               value="<?= $block->escapeHtmlAttr($block->getTelephone()) ?>"
+               title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+               class="input-text <?= $block->escapeHtmlAttr(
+                   $block->getAttributeValidationClass('telephone')
+               ) ?>"
+        >
+    </div>
+    <?php if($block->isOtpEnable()): ?>
+    <div class="actions action-buttons">
+        <button type="button" id="btnChangeTelephone" class="btn" title="<?= $block->escapeHtmlAttr(__('Change')) ?>"><span><?= $block->escapeHtml(__('Change')) ?></span></button>
+    </div>
+    <?php endif; ?>
+</div>
+<?php if($block->isOtpEnable()): ?>
+    <script type="text/javascript">
+        require([
+            "jquery", 'loader', 'domReady!'
+        ], function($) {
+            $(document).ready(function(){
+                if($("#telephone").val() == ''){
+                    $("#btnChangeTelephone").prop('disabled', true);
+                }
+                $("#btnChangeTelephone").on("click", function(){
+                    var newPhone = $("#telephone").val();
+                    if(newPhone){
+                        $("body").trigger('processStart');
+                        var formHtml = '<form action="<?= $block->getSubmitUrl() ?>" method="post" enctype="multipart/form-data">';
+                        formHtml += '<?= $block->getBlockHtml('formkey') ?>';
+                        formHtml += '<input type="text" name="telephone" id="telephone" value="'+ newPhone.trim() +'"/>';
+                        formHtml += '</form>';
+                        $(formHtml).appendTo('body').submit();
+                    }
+                    else{
+                        $("#telephone").focus();
+                    }
+                });
+                $("#telephone").keyup(function(){
+                    $("#btnChangeTelephone").prop('disabled', false);
+                    if($(this).val() == ''){
+                        $("#btnChangeTelephone").prop('disabled', true);
+                    }
+                });
+            });
+        });
+    </script>
+<?php endif; ?>

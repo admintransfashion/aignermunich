@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Widgets
+ * @license  Proprietary
+ *
+ * @author   J.P <jaka.pondan@transdigital.co.id>
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+?>
+<section class="favorites">
+    <div class="favorites-column favorites-column-top">
+        <div class="favorites-title">Favorites</div>
+        <div class="favorites-main">
+            <?php
+                $topBannerTitle = $block->getData('bannerimgtitle1') ? $block->getData('bannerimgtitle1') : '';
+                $bottomBannerTitle = $block->getData('bannerimgtitle2') ? $block->getData('bannerimgtitle2') : '';
+            ?>
+            <div class="favorites-main top">
+                <img src="<?php echo /* @escapeNotVerified */ $block->getBannerImage(1); ?>" alt="<?php echo /* @escapeNotVerified */ $topBannerTitle ?>">
+            </div>
+            <div class="favorites-main bottom">
+                <img src="<?php echo /* @escapeNotVerified */ $block->getBannerImage(2); ?>" alt="<?php echo /* @escapeNotVerified */ $bottomBannerTitle ?>">
+            </div>
+        </div>
+    </div>
+
+    <div class="favorites-column favorites-column-bottom">
+        <?php
+            $favproduct = $block->generateProduct($block->getData('favoriteproductlist'));
+            echo $favproduct;
+        ?>
+    </div>
+
+    <script type="text/javascript">
+    require([
+        'jquery',
+        'domReady!'
+    ], function ($) {
+        function isOnScreen(elem) {
+            // if the element doesn't exist, abort
+            if( elem.length == 0 ) {
+                return;
+            }
+            var $window = $(window)
+            var viewport_top = $window.scrollTop()
+            var viewport_height = $window.height()
+            var viewport_bottom = viewport_top + viewport_height
+            var $elem = $(elem)
+            var top = $elem.offset().top
+            var height = $elem.height()
+            var bottom = top + height
+
+            return (top >= viewport_top && top < viewport_bottom) ||
+            (bottom > viewport_top && bottom <= viewport_bottom) ||
+            (height > viewport_height && top <= viewport_top && bottom >= viewport_bottom)
+        }
+
+        $(window).on('scroll', function() {
+            $(".favorites .favorites-column .favorites-product .favorites-link").each(function(){
+                var idData = '#' + $(this).attr('id');
+                if( isOnScreen( $(idData) ) ) {
+                    if ($(this).attr('data-layer-already') == 0) {
+                        $(this).next('span.datalayer-click').click();
+                        $(this).attr('data-layer-already','1');
+                    }
+                }
+            });
+        });
+        $(".favorites .favorites-column .favorites-product .favorites-link").each(function(){
+            var idData = '#' + $(this).attr('id');
+            if( isOnScreen( $(idData) ) ) {
+                if ($(this).attr('data-layer-already') == 0) {
+                    $(this).next('span.datalayer-click').click();
+                    $(this).attr('data-layer-already','1');
+                }
+            }
+        });
+
+    });
+    </script>
+
+</section>

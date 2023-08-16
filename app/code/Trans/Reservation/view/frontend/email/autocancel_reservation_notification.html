@@ -1,0 +1,42 @@
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<!--@subject {{trans "Cancelled your reservation from Aigner!"}} @-->
+<!--@vars {
+"var content|raw":"Content",
+"var reservation|raw":"Reservation",
+"var placed_date|raw":"Placed Date",
+"var customer|raw":"Customer",
+"var base_url|raw":"Base Url",
+"var source_name|raw":"Source Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h1 style="text-align: center;">{{trans 'Hello, %customerName,' customerName=$customer.getFirstname()}}</h1>
+<p style="text-align: center;">{{trans 'We are sorry to inform that your reservation <strong style="text-decoration: underline;">%reservationNumber</strong> has been cancelled because you didn't pick up the item(s) until the due time.' reservationNumber=$reservation.getReservationNumber() | raw}}</p>
+
+{{layout handle="reservation_email_itemsexpired" reservation=$reservation area="frontend"}}
+
+<div style="
+    border-top: solid 8px #e7e6e2;
+    border-bottom: solid 8px #e7e6e2;
+    padding-top: 50px;
+    padding-bottom: 50px;
+">
+<p style="text-align: center;margin-bottom: 0;">{{trans 'Still want to get your favorite item? Don’t worry.'}}</p>
+<p style="text-align: center;margin-bottom: 50px;">{{trans 'You can reserve again at ' baseUrl=$base_url}}</p>
+</div>
+
+{{template config_path="design/email/footer_template"}}

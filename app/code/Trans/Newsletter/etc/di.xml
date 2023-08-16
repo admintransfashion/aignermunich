@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--  
+/**
+ * @category Trans
+ * @package  Trans_Newsletter
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!-- newsletter -->
+	<preference for="Trans\Newsletter\Api\Data\NewsletterAdditionalInterface" type="Trans\Newsletter\Model\NewsletterAdditional"/>
+    <preference for="Trans\Newsletter\Api\NewsletterAdditionalRepositoryInterface" type="Trans\Newsletter\Model\NewsletterAdditionalRepository"/>
+    <preference for="Magento\Theme\Block\Html\Footer" type="Trans\Newsletter\Preference\Theme\Block\Html\Footer"/>
+    
+    <type name="Magento\Newsletter\Controller\Subscriber\NewAction">
+        <plugin name="addSubscriberAdditional" type="Trans\Newsletter\Plugin\Newsletter\Controller\Subscriber\NewAction" />
+    </type>
+
+    <type name="Magento\Newsletter\Model\ResourceModel\Subscriber\Collection">
+        <plugin name="gridSubscriberAddtiona;" type="Trans\Newsletter\Plugin\Newsletter\Model\ResourceModel\Subscriber\Collection" />
+    </type>
+    <!-- end newsletter -->
+</config>

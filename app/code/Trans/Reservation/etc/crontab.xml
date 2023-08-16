@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="trans_reservation">
+        <job name="autoCancelled" instance="Trans\Reservation\Cron\AutoCancel" method="execute">
+            <schedule>*/10 * * * *</schedule>
+        </job>
+        <job name="reminder" instance="Trans\Reservation\Cron\EmailReminder" method="execute">
+            <schedule>45 2 * * *</schedule>
+        </job>
+    </group>
+</config>

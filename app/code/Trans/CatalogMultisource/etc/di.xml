@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category Trans
+ * @package  Trans_CatalogMultisource
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Imam Kusuma <imam.kusuma@transdigital.co.id>
+ * @modify   J.P <jaka.pondan@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Trans\CatalogMultisource\Api\Data\SourceItemUpdateHistoryInterface" type="Trans\CatalogMultisource\Model\Source\SourceItemUpdateHistory"/>
+    <preference for="Trans\CatalogMultisource\Api\SourceItemUpdateHistoryRepositoryInterface" type="Trans\CatalogMultisource\Model\Source\SourceItemUpdateHistoryRepository"/>
+
+    <type name="Magento\Inventory\Model\SourceItem\Command\SourceItemsSave">
+        <plugin name="save_source_item_update_history" type="Trans\CatalogMultisource\Plugin\Inventory\Model\SourceItem\Command\SourceItemsSave" />
+    </type>
+
+    <!-- API update inventory by POS -->
+    <preference for="Trans\CatalogMultisource\Api\InventoryPosUpdateInterface" type="Trans\CatalogMultisource\Model\InventoryPosUpdate"/>
+    <preference for="Trans\CatalogMultisource\Api\Data\InventoryPosUpdateResponseInterface" type="Trans\CatalogMultisource\Model\InventoryPosUpdateResponse"/>
+
+    <!-- API update inventory by POS V2-->
+    <preference for="Trans\CatalogMultisource\Api\InventoryPosInterface" type="Trans\CatalogMultisource\Model\InventoryPos"/>
+    <preference for="Trans\CatalogMultisource\Api\Data\DefaultResponseInterface" type="Trans\CatalogMultisource\Model\DefaultResponse"/>
+
+    <!-- API update inventory -->
+    <preference for="Trans\CatalogMultisource\Api\InventoryUpdateInterface" type="Trans\CatalogMultisource\Model\InventoryUpdate"/>
+    <preference for="Trans\CatalogMultisource\Api\Data\InventoryUpdateResponseInterface" type="Trans\CatalogMultisource\Model\InventoryUpdateResponse"/>
+
+    <!-- API update inventory V2-->
+    <preference for="Trans\CatalogMultisource\Api\InventoryInterface" type="Trans\CatalogMultisource\Model\Inventory"/>
+
+    <!-- Looger -->
+    <type name="Trans\CatalogMultisource\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Trans\CatalogMultisource\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">inventoryUpdateLog</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Trans\CatalogMultisource\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- end Looger -->
+</config>

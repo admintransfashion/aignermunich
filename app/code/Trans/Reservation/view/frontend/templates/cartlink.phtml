@@ -1,0 +1,55 @@
+<?php
+/* logic here */
+?>
+<style>
+    .link.reservecart{
+        float: right;
+    }
+    .link.reservecart .counter.qty {
+        background: #ff5501;
+        color: #fff;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 2px;
+        display: inline-block;
+        margin: 3px 0 0;
+        min-width: 18px;
+        overflow: hidden;
+        padding: 0 3px;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .reserve-cart:before {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 22px;
+        line-height: 28px;
+        color: #757575;
+        content: '\e600';
+        font-family: 'luma-icons';
+        margin: 0;
+        vertical-align: top;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        speak: none;
+        text-align: center;
+    }
+
+    .reserve-cart .text{
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+</style>
+<div class="link reservecart" data-bind="scope: 'reservecart'">
+    <a <?= /* @noEscape */ $block->getLinkAttributes() ?> class="reserve-cart">
+        <span class="text"><?= $block->escapeHtml($block->getLabel()) ?></span>
+    </a>
+</div>

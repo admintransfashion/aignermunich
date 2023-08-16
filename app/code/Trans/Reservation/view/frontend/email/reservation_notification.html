@@ -1,0 +1,45 @@
+	<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<!--@subject {{trans "You have successfully reserved item(s) from Aigner!"}} @-->
+<!--@vars {
+"var content|raw":"Content",
+"var reservation|raw":"Reservation",
+"var placed_date|raw":"Placed Date",
+"var customer|raw":"Customer",
+"var source_name|raw":"Source Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h1 style="text-align: center;">{{trans 'Hello, %customerName' customerName=$customer.getFirstname()}}</h1>
+<p style="text-align: center;">{{trans 'Congratulations, you have completed the reservation process on Aigner Indonesia website. Our Sales Assistant will contact you to continue the further reservation process.' |raw}}</p>
+<p style="text-align: center;">{{trans 'Get ready to have your favorite collection delivered to your home or picked up in store. Please show this email to our Store Assitant to get your item(s).' |raw}}</p>
+
+<p style="text-align: center;">{{trans 'Reservation ID: <strong style="text-decoration: underline;">%reservationNumber</strong>' reservationNumber=$reservation.getReservationNumber() | raw}}</p>
+
+{{layout handle="reservation_email_items" reservation=$reservation area="frontend"}}
+
+<div style="
+    border-top: solid 8px #e7e6e2;
+    border-bottom: solid 8px #e7e6e2;
+    padding-top: 50px;
+    padding-bottom: 50px;
+">
+<p style="text-align: center;">{{trans 'Enjoy your time with us!'}}</p>
+<p style="text-align: center;">{{trans 'Kind regards,'}}<br/>{{trans 'Your <b>AIGNER</b> team' |raw}}</p>
+</div>
+
+
+{{template config_path="design/email/footer_template"}}

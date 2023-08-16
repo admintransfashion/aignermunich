@@ -1,0 +1,59 @@
+<?php 
+
+/**
+ * @category Trans
+ * @package  Trans_ThirdPartyExt
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Dwi Septha Kurniawan <septha.kurniawan@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+
+use Mageplaza\Productslider\Block\AbstractSlider;
+
+/** @var AbstractSlider $block */
+
+$mode = 'grid';
+$title = $block->getTitle();
+$counter = 1;
+if ($items = $block->getProductCollection()) :?>
+
+	<section class="newpicks">
+		<div class="newpicks-title"><?= $block->getTitle(); ?></div>
+		<div class="newpicks-swiper">
+			<div class="productSwiper">
+				<div class="productSwiper-container swiper-container jsProductSwiper">
+					<div class="swiper-wrapper">
+                    <?php foreach ($items as $_item) : ?>
+                    	<div class="swiper-slide">
+							<a href="<?= $block->getProductUrl($_item) ?>" class="productSwiper-link">
+								<div class="productSwiper-image">
+									<?= $block->getImage($_item, 'recently_viewed_products_grid_content_widget')->toHtml(); ?>
+								</div>
+								<div class="productSwiper-name"><?= $block->escapeHtml($_item->getName()) ?></div>
+								<div class="productSwiper-price"><?= $block->getProductPrice($_item); ?></div>
+							</a>
+						</div>
+
+                    <?php $counter++; endforeach ?>
+					</div>
+				</div>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+		</div>
+	</section>
+<?php endif; ?>
+
+<style type="text/css">
+	.product-image-container{
+		width: 100% !important;
+	}
+	.productSwiper-name{
+		color: #000;
+	}
+</style>

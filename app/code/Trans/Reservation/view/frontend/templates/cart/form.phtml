@@ -1,0 +1,449 @@
+<?php
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Trans\Reser\Block\Cart\Grid */
+?>
+<?= $block->getChildHtml('form_before') ?>
+<?php $reservation = $block->getReservation() ?>
+<?php $items = $block->getItems(); ?>
+<?php $gtmHelper = $this->helper('Trans\Gtm\Helper\Data'); ?>
+<?php $getCustomerId = $gtmHelper->getCurrentCustomerId() ?>
+<?php $dataLayerCheckout = ''; ?>
+<?php $subTotal = 0; ?>
+
+<div id="modal-login" style="display: none;">
+    <div class="modal-body-content">
+        <?php echo $this->getLayout()->createBlock("Magento\Customer\Block\Form\Login")
+                                                    ->setTemplate("Trans_Customer::form/login.phtml")
+                                                    ->toHtml(); ?>
+        <div class="sign-up-link">
+            <?php echo __(' DON’T HAVE AN ACCOUNT?'); ?><a href="/customer/account/login/" style="text-decoration: underline;font-weight: bolder;">
+                <?php echo __('SIGN UP'); ?></a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+require([
+    "jquery",
+    "Magento_Ui/js/modal/modal"
+], function($, modal) {
+
+    var options = {
+        type: 'popup',
+        responsive: true,
+        buttons: [{
+            class: '',
+            click: function() {
+                this.closeModal();
+            }
+        }]
+    };
+
+    var popup = modal(options, $('#modal-login'));
+    $("#button").click(function() {
+        $('#modal-login').modal('openModal');
+    });
+});
+
+</script>
+<div id="reservation-step-reserve" class="reservation-section">
+    <div class="step-title">
+        <span class="title">Reservation Details</span>
+    </div>
+    <?php if(count($items) > 0 && $block->isItemsProductExists($items)) : ?>
+    <form action="<?= /* @escapeNotVerified */ $block->getUrl('reservation/cart/submit') ?>" method="post" id="form-validate" class="form form-cart">
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="cart table-wrapper">
+            <table id="shopping-cart-table" class="cart items data table" data-mage-init='{"shoppingCart":{"emptyCartButton": ".action.clear",
+                   "updateCartActionContainer": "#update_cart_action_container"}}'>
+                <caption class="table-caption">
+                    <?= /* @escapeNotVerified */ __('Reservation Cart Items') ?>
+                </caption>
+                <thead>
+                    <tr>
+                        <th class="col item" scope="col"><span>
+                                <?= /* @escapeNotVerified */ __('Product') ?></span></th>
+                        <th class="col qty" scope="col"><span>
+                                <?= /* @escapeNotVerified */ __('Quantity') ?></span></th>
+                        <?php if(!$block->getCustomerData()) { ?>
+                        <th class="col details" scope="col"><span>
+                                <?= /* @escapeNotVerified */ __('Total') ?></span></th>
+                        <?php } else { ?>
+                        <th class="col details" scope="col"><span>
+                                <?= /* @escapeNotVerified */ __('Details') ?></span></th>
+                        <?php }  ?>
+                    </tr>
+                </thead>
+                <tbody class="cart item">
+                    <?php $index = 1 ?>
+                    <?php foreach ($items as $item): ?>
+                    <?php
+                            $product = $block->getProductById($item->getProductId());
+                            if(!$product) { continue; }
+
+                            $catName = $gtmHelper->getCategoryNamesByProduct($product);
+                            $catNameParent = $gtmHelper->getCategoryC0NamesByProduct($product);
+                            $subTotal += $product->getFinalPrice();
+
+                            $dataLayerCheckout .= '{\'product_size\': \''.$product->getResource()->getAttribute('size')->getFrontend()->getValue($product).'\',\'product_for\': \''.$catNameParent.'\',\'name\': \''.$block->escapeHtml($product->getName()).'\',\'id\': \''.$block->escapeHtml($product->getSku()).'\',\'price\': \''.$block->escapeHtml($product->getFinalPrice()).'\',\'brand\': \'Aigner\',\'category\': \''.$catName.'\',\'variant\': \''.$product->getResource()->getAttribute('color')->getFrontend()->getValue($product).'\',\'quantity\': \''.$item->getQty().'\'},';
+                        ?>
+                    <?php $sources = $block->getFilteredProductSources($product); ?>
+                    <tr class="item-info <?php echo (!$block->getCustomerData()) ? 'not-login-reserv' : 'has-login-reserv'; ?>">
+                        <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
+                            <input type="hidden" name="sku" id="product-sku-<?php echo $index; ?>" value="<?php echo $product->getSku(); ?>">
+                            <div class="image-cart-c">
+                                <img src="<?php echo $block->getImageUrl($product); ?>" class="cart_page_product_thumbnail" />
+                            </div>
+                            <div class="product-item-details" style="padding-bottom: 0px;">
+                                <strong class="product-item-name">
+                                    <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($product) ?>">
+                                        <?= $block->escapeHtml($product->getName()) ?></a>
+                                </strong>
+                                <div class="product-item-attribute">
+                                    <?php $color =  $product->getResource()->getAttribute('color')->getFrontend()->getValue($product); ?>
+                                    <?php if($color): ?>
+                                        <div class="control attribute">
+                                            <span class="label"><?php echo $product->getResource()->getAttribute('color')->getFrontendLabel(); ?> :</span>
+                                            <span><?= $color ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php $size =  $product->getResource()->getAttribute('size')->getFrontend()->getValue($product); ?>
+                                    <?php if($size): ?>
+                                        <div class="control attribute">
+                                            <span class="label"><?php echo $product->getResource()->getAttribute('size')->getFrontendLabel(); ?> :</span>
+                                            <span><?= $size ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php $modelGroup =  $product->getResource()->getAttribute('model_group')->getFrontend()->getValue($product); ?>
+                                    <?php if($modelGroup): ?>
+                                        <div class="control attribute">
+                                            <span class="label"><?php echo $product->getResource()->getAttribute('model_group')->getFrontendLabel(); ?> :</span>
+                                            <span><?= $modelGroup ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php $articleGroup =  $product->getResource()->getAttribute('article_group')->getFrontend()->getValue($product); ?>
+                                    <?php if($articleGroup): ?>
+                                        <div class="control attribute">
+                                            <span class="label"><?php echo __('Article No'); ?> :</span>
+                                            <span><?= $articleGroup ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="control attribute">
+                                        <span class="label">Price :</span>
+                                        <span><?php echo $block->getCustomProductPriceHtml($product); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php if($block->getCustomerData()) { ?>
+                            <div class="actions-wrap">
+                                <div class="reserve-action">
+                                    <a class="delete-item" data-id="<?= $product->getSku(); ?>" data-name="<?= $product->getName(); ?>" data-size="<?= $product->getResource()->getAttribute('size')->getFrontend()->getValue($product); ?>" data-userid="<?=$getCustomerId?>" data-price="<?=$product->getFinalPrice()?>" data-color="<?= $product->getResource()->getAttribute('color')->getFrontend()->getValue($product); ?>" data-qty="<?=$item->getQty()?>" data-category="<?=$catName?>" data-categoryparent="<?=$catNameParent?>" href="<?php echo $block->getDeleteItem($item->getId()); ?>"><i class="ico-remove-item"></i>
+                                        <?php echo __('Remove Item'); ?></a>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <?php if(!$block->getCustomerData()) { ?>
+                            <div class="actions-wrap">
+                                <div class="reserve-action">
+                                    <a class="delete-item" data-id="<?= $product->getSku(); ?>" data-name="<?= $product->getName(); ?>" data-size="<?= $product->getResource()->getAttribute('size')->getFrontend()->getValue($product); ?>" data-userid="<?=$getCustomerId?>" data-price="<?=$product->getFinalPrice()?>" data-color="<?= $product->getResource()->getAttribute('color')->getFrontend()->getValue($product); ?>" data-qty="<?=$item->getQty()?>" data-category="<?=$catName?>" data-categoryparent="<?=$catNameParent?>" href="<?php echo $block->getDeleteItem($item->getId()); ?>"><i class="ico-remove-item"></i>
+                                        <?php echo __('Remove Item'); ?></a>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </td>
+                        <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+                            <div class="field qty">
+                                <label class="label" for="cart-<?= /* @escapeNotVerified */ $item->getProductId() ?>-qty">
+                                    <span>
+                                        <?= /* @escapeNotVerified */ __('Qty') ?></span>
+                                </label>
+                                <div class="control qty">
+                                    <?php echo $item->getQty(); ?>
+                                </div>
+                            </div>
+                        </td>
+                        <?php if(!$block->getCustomerData()) { ?>
+                        <td class="col details" data-th="<?= $block->escapeHtml(__('Details')) ?>">
+                            <div class="details-wrap ">
+                                <div class="field store">
+                                    <?php echo $block->getFormattedSubtotal($product->getFinalPrice(), $item->getQty()); ?>
+                                </div>
+                            </div>
+                        </td>
+                        <?php } else { ?>
+                        <td class="col details" data-th="<?= $block->escapeHtml(__('Details')) ?>">
+                            <div class="details-wrap ">
+                                <?php if(!$block->getCustomerData()) { ?>
+                                <div class="field store">
+                                    <?php echo $block->getFormattedSubtotal($product->getFinalPrice(), $item->getQty()); ?>
+                                </div>
+                                <?php } else { ?>
+                                <div class="field store">
+                                    <span class="label">Store</span>
+                                    <div class="field ">
+                                        <select name="store_code[<?php echo $product->getSku() ?>]" id="store-code-<?php echo $index; ?>" index="<?php echo $index; ?>" class="store-code-field input-text required-entry" data-validate='{"required":true}' required="true" data-msg-required="Please select the store to complete the reservation">
+                                            <option value="">Select Store</option>
+                                            <?php foreach($sources as $source) { ?>
+                                            <?php /* <option value="<?php echo $source['code'] ?>"><?php echo $source['name'] ?></option> */ ?>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                 <?php /*
+                                 <div class="field date">
+                                            <span class="label">RESERVATION DATE</span>
+                                            <div class="field reservation-date-<?php echo $index; ?>">
+                                                <input required type="date" name="reservation_date[<?php echo $product->getSku() ?>]" class="reservation-date reservation-date-default-<?php echo $index; ?> reservation-date-<?php echo $index; ?>" value="<?php echo date("Y-m-j"); ?>" min="<?php echo date("Y-m-j"); ?>">
+                                            </div>
+                                        </div>
+                                <div class="field time">
+                                            <span class="label">RESERVATION TIME</span>
+                                            <div class="field">
+                                                <select required name="reservation_time[<?php echo $product->getSku() ?>]" class="reservation-time-<?php echo $index; ?>">
+                                                    <option value="">Select Time</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    */ ?>
+                                <div class="field date">
+                                    <span class="label">Reservation Date & Time:</span>
+                                    <div class="field reservation-date-valid">
+                                        <?php echo __('Valid until'); ?>
+                                        <?php echo $block->getExpiredDateFormated(null, null, 'l, F d Y'); ?>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <?php $index++; ?>
+                    <?php endforeach ?>
+                </tbody>
+                <tfoot>
+                    <tr class="subtotal-resev">
+                        <td colspan="2"></td>
+                        <td>
+                            <div class="td-flex aiFe">
+                                <div class="td-label">
+                                    <?php echo __('SUBTOTAL'); ?>:</div>
+                                <div class="td-price-large">
+                                    <?php echo $block->getFormattedSubtotal(); ?>
+                                </div>
+                            </div>
+                            <div class="td-action-button">
+                                <?php if(count($items) > 0): ?>
+                                <?php
+                                        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                        $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+                                        if($customerSession->isLoggedIn()) { ?>
+                                <button class="btn">
+                                    <?php echo __('COMPLETE RESERVATION'); ?></button>
+                                <?php  } else { ?>
+                                <span class="btn" id="button">
+                                    <?php echo __('COMPLETE RESERVATION'); ?></span>
+                                <?php  } ?>
+                                <?php endif; ?>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+    <?php else: ?>
+    <div class="empty-reservation-page">
+        <p>
+            <?php echo __('UNFORTUNATELY, YOUR RESERVATION IS EMPTY'); ?>
+        </p>
+        <div>
+            <?php echo __('<a href="%1">CONTINUE SHOPPING</a>', $block->getBaseUrl()); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+    <?php if($reservation) { ?>
+    <script type='text/javascript'>
+    require([
+            'jquery',
+            'mage/url',
+            'Magento_Ui/js/modal/confirm',
+            'mage/translate'
+        ],
+        function($, url, confirmation) {
+            'use strict';
+            $(document).ready(function() {
+                $("#reservation-step-reserve").trigger('processStart');
+
+                var data_source = $.parseJSON(
+                    $.ajax({
+                        showLoader: true,
+                        data: { reservationId: <?php echo $reservation->getId(); ?> },
+                        url: '<?php echo $block->getSourceDataUrl() ?>',
+                        dataType: "json",
+                        cache: false,
+                        async: false
+                    }).responseText
+                );
+
+                getStoreCodeOpt();
+
+                $('.delete-item').click(function(event) {
+                    event.preventDefault();
+                    var removesize = $(this).data("size");
+                    var removecategoryparent = $(this).data("categoryparent");
+                    var removeuserid = $(this).data("userid");
+                    var removeid = $(this).data("id");
+                    var removeprice = $(this).data("price");
+                    var removecategory = $(this).data("category");
+                    var removecolor = $(this).data("color");
+                    var removeqty = $(this).data("qty");
+                    var removeName = $(this).data("name");
+
+                    var url = event.currentTarget.href;
+                    confirmation({
+                        title: $.mage.__('Remove Item'),
+                        content: $.mage.__('Do you wish to remove this item?'),
+                        actions: {
+                            confirm: function() {
+                                dataLayer.push({
+                                    'event': 'removeFromCart',
+                                    'product_size': '' + removesize + '',
+                                    'product_for': '' + removecategoryparent + '',
+                                    'user_id': '' + removeuserid + '',
+                                    'ecommerce': {
+                                        'remove': {
+                                            'products': [{
+                                                'name': '' + removeName + '',
+                                                'id': '' + removeid + '',
+                                                'price': '' + removeprice + '',
+                                                'brand': 'Aigner',
+                                                'category': '' + removecategory + '',
+                                                'variant': '' + removecolor + '',
+                                                'quantity': '' + removeqty + ''
+                                            }]
+                                        }
+                                    }
+                                });
+
+                                window.location.href = url;
+                            },
+                            cancel: function() {},
+                            always: function() {}
+                        }
+                    });
+                    return false;
+                });
+
+
+                $('.store-code-field').each(function() {
+                    $(this).change(function() {
+                        var index, storeCode, sku, dateInput, hoursOption;
+
+                        index = $(this).attr('index');
+                        storeCode = $(this).val();
+                        sku = $('#product-sku-' + index).val();
+
+                        dateInput = getReservationDate(sku, storeCode, index);
+                        hoursOption = getReservationHours(sku, storeCode, index);
+
+                        $('.reservation-date-' + index).html('');
+                        $('.reservation-date-' + index).append(dateInput);
+
+                        $('.reservation-time-' + index).html('');
+                        $('.reservation-time-' + index).append(hoursOption);
+                    });
+                });
+
+                /**
+                 * get reservation date input field
+                 */
+                function getReservationDate(sku, sourceCode, index) {
+                    var string, dayMin, dayMax, data;
+
+                    data = data_source[sku][sourceCode];
+                    dayMin = data['days'].min;
+                    dayMax = data['days'].max;
+
+                    string = '<input style="display: block;" type="date" name="reservation_date[' + sku + ']" class="reservation-date reservation-date-' + index + ' date-' + sourceCode + '-' + index + '" value="<?php echo date("Y-m-j"); ?>" min="' + dayMin + '" max="' + dayMax + '">';
+
+                    return string;
+                }
+
+                /**
+                 * get reservation hours select option
+                 */
+                function getReservationHours(sku, sourceCode, index) {
+                    var string = '<option value="">Select Time</option>',
+                        data;
+
+                    data = data_source[sku][sourceCode]['hours'];
+
+                    $.each(data, function(ind, value) {
+                        string += '<option style="display: block;" class="hours-' + index + ' hours-' + sourceCode + '-' + index + '" value="' + value.value + '">' + value.label + '</option>';
+                    });
+
+                    return string;
+                }
+
+                /**
+                 * get reservation store select option
+                 */
+                function getStoreCodeOpt() {
+                    var string, storeCode, storeName, data, count, index, option = [];
+
+                    data = data_source;
+                    count = data.size;
+                    index = 1;
+
+                    $.each(data, function(key, value) {
+                        if (value instanceof Object) {
+                            string = '<option value="">Select Store</option>';
+                            $.each(value, function(keyStore, store) {
+                                string += '<option value="' + store.code + '">' + store.name + '</option>';
+                                option[index] = string
+                            });
+                            $('#store-code-' + index).html('');
+                            $('#store-code-' + index).append(string);
+                        }
+                        index++;
+                    });
+
+                    return string;
+                }
+
+                // checkout dataLayer
+                dataLayer.push({
+                    'event': 'checkout',
+                    'user_id': '<?= $getCustomerId ?>',
+                    'subtotal_price': '<?= $subTotal; ?>',
+                    'ecommerce': {
+                        'checkout': {
+                            'actionField': {'step': '1', 'option': 'Initial Reservation'},
+                            'products': [
+
+                                <?= $dataLayerCheckout ?>
+
+                ]}}});
+            });
+        });
+
+    </script>
+    <script type="text/x-magento-init">
+        {
+            "#form-validate": {
+                "validation": {}
+            }
+        }
+    </script>
+    <?php } ?>

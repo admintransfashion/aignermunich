@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category Trans
+ * @package  Trans_Reservation
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   hadi <ashadi.sejati@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_Catalog::css/owl.carousel.min.css" />
+        <css src="Magento_Catalog::css/owl.theme.default.min.css" />
+        <css src="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" src_type="url" rel="stylesheet" type="text/css"  />
+    </head>
+
+    <body>
+    <move element="product.attributes" destination="product.info.main" after="product_options_wrapper_bottom"/>
+    	<referenceContainer name="product.info.main">
+    		<container name="pdp.title.custom" htmlTag="div" htmlClass="pdp-title-custom" before="-" >
+                <block class="Magento\Theme\Block\Html\Title" name="page.main.title.pdp" template="Magento_Theme::html/title.phtml" before="-"/>
+    		</container>
+            <block class="Trans\Catalog\Block\Product\View\Badge" name="pdp.product.badge" template="Trans_Catalog::product/view/product-badge.phtml" after="pdp.title.custom"/>
+    	</referenceContainer>
+        <referenceBlock name="page.main.title" remove="true"/>
+    	<!-- <move element="page.main.title" destination="pdp.title.custom" before="-" /> -->
+
+        <!-- sticky pdp -->
+        <referenceContainer name="main.content">
+            <container name="sticky.pdp.custom" htmlTag="div" htmlClass="stickyNav jsStickyNav" before="-" >
+                <container name="sticky.pdp.custom.container" htmlTag="div" htmlClass="container" before="-" >
+                    <container name="sticky.pdp.custom.container.item" htmlTag="div" htmlClass="stickyNav-item" before="-" >
+
+                        <container name="sticky.pdp.custom.container.item.info" htmlTag="div" htmlClass="stickyNav-info" after="-" >
+                            <container name="sticky.pdp.custom.container.item.info.title" htmlTag="div" htmlClass="stickyNav-name" before="-" >
+                                <block class="Magento\Theme\Block\Html\Title" name="sticky.main.title.pdp" template="Magento_Theme::html/title.phtml" before="-"/>
+                            </container>
+                            <container name="sticky.pdp.custom.container.item.info.price" htmlTag="div" htmlClass="stickyNav-total" after="-" >
+                                <container name="sticky.pdp.custom.container.item.info.pricee" htmlTag="div" htmlClass="stickyNav-price" after="-" >
+                                    <block class="Magento\Catalog\Pricing\Render" name="product.price.final.sticky.pdp">
+                                        <arguments>
+                                            <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                                            <argument name="price_type_code" xsi:type="string">final_price</argument>
+                                            <argument name="zone" xsi:type="string">item_view</argument>
+                                        </arguments>
+                                    </block>
+                                    <block class="Magento\Framework\View\Element\Text" name="include_tax.label" after="product.price.final.sticky.pdp">
+                                        <arguments>
+                                            <argument translate="true" name="text" xsi:type="string"><![CDATA[<div class="stickyNav-note">Inclusive of tax</div>]]></argument>
+                                        </arguments>
+                                    </block>
+                                </container>
+                            </container>
+                        </container>
+                    </container>
+                    <container name="sticky.pdp.custom.container.action" htmlTag="div" htmlClass="stickyNav-action" after="-" >
+                        <container name="sticky.pdp.custom.container.action.buttom" htmlTag="div" htmlClass="stickyNav-button" before="-">
+                            <block class="Magento\Framework\View\Element\Template" name="product.info.reservation.button.sticky" before="-" template="Magento_Catalog::product/view/button-sticky.phtml" />
+                        </container>
+                    </container>
+                </container>
+
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="product.info.price">
+            <block class="Magento\Framework\View\Element\Text" name="include_tax.pdp" after="product.price.final">
+                <arguments>
+                    <argument translate="true" name="text" xsi:type="string"><![CDATA[<div class="productDetail-priceNote">Inclusive of tax</div>]]></argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

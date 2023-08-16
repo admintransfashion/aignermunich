@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category Trans
+ * @package  Trans_CatalogMultisource
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ *
+ * @author   Imam Kusuma <imam.kusuma@transdigital.co.id>
+ * @modify   J.P <jaka.pondan@transdigital.co.id>
+ *
+ * Copyright © 2019 PT Trans Digital. All rights reserved.
+ * http://www.ctcorpora.com
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/inventory/product/pos" method="POST">
+        <service class="Trans\CatalogMultisource\Api\InventoryPosUpdateInterface" method="execute"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <route url="/V1/inventory/product/update" method="POST">
+        <service class="Trans\CatalogMultisource\Api\InventoryUpdateInterface" method="execute"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+     <route url="/V2/inventory/product/pos" method="PUT">
+        <service class="Trans\CatalogMultisource\Api\InventoryPosInterface" method="execute"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <route url="/V2/inventory/product" method="PUT">
+        <service class="Trans\CatalogMultisource\Api\InventoryInterface" method="execute"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+</routes>

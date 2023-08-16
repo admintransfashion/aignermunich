@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © 2021 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_Category
+ * @license  Proprietary
+ *
+ * @author   Imam Kusuma <imam.kusuma@ctcorpdigital.com>
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="CTCD\Category\Api\Data\CategoryImportInterface" type="CTCD\Category\Model\CategoryImport"/>
+    <preference for="CTCD\Category\Api\CategoryImportRepositoryInterface" type="CTCD\Category\Model\CategoryImportRepository"/>
+
+    <preference for="CTCD\Category\Api\Data\CategoryImportDataInterface" type="CTCD\Category\Model\CategoryImportData"/>
+    <preference for="CTCD\Category\Api\CategoryImportDataRepositoryInterface" type="CTCD\Category\Model\CategoryImportDataRepository"/>
+
+    <preference for="CTCD\Category\Api\Data\CategoryImportMapInterface" type="CTCD\Category\Model\CategoryImportMap"/>
+    <preference for="CTCD\Category\Api\CategoryImportMapRepositoryInterface" type="CTCD\Category\Model\CategoryImportMapRepository"/>
+
+    <preference for="CTCD\Category\Api\Data\CategoryImportWaitInterface" type="CTCD\Category\Model\CategoryImportWait"/>
+    <preference for="CTCD\Category\Api\CategoryImportWaitRepositoryInterface" type="CTCD\Category\Model\CategoryImportWaitRepository"/>
+
+    <preference for="CTCD\Category\Api\ImporterInterface" type="CTCD\Category\Model\Importer"/>
+
+    <!-- admin grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="category_import_listing_data_source" xsi:type="string">CTCD\Category\Model\ResourceModel\CategoryImport\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="CTCD\Category\Model\ResourceModel\CategoryImport\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">category_import</argument>
+            <argument name="eventPrefix" xsi:type="string">CTCD_category_import_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">CTCD_category_import_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">\CTCD\Category\Model\ResourceModel\CategoryImport</argument>
+        </arguments>
+    </type>
+    <!-- end admin grid -->
+
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="import_category_bulk" xsi:type="string">CTCD_Category</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

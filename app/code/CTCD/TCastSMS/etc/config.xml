@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2023 CT Corp Digital. All rights reserved.
+ * https://www.ctcorpdigital.com
+ *
+ * @category CTCD
+ * @package  CTCD_TCastSMS
+ * @license  Proprietary
+ *
+ * @author   Edi Suryadi <edi.suryadi@ctcorpdigital.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <tcastsms_otp>
+            <general>
+                <active>0</active>
+                <sender_id>ACM</sender_id>
+                <base_url>https://api.tcastsms.net/api/v2/</base_url>
+            </general>
+            <code_otp>
+                <total_char>6</total_char>
+                <otp_lifetime>5</otp_lifetime>
+                <active_static>0</active_static>
+                <static_code>123456</static_code>
+            </code_otp>
+            <sending_otp>
+                <active_interval>1</active_interval>
+                <time_interval>60</time_interval>
+                <max_resend>5</max_resend>
+            </sending_otp>
+            <message_otp>
+                <message_template>Your AIGNER OTP code to login is %OTP_CODE%. This code will remain valid for %OTP_LIFETIME% minutes. Please do not share it with anyone.</message_template>
+            </message_otp>
+        </tcastsms_otp>
+    </default>
+</config>

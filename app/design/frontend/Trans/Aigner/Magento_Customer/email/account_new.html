@@ -1,0 +1,25 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Welcome to %store_name" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL",
+"var this.getUrl($store,'customer/account/createPassword/',[_query:[id:$customer.id,token:$customer.rp_token],_nosid:1])":"Password Reset URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting" style="text-align: center;font-size: 26px;color: #282828;font-weight: bold;margin-bottom: 30px;">{{trans "Welcome!"}}</p>
+<p style="text-align: center;margin-bottom: 30px;color: #282828;">{{trans "We would like to thank you for joining us here. Now it's time for you to enjoy exploring the latest collection of <b style="font-weight: normal;text-decoration: underline;">Etienne Aigner</b>. Discovering your favorite item is getting easier now. Discover it on our website and secure it by reserving the item right away." |raw}}</p>
+
+<p style="text-align: center;margin-bottom: 30px;color: #282828;">{{trans "Enjoy your time with us!"}}</p>
+
+<p style="text-align: center;color: #282828;margin-bottom: 50px;">{{trans "Kind regards,<br/>Your <b>AIGNER</b> team" |raw}}</p>
+
+{{template config_path="design/email/footer_template"}}
