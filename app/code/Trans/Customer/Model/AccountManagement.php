@@ -143,7 +143,7 @@ class AccountManagement implements AccountManagementInterface
             if(isset($otpData['is_diff']) && $otpData['is_diff']) {
                 $sendSmsOTP = $this->tcastOTPSenderHelper->sendSmsOTP($telephone, $response);
                 $this->saveResponses($otpData['verification_id'], $sendSmsOTP);
-                $otpData['delivered'] = $sendSmsOTP['delivered'];
+                $otpData['delivered'] = (bool) $sendSmsOTP['delivered'];
                 if ($sendSmsOTP['delivered']) {
                     $this->customerSession->setVerificationId($otpData['verification_id']);
                     $this->registry->register('verification_id', $otpData['verification_id']);
@@ -153,7 +153,7 @@ class AccountManagement implements AccountManagementInterface
             }
         }
 
-        if($verificationId) {
+        if(isset($otpData['verification_id']) && $otpData['verification_id']) {
             if(isset($otpData['code'])) {
                 unset($otpData['code']);
             }
@@ -162,7 +162,6 @@ class AccountManagement implements AccountManagementInterface
                 $interval = $this->tcastOTPSenderHelper->getConfigHelper()->getOTPTimeInterval();
                 $otpData['message'] = 'Please wait ' . $interval . ' second to resend the OTP';
             }
-
             $response = $this->jsonHelper->serializeJson($otpData);
         }
 
