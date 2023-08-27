@@ -191,11 +191,10 @@ class ChangeTelephonePost extends \Magento\Framework\App\Action\Action implement
                 if(isset($arrResponse['verification_id']) && $arrResponse['verification_id']) {
                     $this->customerSession->setVerificationId($arrResponse['verification_id']);
                 }
-                if((isset($arrResponse['delivered']) && $arrResponse['delivered']) || $this->tcastConfigHelper->isStaticOTPEnabled()) {
+                if((isset($arrResponse['delivered']) && (bool) $arrResponse['delivered']) || $this->tcastConfigHelper->isStaticOTPEnabled()) {
                     $success = true;
                 }
             }
-            
         }
         return $success;
     }

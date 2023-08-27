@@ -87,7 +87,7 @@ class Sender extends AbstractHelper
             if ($messageId) {
                 $isDelivered = false;
                 $iteration = 0;
-                // check the status of otp delivery to the customer 6 times, with an interval of 5 seconds for each check.
+                // check the status of otp delivery to the customer 3 times, with an interval of 5 seconds for each check.
                 while (!$isDelivered && $iteration < 3) {
                     sleep(5);
                     $requestMessageStatusResp = $this->requestOTPStatus($messageId);
@@ -97,9 +97,13 @@ class Sender extends AbstractHelper
                         if (isset($messageStatusResp['Data']['MessageId'])) {
                             $responses['messageId'] = $messageStatusResp['Data']['MessageId'];
                         }
-                        if (isset($messageStatusResp['Data']['ErrorCode']) && $messageStatusResp['Data']['ErrorCode'] === '0') {
-                            $responses['delivered'] = true;
-                            $isDelivered = true;
+                        if (isset($messageStatusResp['Data']['ErrorCode'])) {
+                            $pattern = '/0+/i';
+                            $errCode = preg_replace($pattern, '0', $messageStatusResp['Data']['ErrorCode']);
+                            if ($errCode === '0') {
+                                $responses['delivered'] = true;
+                                $isDelivered = true;
+                            }
                         }
                     }
                     $iteration++;
